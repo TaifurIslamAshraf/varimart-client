@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Locale, getDictionary } from "../dictionaries";
+import { styles } from "../styles";
 
 type Props = {
   params: {
@@ -13,7 +15,8 @@ export default async function Home({ params: { lang } }: Props) {
   return (
     <main>
       <Button className="">Hello world</Button>
-      <p>{intl.name}</p>
+      <p>{intl?.name}</p>
+      <h1 className={cn(styles.headingText)}>All Products</h1>
     </main>
   );
 }
