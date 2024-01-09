@@ -15,7 +15,7 @@ export default async function Home({ params: { lang } }: Props) {
   return (
     <main>
       <Button className="">Hello world</Button>
-      <p>{intl?.name}</p>
+      <p>{intl?.searchPlacholder}</p>
       <h1 className={cn(styles.headingText)}>All Products</h1>
     </main>
   );

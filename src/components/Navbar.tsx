@@ -1,11 +1,17 @@
 import { getBanners } from "@/lib/banner.data";
 import { serverUrl } from "@/lib/utils";
 
+import { Locale } from "@/app/[lang]/dictionaries";
 import Image from "next/image";
 import LangSwitcher from "./LangSwitcher";
 import Search from "./Search";
 
-const Navbar = async () => {
+type Props = {
+  intl: any;
+  lang: Locale;
+};
+
+const Navbar = async ({ intl, lang }: Props) => {
   const banners = await getBanners("topBanner");
   const topBannerImg = `${serverUrl}/${
     banners.banner[banners.banner.length - 1].image
@@ -30,9 +36,10 @@ const Navbar = async () => {
           <div className="">
             <Image src={"/logo.png"} alt="shop logo" width={130} height={120} />
           </div>
-          <Search />
+          <Search intl={intl} />
           <div className="">
-            <LangSwitcher />
+            <LangSwitcher lang={lang} />
+            <div className=""></div>
           </div>
         </div>
       </div>
