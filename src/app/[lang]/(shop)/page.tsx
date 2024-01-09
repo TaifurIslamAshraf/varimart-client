@@ -13,7 +13,7 @@ export default async function Home({ params: { lang } }: Props) {
   const intl = await getDictionary(lang);
 
   return (
-    <main>
+    <main className="h-[200vh]">
       <Button className="">Hello world</Button>
       <p>{intl?.searchPlacholder}</p>
       <h1 className={cn(styles.headingText)}>All Products</h1>
