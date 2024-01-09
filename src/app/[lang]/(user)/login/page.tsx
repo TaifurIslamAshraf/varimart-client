@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -22,7 +23,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const loginFormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -33,6 +38,9 @@ const loginFormSchema = z.object({
 });
 
 const Login = () => {
+  const router = useRouter();
+  const { user } = useSelector((state: any) => state.auth);
+
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -40,10 +48,23 @@ const Login = () => {
       password: "",
     },
   });
+  const [login, { isLoading, error, isSuccess }] = useLoginMutation();
 
   const handleOnSubmit = (value: z.infer<typeof loginFormSchema>) => {
-    console.log(value);
+    login(value);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Login successfull");
+      router.replace("/");
+    } else if (error) {
+      const errorData = error as any;
+      toast.error(errorData.data.message);
+    } else if (user.name) {
+      router.replace("/");
+    }
+  }, [error, isSuccess, router, user.name]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">

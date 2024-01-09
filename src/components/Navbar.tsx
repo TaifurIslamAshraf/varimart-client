@@ -45,7 +45,14 @@ const Navbar = async ({ intl, lang }: Props) => {
           )}
         >
           <div className="">
-            <Image src={"/logo.png"} alt="shop logo" width={130} height={120} />
+            <Link href={"/"}>
+              <Image
+                src={"/logo.png"}
+                alt="shop logo"
+                width={130}
+                height={120}
+              />
+            </Link>
           </div>
           <Search intl={intl} />
           <div className="flex items-center justify-center gap-7">

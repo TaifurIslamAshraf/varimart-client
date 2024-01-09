@@ -5,5 +5,5 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const serverApi = process.env.SERVER_API;
-export const serverUrl = process.env.SERVER_URL;
+export const serverApi = process.env.NEXT_PUBLIC_SERVER_API as string;
+export const serverUrl = process.env.SERVER_URL as string;
