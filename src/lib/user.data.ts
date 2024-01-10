@@ -1,4 +1,26 @@
-export const loginUser = (data: object) => {
+import { serverApi } from "./utils";
+
+export const refreshToken = async () => {
   try {
-  } catch (error) {}
+    const res = await fetch(`${serverApi}/user/refresh`, {
+      credentials: "include" as const,
+      cache: "no-cache",
+    });
+    const data = res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getUserInfo = async () => {
+  try {
+    const res = await fetch(`${serverApi}/user/me`, {
+      credentials: "include" as const,
+      cache: "no-cache",
+    });
+    const data = res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };

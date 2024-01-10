@@ -20,6 +20,7 @@ const Navbar = async ({ intl, lang }: Props) => {
   const topBannerImg = `${serverUrl}/${
     banners.banner[banners.banner.length - 1]?.image
   }`;
+
   return (
     <div>
       <div className="">
@@ -31,6 +32,7 @@ const Navbar = async ({ intl, lang }: Props) => {
               alt="banner image"
               width={1400}
               height={100}
+              priority
             />
           ) : (
             ""

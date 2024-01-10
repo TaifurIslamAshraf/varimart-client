@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { LoadingButton } from "@/components/LoaderButton";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -61,10 +62,10 @@ const Login = () => {
     } else if (error) {
       const errorData = error as any;
       toast.error(errorData.data.message);
-    } else if (user.name) {
+    } else if (user.fullName) {
       router.replace("/");
     }
-  }, [error, isSuccess, router, user.name]);
+  }, [error, isSuccess, router, user.fullName]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
@@ -88,7 +89,11 @@ const Login = () => {
                   <FormItem>
                     <FormLabel className="text-primary">Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your email" {...field} />
+                      <Input
+                        placeholder="Enter your email"
+                        {...field}
+                        disabled={isLoading}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -101,16 +106,24 @@ const Login = () => {
                   <FormItem>
                     <FormLabel className="text-primary">Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter Your password" {...field} />
+                      <Input
+                        placeholder="Enter Your password"
+                        {...field}
+                        disabled={isLoading}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <Button className="w-full" type="submit">
-                Sign In
-              </Button>
+              {isLoading ? (
+                <LoadingButton className="w-full" />
+              ) : (
+                <Button className="w-full" type="submit">
+                  Sign In
+                </Button>
+              )}
             </form>
           </Form>
         </CardContent>

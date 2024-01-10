@@ -2,6 +2,8 @@
 
 import { z } from "zod";
 
+import Activation from "@/components/Activation";
+import { LoadingButton } from "@/components/LoaderButton";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,9 +22,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRegisterMutation } from "@/redux/features/auth/authApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const registerFormSchema = z
   .object({
@@ -51,6 +56,7 @@ const registerFormSchema = z
   });
 
 const Register = () => {
+  const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof registerFormSchema>>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
@@ -62,10 +68,25 @@ const Register = () => {
       phone: "",
     },
   });
+  const [register, { isLoading, error, isSuccess, data }] =
+    useRegisterMutation();
 
   const handleSubmit = (value: z.infer<typeof registerFormSchema>) => {
-    console.log(value);
+    let { confirmPassword, ...data } = value;
+    register(data);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Send Activation Code in you mail");
+      setOpen(true);
+      form.reset();
+    } else if (error) {
+      const newError = error as any;
+      toast.error(newError.data?.message);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error, isSuccess]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
@@ -89,7 +110,11 @@ const Register = () => {
                   <FormItem>
                     <Label className="text-primary">Full Name</Label>
                     <FormControl>
-                      <Input placeholder="MD. Taifur islam" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="MD. Taifur islam"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -102,7 +127,11 @@ const Register = () => {
                   <FormItem>
                     <Label className="text-primary">Email</Label>
                     <FormControl>
-                      <Input placeholder="Enter Your Email" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Enter Your Email"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -115,7 +144,11 @@ const Register = () => {
                   <FormItem>
                     <Label className="text-primary">Phone Number</Label>
                     <FormControl>
-                      <Input placeholder="Enter Your Phone Number" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Enter Your Phone Number"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -128,7 +161,11 @@ const Register = () => {
                   <FormItem>
                     <Label className="text-primary">Address</Label>
                     <FormControl>
-                      <Input placeholder="Enter Your Full Address" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Enter Your Full Address"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -141,7 +178,11 @@ const Register = () => {
                   <FormItem>
                     <Label className="text-primary">Password</Label>
                     <FormControl>
-                      <Input placeholder="Enter Your password" {...field} />
+                      <Input
+                        disabled={isLoading}
+                        placeholder="Enter Your password"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -155,6 +196,7 @@ const Register = () => {
                     <Label className="text-primary">Confirm Password</Label>
                     <FormControl>
                       <Input
+                        disabled={isLoading}
                         placeholder="Enter Your confirm password"
                         {...field}
                       />
@@ -164,9 +206,13 @@ const Register = () => {
                 )}
               />
 
-              <Button className="w-full" type="submit">
-                Sign Up
-              </Button>
+              {isLoading ? (
+                <LoadingButton className="w-full" />
+              ) : (
+                <Button className="w-full" type="submit">
+                  Sign Up
+                </Button>
+              )}
             </form>
           </Form>
         </CardContent>
@@ -178,6 +224,7 @@ const Register = () => {
           </Link>
         </CardFooter>
       </Card>
+      <Activation message={data?.message} setOpen={setOpen} open={open} />
     </div>
   );
 };

@@ -10,3 +10,17 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
 });
+
+// initialize app
+
+const initiallize = async () => {
+  store.dispatch(
+    apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })
+  );
+
+  store.dispatch(
+    apiSlice.endpoints.userInfo.initiate({}, { forceRefetch: true })
+  );
+};
+
+initiallize();
