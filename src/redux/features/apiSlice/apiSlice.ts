@@ -36,5 +36,28 @@ export const apiSlice = createApi({
         }
       },
     }),
+    loadUser: builder.query({
+      query: (data) => ({
+        url: "/user/me",
+        method: "GET",
+        credentials: "include" as const,
+      }),
+
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          dispatch(
+            userLogin({
+              accessToken: result.data.accessToken,
+              user: result.data.user,
+            })
+          );
+        } catch (error: any) {
+          console.log(error.message);
+        }
+      },
+    }),
   }),
 });
+
+export const { useLoadUserQuery } = apiSlice;

@@ -1,33 +1,52 @@
-import { getBanners } from "@/lib/banner.data";
+"use client";
+
 import { cn, serverUrl } from "@/lib/utils";
 
 import { Locale } from "@/app/[lang]/dictionaries";
 import { styles } from "@/app/[lang]/styles";
+import { useGetTopBannerQuery } from "@/redux/features/banners/bannerApi";
 import { CircleUserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+
 import Cart from "./Cart";
 import LangSwitcher from "./LangSwitcher";
 import Search from "./Search";
+
+import { useEffect, useState } from "react";
+import defaultAvater from "../../public/default-avater.jpg";
 
 type Props = {
   intl: any;
   lang: Locale;
 };
 
-const Navbar = async ({ intl, lang }: Props) => {
-  const banners = await getBanners("topBanner");
+const Navbar = ({ intl, lang }: Props) => {
+  const { data, isSuccess } = useGetTopBannerQuery({});
+  const { user } = useSelector((state: any) => state.auth);
+  const [isMounted, setIsMounted] = useState(false);
+
   const topBannerImg = `${serverUrl}/${
-    banners.banner[banners.banner.length - 1]?.image
+    data?.banner[data.banner.length - 1]?.image
   }`;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div>
       <div className="">
         {/* top banner */}
         <div className="">
-          {banners.banner.length > 0 ? (
+          {isSuccess && data?.banner.length > 0 ? (
             <Image
+              className="h-[50px]"
               src={topBannerImg}
               alt="banner image"
               width={1400}
@@ -61,9 +80,21 @@ const Navbar = async ({ intl, lang }: Props) => {
             <LangSwitcher lang={lang} />
             <Cart />
             <div className="">
-              <Link href={"/login"}>
-                <CircleUserRound size={30} />
-              </Link>
+              {user?.fullName ? (
+                <Link href={"/profile"}>
+                  <Image
+                    className="cursor-pointer"
+                    src={user.avatar ? user.avatar : defaultAvater}
+                    alt="default avater"
+                    height={120}
+                    width={120}
+                  />
+                </Link>
+              ) : (
+                <Link href={"/login"}>
+                  <CircleUserRound size={30} />
+                </Link>
+              )}
             </div>
           </div>
         </div>

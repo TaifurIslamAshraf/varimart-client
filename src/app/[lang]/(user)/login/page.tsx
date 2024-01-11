@@ -61,11 +61,11 @@ const Login = () => {
       router.replace("/");
     } else if (error) {
       const errorData = error as any;
-      toast.error(errorData.data.message);
-    } else if (user.fullName) {
+      toast.error(errorData.data?.message);
+    } else if (user?.fullName) {
       router.replace("/");
     }
-  }, [error, isSuccess, router, user.fullName]);
+  }, [error, isSuccess, router, user?.fullName]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">

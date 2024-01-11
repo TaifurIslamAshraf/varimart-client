@@ -6,4 +6,4 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const serverApi = process.env.NEXT_PUBLIC_SERVER_API as string;
-export const serverUrl = process.env.SERVER_URL as string;
+export const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL as string;
