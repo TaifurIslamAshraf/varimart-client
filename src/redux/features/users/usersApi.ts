@@ -4,10 +4,10 @@ import { updateUser } from "../auth/authSlice";
 export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     updateProfile: builder.mutation({
-      query: ({ avatar }) => ({
+      query: (formData) => ({
         url: "/user/update-avatar",
         method: "PUT",
-        body: { avatar },
+        body: formData,
         credentials: "include" as const,
       }),
 
@@ -37,7 +37,7 @@ export const userApi = apiSlice.injectEndpoints({
           const result = await queryFulfilled;
           dispatch(
             updateUser({
-              user: result.data.user,
+              user: result.data.updatedUser,
             })
           );
         } catch (error) {

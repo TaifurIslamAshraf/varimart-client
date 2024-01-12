@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 
 import { LoadingButton } from "@/components/LoaderButton";
-import { cn } from "@/lib/utils";
+import { cn, serverUrl } from "@/lib/utils";
 
 import {
   useUpdateProfileMutation,
@@ -40,18 +40,14 @@ const AccountInfo = () => {
 
   const router = useRouter();
   const handleImage = (e: any) => {
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      if (fileReader.readyState === 2) {
-        const avatar = fileReader.result;
-        updateProfile({ avatar });
-      }
-    };
-    fileReader.readAsDataURL(e.target.files[0]);
+    const avatar = e.target.files[0];
+    const formData = new FormData();
+    formData.append("avatar", avatar);
+    updateProfile(formData);
   };
 
-  const handleName = () => {
-    updateUserInfo({ fullName, phone, address });
+  const handleName = async () => {
+    await updateUserInfo({ fullName, phone, address });
   };
 
   useEffect(() => {
@@ -66,7 +62,7 @@ const AccountInfo = () => {
     }
     if (error) {
       const errorData = error as any;
-      toast.error(errorData.data.message);
+      toast.error(errorData.data?.message);
     }
   }, [data, error, isSuccess, router]);
 
@@ -84,8 +80,15 @@ const AccountInfo = () => {
         <CardHeader className="w-full flex justify-center">
           <div className="relative">
             <Image
-              className={cn("rounded-full m-auto", isLoading ? "blur-md" : "")}
-              src={user.avatar ? user.avatar : "/default-avater.jpg"}
+              className={cn(
+                "rounded-full m-auto w-[110px] h-[110px] object-cover",
+                isLoading ? "blur-md" : ""
+              )}
+              src={
+                user?.avatar
+                  ? `${serverUrl}/${user.avatar}`
+                  : "/default-avater.jpg"
+              }
               alt="default avater"
               height={110}
               width={110}
@@ -125,7 +128,7 @@ const AccountInfo = () => {
           </div>
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
-            <Input defaultValue={user.email} readOnly disabled />
+            <Input defaultValue={user?.email} readOnly disabled />
           </div>
           <div className="space-y-1">
             <Label htmlFor="phone">Phone Number</Label>

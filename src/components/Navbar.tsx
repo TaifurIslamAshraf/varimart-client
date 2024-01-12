@@ -83,8 +83,12 @@ const Navbar = ({ intl, lang }: Props) => {
               {user?.fullName ? (
                 <Link href={"/profile"}>
                   <Image
-                    className="cursor-pointer"
-                    src={user.avatar ? user.avatar : defaultAvater}
+                    className="cursor-pointer rounded-full m-auto w-[120px] h-full object-cover"
+                    src={
+                      user.avatar
+                        ? `${serverUrl}/${user.avatar}`
+                        : defaultAvater
+                    }
                     alt="default avater"
                     height={120}
                     width={120}

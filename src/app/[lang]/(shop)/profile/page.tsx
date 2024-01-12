@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import Protected from "@/lib/Protected";
 import { useLogoutQuery } from "@/redux/features/auth/authApi";
+import { KeySquare, LayoutDashboard, LogOut, UserCog } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -44,23 +45,29 @@ export default function Page() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between border border-purple-200 px-2 py-3 rounded-md">
             <h1 className="font-semibold">Your Account Info</h1>
-            <Button>
-              <Link href={"/profile/accountInfo"}>Manage Account</Link>
-            </Button>
+            <Link href={"/profile/accountInfo"}>
+              <Button>
+                <UserCog />{" "}
+              </Button>
+            </Link>
           </div>
           <div className="flex items-center justify-between border border-purple-200 px-2 py-3 rounded-md">
             <h1 className="font-semibold">Update Your Password</h1>
-            <Button>
-              <Link href={"/profile/updatePassword"}>Update Password</Link>
-            </Button>
+            <Link href={"/profile/updatePassword"}>
+              <Button>
+                <KeySquare />
+              </Button>
+            </Link>
           </div>
 
           {user?.fullName && user.role === "admin" ? (
             <div className="flex items-center justify-between border border-purple-200 px-2 py-3 rounded-md">
               <h1 className="font-semibold">Admin Dashboard</h1>
-              <Button>
-                <Link href={"/dashboard"}>Dashboard</Link>
-              </Button>
+              <Link href={"/dashboard"}>
+                <Button>
+                  <LayoutDashboard />
+                </Button>
+              </Link>
             </div>
           ) : (
             ""
@@ -69,7 +76,7 @@ export default function Page() {
           <div className="flex items-center justify-between border border-purple-200 px-2 py-3 rounded-md">
             <h1 className="font-semibold">Logout account</h1>
             <Button variant={"destructive"} onClick={handleLogout}>
-              Logout
+              <LogOut />
             </Button>
           </div>
         </CardContent>
