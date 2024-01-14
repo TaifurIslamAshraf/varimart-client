@@ -117,6 +117,10 @@ const Login = () => {
                 )}
               />
 
+              <div className="underline flex flex-col items-end">
+                <Link href={"/forgotPassword"}>Forgot Password?</Link>
+              </div>
+
               {isLoading ? (
                 <LoadingButton className="w-full" />
               ) : (

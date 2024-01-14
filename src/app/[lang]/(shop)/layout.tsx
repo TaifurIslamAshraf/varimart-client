@@ -11,7 +11,7 @@ const shopLayout: FC<Props> = async ({ children, params: { lang } }) => {
   const intl = await getDictionary(lang);
 
   return (
-    <div>
+    <div className="">
       <Navbar intl={intl} lang={lang} />
       {children}
     </div>

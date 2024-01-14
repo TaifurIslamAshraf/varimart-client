@@ -1,52 +1,36 @@
-"use client";
-
 import { cn, serverUrl } from "@/lib/utils";
 
 import { Locale } from "@/app/[lang]/dictionaries";
 import { styles } from "@/app/[lang]/styles";
-import { useGetTopBannerQuery } from "@/redux/features/banners/bannerApi";
-import { CircleUserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
 
+import { getBanners } from "@/lib/fetch/banner.data";
 import Cart from "./Cart";
 import LangSwitcher from "./LangSwitcher";
+import Profile from "./Profile";
 import Search from "./Search";
-
-import { useEffect, useState } from "react";
-import defaultAvater from "../../public/default-avater.jpg";
 
 type Props = {
   intl: any;
   lang: Locale;
 };
 
-const Navbar = ({ intl, lang }: Props) => {
-  const { data, isSuccess } = useGetTopBannerQuery({});
-  const { user } = useSelector((state: any) => state.auth);
-  const [isMounted, setIsMounted] = useState(false);
+const Navbar = async ({ intl, lang }: Props) => {
+  const banners = await getBanners("topBanner");
 
   const topBannerImg = `${serverUrl}/${
-    data?.banner[data.banner.length - 1]?.image
+    banners?.banner[banners.banner.length - 1]?.image
   }`;
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
 
   return (
     <div>
-      <div className="">
+      <div className="fixed top-0 z-50 bg-slate-200">
         {/* top banner */}
         <div className="">
-          {isSuccess && data?.banner.length > 0 ? (
+          {banners && banners?.banner.length > 0 ? (
             <Image
-              className="h-[50px]"
+              className="h-[50px] object-cover"
               src={topBannerImg}
               alt="banner image"
               width={1400}
@@ -62,7 +46,7 @@ const Navbar = ({ intl, lang }: Props) => {
         <div
           className={cn(
             styles.paddingX,
-            "flex items-center justify-center py-5 sticky w-full"
+            "flex items-center justify-center py-5 w-full"
           )}
         >
           <div className="">
@@ -79,27 +63,7 @@ const Navbar = ({ intl, lang }: Props) => {
           <div className="flex items-center justify-center gap-7">
             <LangSwitcher lang={lang} />
             <Cart />
-            <div className="">
-              {user?.fullName ? (
-                <Link href={"/profile"}>
-                  <Image
-                    className="cursor-pointer rounded-full m-auto w-[120px] h-full object-cover"
-                    src={
-                      user.avatar
-                        ? `${serverUrl}/${user.avatar}`
-                        : defaultAvater
-                    }
-                    alt="default avater"
-                    height={120}
-                    width={120}
-                  />
-                </Link>
-              ) : (
-                <Link href={"/login"}>
-                  <CircleUserRound size={30} />
-                </Link>
-              )}
-            </div>
+            <Profile />
           </div>
         </div>
       </div>

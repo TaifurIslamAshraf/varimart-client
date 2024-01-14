@@ -1,4 +1,4 @@
-import { serverApi } from "./utils";
+import { serverApi } from "../utils";
 
 export const getBanners = async (bannerType: string) => {
   try {

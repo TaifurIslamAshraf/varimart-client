@@ -76,7 +76,7 @@ const AccountInfo = () => {
 
   return (
     <div>
-      <Card className="max-w-[500px] mx-auto">
+      <Card className="max-w-[500px] mx-auto mt-[140px]">
         <CardHeader className="w-full flex justify-center">
           <div className="relative">
             <Image

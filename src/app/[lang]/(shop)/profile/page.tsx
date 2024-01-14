@@ -34,7 +34,7 @@ export default function Page() {
 
   return (
     <Protected>
-      <Card className="max-w-[500px] mx-auto mt-5">
+      <Card className="max-w-[500px] mx-auto mt-[140px]">
         <CardHeader>
           <CardTitle>Manage Your Profile</CardTitle>
           <CardDescription>
