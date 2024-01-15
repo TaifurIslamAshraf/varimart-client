@@ -1,5 +1,5 @@
 import { apiSlice } from "../apiSlice/apiSlice";
-import { topBanner } from "./bannerSlice";
+import { allBanner, topBanner } from "./bannerSlice";
 
 export const bannerApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -18,7 +18,22 @@ export const bannerApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    getAllBanner: build.query({
+      query: () => ({
+        url: "/banner/get-all-banners",
+        method: "GET",
+      }),
+
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+          dispatch(allBanner({ topBanner: [...result.data.banner] as [] }));
+        } catch (error: any) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetTopBannerQuery } = bannerApi;
+export const { useGetTopBannerQuery, useGetAllBannerQuery } = bannerApi;
