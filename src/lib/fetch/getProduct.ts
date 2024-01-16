@@ -8,3 +8,12 @@ export const mixProduct = async () => {
 
   return data;
 };
+
+export const resentSold = async () => {
+  const res = await fetch(`${serverApi}/product/sold-product`, {
+    cache: "no-store",
+  });
+  const data = await res.json();
+
+  return data;
+};

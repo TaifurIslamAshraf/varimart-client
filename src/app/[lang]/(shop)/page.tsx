@@ -1,5 +1,6 @@
 import Category from "@/components/Category";
 import MixProdcts from "@/components/MixProdcts";
+import SoldProducts from "@/components/SoldProducts";
 import BannerSlider from "@/components/bannerSlider";
 import { cn } from "@/lib/utils";
 import { Locale, getDictionary } from "../dictionaries";
@@ -27,6 +28,9 @@ export default async function Home({ params: { lang } }: Props) {
 
       <div className="">
         <MixProdcts />
+      </div>
+      <div className="">
+        <SoldProducts />
       </div>
     </main>
   );

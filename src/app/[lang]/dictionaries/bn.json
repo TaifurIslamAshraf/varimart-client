@@ -1,4 +1,6 @@
 {
   "name": "আমার নাম তাইফুর",
-  "searchPlacholder": "আপনার পণ্য খুজুন"
+  "searchPlacholder": "আপনার পণ্য খুজুন",
+  "stockIn": "পণ্য স্টকে আছে",
+  "stockOut": "পণ্য স্টকে নাই"
 }
