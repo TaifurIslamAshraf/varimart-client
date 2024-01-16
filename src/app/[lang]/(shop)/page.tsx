@@ -1,4 +1,5 @@
 import Category from "@/components/Category";
+import MixProdcts from "@/components/MixProdcts";
 import BannerSlider from "@/components/bannerSlider";
 import { cn } from "@/lib/utils";
 import { Locale, getDictionary } from "../dictionaries";
@@ -22,6 +23,10 @@ export default async function Home({ params: { lang } }: Props) {
         <div className="h-full w-full">
           <BannerSlider />
         </div>
+      </div>
+
+      <div className="">
+        <MixProdcts />
       </div>
     </main>
   );
