@@ -15,14 +15,17 @@ const ProductCard = async ({ product }: Props) => {
   const porductImg = `${serverUrl}/${images[0]}`;
 
   return (
-    <div className="w-[250px] bg-primary-foreground p-4 group shadow-sm hover:shadow-md">
+    <div className="max-w-[250px] w-full h-[430px] bg-primary-foreground p-4 group shadow-sm hover:shadow-md flex flex-col justify-between">
       <div className="max-w-[250px] h-auto group-hover:scale-105 transition duration-300">
         <Image src={porductImg} alt={name} width={250} height={100} />
       </div>
+
       <div className="">
-        <h1 className="text-md font-semibold leading-6 mt-2">{name}</h1>
+        <h1 className="text-md font-semibold leading-6 mt-2">
+          {name?.length > 45 ? <span>{name.substring(0, 45)}...</span> : name}
+        </h1>
         <div className="flex items-center justify-center gap-1">
-          <Ratings numOfRating={Math.ceil(ratings)} />{" "}
+          <Ratings numOfRating={Math.floor(ratings)} />{" "}
           <span>({numOfReviews})</span>
         </div>
         <h2
@@ -33,9 +36,9 @@ const ProductCard = async ({ product }: Props) => {
         <h3 className="font-bold mb-2">
           TK. {discountPrice} ({discountParsentage}% Off)
         </h3>
-
-        <AddToCart product={product} />
       </div>
+
+      <AddToCart product={product} />
     </div>
   );
 };
