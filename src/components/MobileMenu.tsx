@@ -7,6 +7,7 @@ import { ChevronRight, Menu, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import LangSwitcher from "./LangSwitcher";
+import Profile from "./Profile";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
@@ -120,7 +121,10 @@ const MobileMenu = ({ lang }: any) => {
 
                 <div className="">
                   {isAuthentidated ? (
-                    <div>Logout</div>
+                    <div className="flex items-center justify-between border pl-2 rounded-md">
+                      <h1 className="font-semibold">Your Profile</h1>
+                      <Profile />
+                    </div>
                   ) : (
                     <div className="flex flex-col items-center gap-2">
                       {" "}

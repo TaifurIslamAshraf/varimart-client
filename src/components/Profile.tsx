@@ -29,13 +29,15 @@ const Profile = () => {
     <div className="">
       {user?.fullName ? (
         <Link href={"/profile"}>
-          <Image
-            className="cursor-pointer rounded-full m-auto w-[110px] h-full object-cover"
-            src={user.avatar ? `${serverUrl}/${user.avatar}` : defaultAvater}
-            alt="default avater"
-            height={110}
-            width={110}
-          />
+          <div className="cursor-pointer rounded-full m-auto w-[50px] h-[50px]">
+            <Image
+              className="rounded-full object-cover"
+              src={user.avatar ? `${serverUrl}/${user.avatar}` : defaultAvater}
+              alt="default avater"
+              height={50}
+              width={50}
+            />
+          </div>
         </Link>
       ) : (
         <Link href={"/login"}>
