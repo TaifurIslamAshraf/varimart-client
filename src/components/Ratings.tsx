@@ -8,8 +8,8 @@ const Ratings = ({ numOfRating }: { numOfRating: number }) => {
       rating={numOfRating}
       starRatedColor="orange"
       starHoverColor="orange"
-      starDimension="20px"
-      starSpacing="2px"
+      starDimension="15px"
+      starSpacing="0px"
     />
   );
 };

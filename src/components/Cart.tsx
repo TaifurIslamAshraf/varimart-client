@@ -16,7 +16,10 @@ const Cart = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">
+        <Button
+          className="bg-slate-500 text-secondary lg:text-primary lg:bg-secondary"
+          variant="outline"
+        >
           <ShoppingCart /> (0)
         </Button>
       </SheetTrigger>

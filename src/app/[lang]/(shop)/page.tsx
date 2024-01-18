@@ -1,3 +1,4 @@
+import Cart from "@/components/Cart";
 import Category from "@/components/Category";
 import CustomerReview from "@/components/CustomerReview";
 import Footer from "@/components/Footer";
@@ -19,14 +20,17 @@ export default async function Home({ params: { lang } }: Props) {
   const intl = await getDictionary(lang);
 
   return (
-    <main className={cn("h-[200vh] mt-[140px]")}>
+    <main className={cn("h-[200vh] mt-[70px] lg:mt-[140px]")}>
+      <div className="fixed top-[90%] z-40 right-5 lg:hidden">
+        <Cart />
+      </div>
       <div
         className={cn(
           styles.paddingX,
-          "flex items-center justify-between h-[320px] gap-4"
+          "flex items-center justify-between h-auto lg:h-[320px] gap-4"
         )}
       >
-        <div className="w-full max-w-[270px]">
+        <div className="w-full max-w-[270px] hidden lg:block">
           <Category />
         </div>
         <div className="h-full w-full">

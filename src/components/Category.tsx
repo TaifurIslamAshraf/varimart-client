@@ -2,18 +2,27 @@
 
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Category = () => {
+  const [isMount, setIsMount] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const { data, isLoading } = useGetAllCategoryQuery({});
   const handleCategoryHover = (categoryId: any) => {
     setHoveredCategory(categoryId);
   };
 
+  useEffect(() => {
+    setIsMount(true);
+  }, []);
+
+  if (!isMount) {
+    return null;
+  }
+
   return (
     <div className="">
-      <ul className="h-[320px] bg-primary-foreground rounded-md">
+      <ul className="h-[320px] bg-primary-foreground rounded-md shadow-md">
         {data?.category.map((item: any) => (
           <li
             key={item._id}
@@ -32,7 +41,7 @@ const Category = () => {
 
             {item.subcategory?.length > 0 && (
               <ul
-                className={`absolute left-[100%] z-40 top-0 bg-primary-foreground py-2 max-w-[250px] w-full ${
+                className={`absolute left-[100%] z-40 top-0 bg-primary-foreground py-2 max-w-[250px] w-full rounded-lg shadow-md ${
                   hoveredCategory === item._id ? "block" : "hidden"
                 }`}
               >

@@ -19,7 +19,7 @@ const BannerSlider = () => {
   );
 
   return (
-    <div className="bg-primary-foreground">
+    <div className="bg-primary-foreground rounded-lg">
       <Carousel
         opts={{
           loop: true,
@@ -29,18 +29,20 @@ const BannerSlider = () => {
             delay: 2000,
           }),
         ]}
-        className="w-full max-h-[320px] h-full"
+        className=""
       >
-        <CarouselContent className="">
+        <CarouselContent className="max-h-[320px] h-full">
           {allBanners?.map((item: any) => (
             <CarouselItem key={item._id}>
-              <Image
-                src={`${serverUrl}/${item.image}`}
-                alt="avater"
-                height={320}
-                width={800}
-                className="w-full h-[320px]"
-              />
+              <div className="rounded-lg w-full h-full">
+                <Image
+                  src={`${serverUrl}/${item.image}`}
+                  alt="avater"
+                  height={320}
+                  width={1000}
+                  className="h-full"
+                />
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>

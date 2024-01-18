@@ -35,8 +35,8 @@ const CustomerReview = async () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
+        <CarouselPrevious className="md:flex hidden" />
+        <CarouselNext className="md:flex hidden" />
       </Carousel>
     </div>
   );
