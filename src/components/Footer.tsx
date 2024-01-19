@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { styles } from "@/app/[lang]/styles";
+import { styles } from "@/app/styles";
 import { cn } from "@/lib/utils";
 
 import { Facebook, Mail, Phone, Youtube } from "lucide-react";

@@ -2,14 +2,20 @@
 
 import StarRatings from "react-star-ratings";
 
-const Ratings = ({ numOfRating }: { numOfRating: number }) => {
+interface Props {
+  numOfRating: number;
+  size: string;
+  space: string;
+}
+
+const Ratings = ({ numOfRating, size, space }: Props) => {
   return (
     <StarRatings
       rating={numOfRating}
       starRatedColor="orange"
       starHoverColor="orange"
-      starDimension="15px"
-      starSpacing="0px"
+      starDimension={size}
+      starSpacing={space}
     />
   );
 };

@@ -39,7 +39,7 @@ const BannerSlider = () => {
                   src={`${serverUrl}/${item.image}`}
                   alt="avater"
                   height={320}
-                  width={1000}
+                  width={2000}
                   className="h-full"
                 />
               </div>

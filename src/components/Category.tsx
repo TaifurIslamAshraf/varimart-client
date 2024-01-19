@@ -2,6 +2,7 @@
 
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Category = () => {
@@ -47,7 +48,10 @@ const Category = () => {
               >
                 {item.subcategory.map((subItem: any) => (
                   <li className="py-1 px-4 hover:bg-white" key={subItem._id}>
-                    {subItem.name}
+                    <Link href={`/products?subcategory=${subItem._id}`}>
+                      {" "}
+                      {subItem.name}
+                    </Link>
                   </li>
                 ))}
               </ul>

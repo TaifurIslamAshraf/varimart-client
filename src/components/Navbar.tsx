@@ -1,14 +1,13 @@
 import { cn, serverUrl } from "@/lib/utils";
 
-import { Locale } from "@/app/[lang]/dictionaries";
-import { styles } from "@/app/[lang]/styles";
+import { styles } from "@/app/styles";
 import Image from "next/image";
 import Link from "next/link";
 
 import { getBanners } from "@/lib/fetch/banner.data";
 import { SearchIcon } from "lucide-react";
 import Cart from "./Cart";
-import LangSwitcher from "./LangSwitcher";
+
 import MobileMenu from "./MobileMenu";
 import Profile from "./Profile";
 import Search from "./Search";
@@ -21,12 +20,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 
-type Props = {
-  intl: any;
-  lang: Locale;
-};
-
-const Navbar = async ({ intl, lang }: Props) => {
+const Navbar = async () => {
   const banners = await getBanners("topBanner");
 
   const topBannerImg = `${serverUrl}/${
@@ -35,7 +29,7 @@ const Navbar = async ({ intl, lang }: Props) => {
 
   return (
     <div className="overflow-x-hidden">
-      <div className="fixed hidden lg:block top-0 z-50 bg-slate-200 w-full">
+      <div className="fixed hidden lg:block top-0 z-50 bg-slate-200">
         {/* top banner */}
         <div className="">
           {banners && banners?.banner.length > 0 ? (
@@ -69,9 +63,8 @@ const Navbar = async ({ intl, lang }: Props) => {
               />
             </Link>
           </div>
-          <Search intl={intl} />
+          <Search />
           <div className="flex items-center justify-center gap-7">
-            <LangSwitcher lang={lang} />
             <Cart />
             <Profile />
           </div>
@@ -86,7 +79,7 @@ const Navbar = async ({ intl, lang }: Props) => {
         )}
       >
         <div className="flex items-center justify-between">
-          <MobileMenu lang={lang} />
+          <MobileMenu />
           <div className="">
             <Link href={"/"}>
               <Image
@@ -107,7 +100,7 @@ const Navbar = async ({ intl, lang }: Props) => {
               <DialogHeader>
                 <DialogTitle>Search Your Product</DialogTitle>
               </DialogHeader>
-              <Search intl={intl} />
+              <Search />
             </DialogContent>
           </Dialog>
         </div>

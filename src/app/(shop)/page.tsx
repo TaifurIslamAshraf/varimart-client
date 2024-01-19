@@ -7,18 +7,10 @@ import SoldProducts from "@/components/SoldProducts";
 import YoutubePlaylist from "@/components/YoutubePlaylist";
 import BannerSlider from "@/components/bannerSlider";
 import { cn } from "@/lib/utils";
-import { Locale, getDictionary } from "../dictionaries";
+
 import { styles } from "../styles";
 
-type Props = {
-  params: {
-    lang: Locale;
-  };
-};
-
-export default async function Home({ params: { lang } }: Props) {
-  const intl = await getDictionary(lang);
-
+export default async function Home() {
   return (
     <main className={cn("h-[200vh] mt-[70px] lg:mt-[140px]")}>
       <div className="fixed top-[90%] z-40 right-5 lg:hidden">

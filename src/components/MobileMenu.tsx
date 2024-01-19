@@ -6,14 +6,13 @@ import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { ChevronRight, Menu, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import LangSwitcher from "./LangSwitcher";
 import Profile from "./Profile";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 
-const MobileMenu = ({ lang }: any) => {
+const MobileMenu = () => {
   const [hoveredCategory, setHoveredCategory] = useState(null);
   const { data, isLoading } = useGetAllCategoryQuery({});
   const isAuthentidated = userAuth();
@@ -73,7 +72,11 @@ const MobileMenu = ({ lang }: any) => {
                         {item?.subcategory.length > 0 &&
                           item.subcategory.map((subItem: any) => (
                             <li key={subItem._id}>
-                              <Link href={subItem.slug}>{subItem.name}</Link>
+                              <Link
+                                href={`/products?subcategory=${subItem._id}`}
+                              >
+                                {subItem.name}
+                              </Link>
                             </li>
                           ))}
                       </ul>
@@ -103,10 +106,6 @@ const MobileMenu = ({ lang }: any) => {
                 <Separator />
 
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between border pl-2 rounded-md">
-                    <h1 className="font-semibold">Language</h1>
-                    <LangSwitcher lang={lang} />
-                  </div>
                   <div className="flex items-center justify-between border pl-2 rounded-md">
                     <h1 className="font-semibold">Cart Items</h1>
                     <Button variant={"outline"}>

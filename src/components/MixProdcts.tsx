@@ -1,4 +1,4 @@
-import { styles } from "@/app/[lang]/styles";
+import { styles } from "@/app/styles";
 import { mixProduct } from "@/lib/fetch/getProduct";
 import { cn } from "@/lib/utils";
 import Link from "next/link";

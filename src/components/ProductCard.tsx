@@ -1,5 +1,6 @@
 import { cn, serverUrl } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 import AddToCart from "./AddToCart";
 import Ratings from "./Ratings";
 
@@ -15,17 +16,22 @@ const ProductCard = async ({ product }: Props) => {
   const porductImg = `${serverUrl}/${images[0]}`;
 
   return (
-    <div className="max-w-[250px] w-full h-auto sm:h-[430px] bg-primary-foreground p-4 group shadow-sm hover:shadow-md flex flex-col justify-between">
+    <div className="max-w-[250px] w-full h-auto sm:h-[420px] bg-primary-foreground p-4 group shadow-sm hover:shadow-md flex flex-col justify-between">
       <div className="max-w-[250px] h-auto group-hover:scale-105 transition duration-300">
-        <Image src={porductImg} alt={name} width={250} height={100} />
+        <Link href={`/product/${product.slug}`}>
+          {" "}
+          <Image src={porductImg} alt={name} width={250} height={100} />
+        </Link>
       </div>
 
       <div className="">
-        <h1 className="text-sm md:text-[16px] font-semibold leading-5 lg:leading-6 mt-2">
-          {name?.length > 45 ? <span>{name.substring(0, 30)}...</span> : name}
+        <h1 className="text-sm md:text-[16px] font-semibold leading-5 lg:leading-6 mt-2 hover:text-[#000000a6] transition-all">
+          <Link href={`/product/${product.slug}`}>
+            {name?.length > 45 ? <span>{name.substring(0, 30)}...</span> : name}
+          </Link>
         </h1>
         <div className="flex items-center justify-center gap-1">
-          <Ratings numOfRating={Math.floor(ratings)} />{" "}
+          <Ratings size="15px" space="0px" numOfRating={Math.floor(ratings)} />{" "}
           <span>({numOfReviews})</span>
         </div>
         <h2
