@@ -2,6 +2,7 @@ import { styles } from "@/app/styles";
 import PriceFilters from "@/components/PriceFilters";
 import ProductCard from "@/components/ProductCard";
 import RatingsFilters from "@/components/RatingsFilters";
+import SubCategoryFilters from "@/components/SubCategoryFilters";
 import BannerSlider from "@/components/bannerSlider";
 import { getAllProducts } from "@/lib/fetch/getProduct";
 import { cn } from "@/lib/utils";
@@ -24,8 +25,11 @@ const Products = async ({ searchParams }: Props) => {
           )}
         >
           <h1 className="font-semibold uppercase text-xl mb-4">Filters</h1>
-          <RatingsFilters />
-          <PriceFilters />
+          <div className="space-y-4">
+            <SubCategoryFilters subcategory={data?.allSubcategory} />
+            <PriceFilters />
+            <RatingsFilters />
+          </div>
         </div>
 
         <div className={cn(styles.paddingY, "px-4")}>

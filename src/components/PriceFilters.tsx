@@ -1,7 +1,10 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Separator } from "./ui/separator";
 
 type Props = {
   searchParams?: any;
@@ -10,6 +13,8 @@ type Props = {
 const PriceFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -20,14 +25,41 @@ const PriceFilters = () => {
     },
     [searchParams]
   );
-
-  const click = () => {
-    router.push(
-      `/products?${createQueryString("category", "6592de53b353ee3f3ad77bc0")}`
-    );
+  const handleQuery = () => {
+    if (minPrice) {
+      router.push(`/products?${createQueryString("minPrice", minPrice)}`);
+    }
+    if (maxPrice) {
+      router.push(`/products?${createQueryString("maxPrice", maxPrice)}`);
+    }
   };
 
-  return <div onClick={click}>hello</div>;
+  return (
+    <div className="space-y-1">
+      <h1 className="font-[400] text-lg">Price</h1>
+      <Separator />
+      <div className="flex items-center">
+        <Input
+          name="minPrice"
+          placeholder="Min"
+          type="number"
+          onChange={(e) => setMinPrice(e.target.value)}
+          className="mr-2"
+        />
+        -
+        <Input
+          name="maxPrice"
+          placeholder="Max"
+          type="number"
+          onChange={(e) => setMaxPrice(e.target.value)}
+          className="ml-2"
+        />
+        <Button onClick={handleQuery} className="ml-3" size={"sm"}>
+          Apply
+        </Button>
+      </div>
+    </div>
+  );
 };
 
 export default PriceFilters;
