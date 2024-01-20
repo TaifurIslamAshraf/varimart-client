@@ -13,7 +13,7 @@ type Props = {
 
 const Products = async ({ searchParams }: Props) => {
   const data = await getAllProducts(searchParams);
-  console.log(data);
+
   return (
     <div className={cn(styles.paddingX, "mt-[140px]")}>
       <BannerSlider />
@@ -25,7 +25,7 @@ const Products = async ({ searchParams }: Props) => {
           )}
         >
           <h1 className="font-semibold uppercase text-xl mb-4">Filters</h1>
-          <div className="space-y-4">
+          <div className="space-y-5">
             <SubCategoryFilters subcategory={data?.allSubcategory} />
             <PriceFilters />
             <RatingsFilters />
@@ -34,7 +34,7 @@ const Products = async ({ searchParams }: Props) => {
 
         <div className={cn(styles.paddingY, "px-4")}>
           <h1 className={cn(styles.headingText)}>All Products</h1>
-          {data.products ? (
+          {data?.products ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-center items-center justify-center place-content-center flex-wrap mt-5 gap-2 md:gap-4">
               {data?.products?.map((item: any) => (
                 <ProductCard key={item._id} product={item} />

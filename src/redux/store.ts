@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./features/apiSlice/apiSlice";
 import authSlice from "./features/auth/authSlice";
 import bannerSlice from "./features/banners/bannerSlice";
+import cartSlice from "./features/cart/cartSlice";
 import categorySlice from "./features/category/categorySlice";
 
 export const store = configureStore({
@@ -10,6 +11,7 @@ export const store = configureStore({
     auth: authSlice,
     banner: bannerSlice,
     category: categorySlice,
+    cart: cartSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

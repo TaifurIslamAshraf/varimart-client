@@ -6,8 +6,8 @@ import Link from "next/link";
 
 import { getBanners } from "@/lib/fetch/banner.data";
 import { SearchIcon } from "lucide-react";
-import Cart from "./Cart";
 
+import Cart from "./Cart";
 import MobileMenu from "./MobileMenu";
 import Profile from "./Profile";
 import Search from "./Search";

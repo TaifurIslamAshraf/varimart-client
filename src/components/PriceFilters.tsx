@@ -6,24 +6,25 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 
-type Props = {
-  searchParams?: any;
-};
-
 const PriceFilters = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [minPrice, setMinPrice] = useState(searchParams.get("minPrice"));
+  const [maxPrice, setMaxPrice] = useState(searchParams.get("maxPrice"));
+  const params = new URLSearchParams(searchParams);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-      console.log(params);
+      if (value) {
+        params.set(name, value);
+      } else {
+        params.delete(name);
+      }
+
       return params.toString();
     },
-    [searchParams]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [searchParams, minPrice]
   );
   const handleQuery = () => {
     if (minPrice) {
@@ -44,6 +45,7 @@ const PriceFilters = () => {
           placeholder="Min"
           type="number"
           onChange={(e) => setMinPrice(e.target.value)}
+          value={minPrice?.toString()}
           className="mr-2"
         />
         -
@@ -52,6 +54,7 @@ const PriceFilters = () => {
           placeholder="Max"
           type="number"
           onChange={(e) => setMaxPrice(e.target.value)}
+          value={maxPrice?.toString()}
           className="ml-2"
         />
         <Button onClick={handleQuery} className="ml-3" size={"sm"}>

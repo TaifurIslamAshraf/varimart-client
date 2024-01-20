@@ -17,8 +17,8 @@ const MixProdcts = async () => {
         ))}
       </div>
       <div className="mx-auto w-[200px] mt-10">
-        <Button variant={"outline"}>
-          <Link className="font-semibold" href={"/product"}>
+        <Button variant={"secondary"}>
+          <Link className="font-semibold" href={"/products"}>
             See More Products
           </Link>
         </Button>

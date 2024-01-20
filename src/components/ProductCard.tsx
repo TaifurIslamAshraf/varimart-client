@@ -40,7 +40,7 @@ const ProductCard = async ({ product }: Props) => {
           {stock > 0 ? "In Stock" : "Out Of Stock"}
         </h2>
         <h3 className="font-semibold text-sm lg:font-bold mb-2">
-          TK. {discountPrice} ({discountParsentage}% Off)
+          TK. {discountPrice} ({discountParsentage.toFixed()}% Off)
         </h3>
       </div>
 

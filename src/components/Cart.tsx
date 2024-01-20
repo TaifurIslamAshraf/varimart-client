@@ -1,43 +1,20 @@
 import { Button } from "@/components/ui/button";
 
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 import { ShoppingCart } from "lucide-react";
+import Link from "next/link";
 
 const Cart = () => {
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button
-          className="bg-slate-500 text-secondary lg:text-primary lg:bg-secondary"
-          variant="outline"
-        >
-          <ShoppingCart /> (0)
+    <div>
+      <div className="cart">
+        <Button variant={"outline"}>
+          <Link href={"/cart"} className="flex items-center">
+            <ShoppingCart />
+            (0)
+          </Link>
         </Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
-          <SheetDescription>
-            Make changes to your profile here. Click save when you&apos;re done.
-          </SheetDescription>
-        </SheetHeader>
-
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
-          </SheetClose>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+      </div>
+    </div>
   );
 };
 
