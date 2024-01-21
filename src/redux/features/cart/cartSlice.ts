@@ -37,12 +37,17 @@ const cartSlice = createSlice({
       setCookie("product_cart", JSON.stringify(state.cartItems));
     },
 
-    deleteCartItem: (state, action) => {
-      const newCartItem = state.cartItems.filter(
-        (item: string) => item !== action.payload._id
+    deleteCartItem: (state, action: PayloadAction<{ productId: string }>) => {
+      const cartCookie = getCookie("product_cart") as string;
+      const parseCookie = JSON.parse(cartCookie);
+      setCookie(
+        "product_cart",
+        parseCookie.filter((item: string) => item !== action.payload.productId)
       );
 
-      state.cartItems.push(newCartItem);
+      state.cartItems = state.cartItems.filter(
+        (item) => item !== action.payload.productId
+      );
     },
 
     allCartItems: (state, action) => {

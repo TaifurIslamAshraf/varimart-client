@@ -24,7 +24,7 @@ const Navbar = async () => {
   const banners = await getBanners("topBanner");
 
   const topBannerImg = `${serverUrl}/${
-    banners?.banner[banners.banner.length - 1]?.image
+    banners?.banner[banners?.banner?.length - 1]?.image
   }`;
 
   return (
