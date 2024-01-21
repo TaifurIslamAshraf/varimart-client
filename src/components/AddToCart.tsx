@@ -1,7 +1,7 @@
 "use client";
 
-import { getCookie, setCookie } from "cookies-next";
-import { useEffect, useState } from "react";
+import { storeCartItem } from "@/redux/features/cart/cartSlice";
+import { useDispatch } from "react-redux";
 import { Button } from "./ui/button";
 
 interface Product {
@@ -13,29 +13,11 @@ interface Product {
 }
 
 const AddToCart = ({ product }: { product: any }) => {
-  let [cartProduct, setCartProduct] = useState<any[]>([]);
+  const dispatch = useDispatch();
 
   const handleClick = () => {
-    setCartProduct([...cartProduct, product]);
+    dispatch(storeCartItem({ product: product._id }));
   };
-
-  useEffect(() => {
-    const cookiesProducts = getCookie("product_cart");
-    if (
-      typeof cookiesProducts !== "string" &&
-      cookiesProducts &&
-      typeof cookiesProducts !== "boolean"
-    ) {
-      const myCookies = JSON.parse(cookiesProducts);
-      if (myCookies) {
-        setCartProduct([...myCookies, cartProduct]);
-      }
-    }
-  }, [cartProduct]);
-
-  useEffect(() => {
-    setCookie("product_cart", JSON.stringify(cartProduct));
-  }, [cartProduct]);
 
   return (
     <Button
