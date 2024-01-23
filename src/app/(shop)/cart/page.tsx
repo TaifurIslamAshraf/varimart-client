@@ -40,6 +40,13 @@ const CartPage = () => {
     if (e.target.checked) {
       setSelectedProduct(data?.products?.map((items: any) => items._id) || []);
     }
+
+    const initialProductQuantity =
+      (data?.products || []).map((product: any) => ({
+        productId: product._id,
+        quantity: 1,
+      })) || [];
+    setProductQuantity(initialProductQuantity);
   };
 
   //select product for order
@@ -52,42 +59,28 @@ const CartPage = () => {
     } else {
       setSelectedProduct((prev) => [...prev, productId]);
     }
-  };
 
-  //update product quantity and update price
-  const handleProductQuantity = (productId: string, quantity: number) => {
     const isProductSelected = selectedProduct.find(
       (item) => item === productId
     );
 
     if (isProductSelected) {
       const updatedProductQuantity = productQuantity.map((item) =>
-        item.productId === productId ? { ...item, quantity } : item
+        item.productId === productId ? { ...item, quantity: 1 } : item
       );
 
       setProductQuantity(updatedProductQuantity);
-
-      // set updated price again
-
-      let mainPrice = 0;
-      let discountPrice = 0;
-      updatedProductQuantity.forEach((item) => {
-        const product = productDetails.find((p) => p._id === item.productId);
-        mainPrice += product ? parseInt(product.price) * item.quantity : 0;
-        discountPrice += product
-          ? parseInt(product.discountPrice) * item.quantity
-          : 0;
-      });
-
-      setTotalPrice({
-        price: mainPrice,
-        discountPrice: discountPrice,
-      });
-    } else {
-      toast.error("Select this product");
     }
   };
 
+  //update product quantity and update price
+  const handleProductQuantity = (productId: string, quantity: number) => {
+    setProductQuantity((prevQuantity) =>
+      prevQuantity.map((item) =>
+        item.productId === productId ? { ...item, quantity } : item
+      )
+    );
+  };
   //handle delete product from cart
   const handleDeleteProduct = (productId: string) => {
     dispatch(deleteCartItem({ productId }));
@@ -101,6 +94,8 @@ const CartPage = () => {
       toast.error("Select Atleast One Product");
     }
   };
+
+  console.log(productQuantity);
 
   //side effects
 
@@ -118,15 +113,28 @@ const CartPage = () => {
   useEffect(() => {
     let mainPrice = 0;
     let discountPrice = 0;
+
+    // Create a set of selected product IDs for efficient lookup
+    const selectedProductIds = new Set(selectedProduct);
+
     productDetails?.forEach((item: any) => {
-      mainPrice += parseInt(item.price);
-      discountPrice += parseInt(item.discountPrice);
+      const myProductQuantity = productQuantity.find(
+        (qty: any) => qty.productId === item._id
+      );
+      const quantity = myProductQuantity?.quantity || 1;
+
+      // Only include selected products in the total price calculation
+      if (selectedProductIds.has(item._id)) {
+        mainPrice += parseInt(item.price) * quantity;
+        discountPrice += parseInt(item.discountPrice) * quantity;
+      }
     });
+
     setTotalPrice({
       price: mainPrice,
       discountPrice: discountPrice,
     });
-  }, [productDetails]);
+  }, [productDetails, productQuantity, selectedProduct]);
 
   //get selected prodct details
   useEffect(() => {
@@ -166,10 +174,10 @@ const CartPage = () => {
             </div>
             <h1>
               {user?.fullName ? user.fullName : ""} - Your Total:{" "}
-              <span className="text-green-400 font-[500] line-through">
+              <span className="text-red-500 line-through">
                 Tk {totalPrice.price}
               </span>{" "}
-              <span className="text-green-400 font-[500]">
+              <span className="text-green-500 font-[500]">
                 {totalPrice.discountPrice} Tk
               </span>
             </h1>
