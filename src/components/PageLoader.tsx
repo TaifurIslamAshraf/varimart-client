@@ -1,9 +1,9 @@
-import { ClipLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners";
 
-const ComponentLoader = () => {
+const PageLoader = () => {
   return (
     <div className="max-w-[1400px] mx-auto w-full h-screen flex items-center justify-center">
-      <ClipLoader
+      <FadeLoader
         className="h-[50px]"
         color={"#000"}
         loading={true}
@@ -15,4 +15,4 @@ const ComponentLoader = () => {
   );
 };
 
-export default ComponentLoader;
+export default PageLoader;

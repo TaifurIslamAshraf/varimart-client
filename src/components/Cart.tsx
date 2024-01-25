@@ -9,7 +9,8 @@ import { useSelector } from "react-redux";
 
 const Cart = () => {
   const [isMount, setIsMount] = useState(false);
-  const { cartItems } = useSelector((state: any) => state.cart);
+
+  const { allCartProducts } = useSelector((state: any) => state.cart);
 
   useEffect(() => {
     setIsMount(true);
@@ -30,7 +31,11 @@ const Cart = () => {
       <div className="cart">
         <Button variant={"outline"}>
           <Link href={"/cart"} className="flex items-center">
-            <ShoppingCart />({cartItems.length})
+            <ShoppingCart />(
+            {allCartProducts?.cartItem?.length > 0
+              ? allCartProducts?.cartItem?.length
+              : 0}
+            )
           </Link>
         </Button>
       </div>
