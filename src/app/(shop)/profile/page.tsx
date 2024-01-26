@@ -10,7 +10,13 @@ import {
 } from "@/components/ui/card";
 import Protected from "@/lib/Protected";
 import { useLogoutQuery } from "@/redux/features/auth/authApi";
-import { KeySquare, LayoutDashboard, LogOut, UserCog } from "lucide-react";
+import {
+  KeySquare,
+  LayoutDashboard,
+  LogOut,
+  UserCog,
+  WalletCards,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -48,6 +54,14 @@ export default function Page() {
             <Link href={"/profile/accountInfo"}>
               <Button>
                 <UserCog />{" "}
+              </Button>
+            </Link>
+          </div>
+          <div className="flex items-center justify-between border border-purple-200 px-2 py-3 rounded-md">
+            <h1 className="font-semibold">Your All Orders</h1>
+            <Link href={"/profile/order-history"}>
+              <Button>
+                <WalletCards />{" "}
               </Button>
             </Link>
           </div>

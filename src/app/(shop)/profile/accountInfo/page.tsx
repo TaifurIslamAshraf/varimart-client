@@ -14,6 +14,7 @@ import Image from "next/image";
 import { LoadingButton } from "@/components/LoaderButton";
 import { cn, serverUrl } from "@/lib/utils";
 
+import ComponentLoader from "@/components/ComponentLoader";
 import {
   useUpdateProfileMutation,
   useUpdateUserInfoMutation,
@@ -26,9 +27,9 @@ import { useSelector } from "react-redux";
 
 const AccountInfo = () => {
   const { user } = useSelector((state: any) => state.auth);
-  const [fullName, setfullName] = useState(user?.fullName && user.fullName);
-  const [phone, setPhone] = useState(user?.phone && user.phone);
-  const [address, setAddress] = useState(user?.address && user.address);
+  const [fullName, setfullName] = useState<string>();
+  const [phone, setPhone] = useState<string>();
+  const [address, setAddress] = useState<string>();
   const [isMounded, setIsMounted] = useState(false);
 
   const [updateProfile, { isSuccess, error, isLoading, data }] =
@@ -68,10 +69,15 @@ const AccountInfo = () => {
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+
+    //initialize user info
+    setfullName(user?.fullName && user.fullName);
+    setPhone(user?.phone && user.phone);
+    setAddress(user?.address && user.address);
+  }, [user.address, user.fullName, user.phone]);
 
   if (!isMounded) {
-    return null;
+    return <ComponentLoader />;
   }
 
   return (

@@ -14,9 +14,10 @@ import {
 import { ArrowRight, Trash2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const CartPage = () => {
   const [syncCart, {}] = useSyncCartMutation();
@@ -27,7 +28,7 @@ const CartPage = () => {
     (state: any) => state.cart
   );
 
-  const dispatch = useDispatch();
+  const router = useRouter();
 
   const [isLoadingFetch, setIsLoadingFetch] = useState(false);
   const [isMount, setIsMount] = useState(false);
@@ -70,8 +71,6 @@ const CartPage = () => {
     await totalPriceRefetch();
   };
 
-  console.log(toggleProduct);
-
   //update product quantity and update price
   const handleQuantityDecrement = async (
     productId: string,
@@ -95,11 +94,22 @@ const CartPage = () => {
   };
 
   //handle delete product from cart
-  const handleDeleteProduct = (productId: string) => {};
+  const handleDeleteProduct = async (productId: string) => {
+    setIsLoadingFetch(true);
+    await syncCart({ productId, deleteCartItem: "true" });
+    setIsLoadingFetch(false);
+    await refetch();
+    await totalPriceRefetch();
+  };
 
   //handle proceed
   const handleProceed = () => {
-    toast.error("Select Atleast One Product");
+    const isOneSelect = toggleProduct.find((item) => item.selected === true);
+    if (!isOneSelect) {
+      toast.error("Select Atleast One Product");
+    } else {
+      router.push("/checkout");
+    }
   };
 
   //side effects
@@ -162,12 +172,10 @@ const CartPage = () => {
                       <>
                         <div
                           className={cn(
-                            // selectedProduct.includes(product._id)
-                            //   ? "bg-gray-300"
-                            //   : "",
+                            product.selected ? "bg-gray-100" : "",
                             "py-4 flex justify-between items-center gap-10 p-4"
                           )}
-                          key={product._id}
+                          key={product.productId}
                         >
                           <div className="basis-[60%] flex justify-start items-center gap-4">
                             <input
@@ -270,8 +278,12 @@ const CartPage = () => {
               </div>
 
               <div className="p-4 bg-primary-foreground flex items-end flex-col">
-                <Button className="gap-2 text-lg" onClick={handleProceed}>
-                  Proceed <ArrowRight size={20} />{" "}
+                <Button
+                  className="gap-2"
+                  onClick={handleProceed}
+                  disabled={toggleProduct?.length === 0}
+                >
+                  Place Order <ArrowRight size={15} />{" "}
                 </Button>
               </div>
             </div>

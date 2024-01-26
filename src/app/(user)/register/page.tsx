@@ -35,7 +35,7 @@ const registerFormSchema = z
     email: z
       .string()
       .min(1, "Enter Your Email Address")
-      .min(1, "Invalid Email Address"),
+      .email("Invalid Email Address"),
     phone: z
       .string()
       .min(1, "Enter Your Phone Number")

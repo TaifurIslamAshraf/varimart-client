@@ -4,7 +4,13 @@ import { allCartItems, totalPrice } from "./cartSlice";
 const cartApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     syncCart: build.mutation({
-      query: ({ isSelect, productId, isSelectAll, cartQuantity }) => ({
+      query: ({
+        isSelect,
+        productId,
+        isSelectAll,
+        cartQuantity,
+        deleteCartItem,
+      }) => ({
         url: `/cart/cart-sync`,
         method: "POST",
         params: {
@@ -12,6 +18,7 @@ const cartApi = apiSlice.injectEndpoints({
           productId,
           isSelectAll,
           cartQuantity,
+          deleteCartItem,
         },
         credentials: "include",
       }),
