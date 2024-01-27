@@ -49,7 +49,10 @@ const page: FC<Props> = async ({ params }) => {
 
             {productInfo?.description?.brand ? (
               <div className="">
-                <h1>{productInfo?.description?.brand}</h1>
+                <h1>
+                  <span className="font-[500]">Brand:</span>{" "}
+                  {productInfo?.description?.brand}
+                </h1>
                 <h1>Highilight:</h1>
                 <ul className="list-inside list-disc">
                   <li>{productInfo?.description?.warrantyPeriod}</li>
