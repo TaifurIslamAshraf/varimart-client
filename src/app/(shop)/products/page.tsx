@@ -16,7 +16,10 @@ const Products = async ({ searchParams }: Props) => {
 
   return (
     <div className={cn(styles.paddingX, "mt-[140px]")}>
-      <BannerSlider />
+      <BannerSlider
+        category={searchParams?.subcategory as string}
+        bannerType="categoryBanner"
+      />
       <div className={cn("flex")}>
         <div
           className={cn(

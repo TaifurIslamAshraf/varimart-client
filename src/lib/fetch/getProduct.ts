@@ -51,3 +51,16 @@ export const getAllProducts = async ({
     console.log(error.message);
   }
 };
+
+export const singleProduct = async (slug: string) => {
+  try {
+    const res = await fetch(`${serverApi}/product/single-product/${slug}`, {
+      cache: "no-store",
+    });
+    const data = await res.json();
+
+    return data;
+  } catch (error: any) {
+    console.log(error.message);
+  }
+};

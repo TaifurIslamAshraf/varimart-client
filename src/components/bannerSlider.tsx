@@ -11,12 +11,13 @@ import Image from "next/image";
 import { serverUrl } from "@/lib/utils";
 import { useGetAllBannerQuery } from "@/redux/features/banners/bannerApi";
 
-const BannerSlider = () => {
-  const { data } = useGetAllBannerQuery({});
+interface Props {
+  bannerType?: string;
+  category?: string;
+}
 
-  const allBanners = data?.banner.filter(
-    (item: any) => item.bannerType !== "topBanner"
-  );
+const BannerSlider = ({ bannerType, category }: Props) => {
+  const { data } = useGetAllBannerQuery({ bannerType, category });
 
   return (
     <div className="bg-primary-foreground rounded-lg">
@@ -32,7 +33,7 @@ const BannerSlider = () => {
         className=""
       >
         <CarouselContent className="max-h-[320px] h-full">
-          {allBanners?.map((item: any) => (
+          {data?.banner?.map((item: any) => (
             <CarouselItem key={item._id}>
               <div className="rounded-lg w-full h-full">
                 <Image

@@ -19,8 +19,12 @@ export const bannerApi = apiSlice.injectEndpoints({
       },
     }),
     getAllBanner: build.query({
-      query: () => ({
+      query: ({ bannerType, category }) => ({
         url: "/banner/get-all-banners",
+        params: {
+          bannerType,
+          category,
+        },
         method: "GET",
       }),
 

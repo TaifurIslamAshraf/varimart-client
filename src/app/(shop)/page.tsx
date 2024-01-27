@@ -12,7 +12,7 @@ import { styles } from "../styles";
 
 export default async function Home() {
   return (
-    <main className={cn("h-[200vh] mt-[70px] lg:mt-[140px]")}>
+    <main className={cn("mt-[70px] lg:mt-[140px]")}>
       <div className="fixed top-[90%] z-40 right-5 lg:hidden">
         <Cart />
       </div>
@@ -26,7 +26,7 @@ export default async function Home() {
           <Category />
         </div>
         <div className="h-full w-full">
-          <BannerSlider />
+          <BannerSlider bannerType="mainBanner" />
         </div>
       </div>
 

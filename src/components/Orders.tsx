@@ -1,26 +1,27 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { LoadingButton } from "./LoaderButton";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Separator } from "./ui/separator";
 
 type Props = {
-  cartItems: any;
+  selectItem: any;
   totalPrice: any;
+  minShippingPrice: number;
+  totalAmount: number;
+  isLoading: boolean;
 };
 
-const Orders = ({ cartItems, totalPrice }: Props) => {
-  const selectItem = cartItems?.cartItem?.filter(
-    (item: any) => item?.selected === true
-  );
-
-  //find lowest shipping charge
-  const minShippingPrice = selectItem?.reduce((min: any, item: any) => {
-    const shipping = parseInt(item?.product?.shipping);
-    return shipping < min ? shipping : min;
-  }, Infinity);
-
-  console.log(minShippingPrice);
+const Orders = ({
+  selectItem,
+  totalPrice,
+  minShippingPrice,
+  totalAmount,
+  isLoading,
+}: Props) => {
+  const router = useRouter();
 
   return (
     <div>
@@ -61,9 +62,7 @@ const Orders = ({ cartItems, totalPrice }: Props) => {
           </tr>
           <tr className="font-semibold">
             <td className="border border-gray-400 p-2">Total</td>
-            <td className="border border-gray-400 p-2">
-              {totalPrice.totalDiscountPrice + parseInt(minShippingPrice)}
-            </td>
+            <td className="border border-gray-400 p-2">{totalAmount}</td>
           </tr>
         </tbody>
       </table>
@@ -83,7 +82,7 @@ const Orders = ({ cartItems, totalPrice }: Props) => {
         </div>
 
         <div className="flex justify-end mt-6">
-          <Button>Confirm Order</Button>
+          {isLoading ? <LoadingButton /> : <Button>Confirm Order</Button>}
         </div>
       </div>
     </div>

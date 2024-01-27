@@ -22,13 +22,17 @@ import {
   useGetCartItemQuery,
   useTotalPriceQuery,
 } from "@/redux/features/cart/cartApi";
+import { clearCart } from "@/redux/features/cart/cartSlice";
+import { useCreateOrderMutation } from "@/redux/features/orders/orderApi";
 import { ListOrdered, Receipt } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Suspense, useEffect } from "react";
-import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 const orderSchema = z.object({
   fullName: z.string().min(1, "Enter Your Full Name"),
-  email: z.string().email("Invalid Email Address").optional(),
+  email: z.string().optional(),
   phone: z
     .string()
     .min(1, "Enter Your Phone Number")
@@ -38,26 +42,75 @@ const orderSchema = z.object({
 });
 
 const Checkout = () => {
-  const { isLoading, isSuccess, refetch } = useGetCartItemQuery({});
-  const { refetch: totalPriceRefetch } = useTotalPriceQuery({});
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { refetch } = useGetCartItemQuery({});
+  const {} = useTotalPriceQuery({});
+  const [createOrder, { isLoading, error, isError, isSuccess }] =
+    useCreateOrderMutation();
   const { user } = useSelector((state: any) => state.auth);
   const { allCartProducts, totalPrice } = useSelector(
     (state: any) => state.cart
   );
 
+  const selectItem = allCartProducts?.cartItem?.filter(
+    (item: any) => item?.selected === true
+  );
+
+  //find lowest shipping charge
+  const minShippingPrice = selectItem?.reduce((min: any, item: any) => {
+    const shipping = parseInt(item?.product?.shipping);
+    return shipping < min ? shipping : min;
+  }, Infinity);
+
+  const totalAmount = totalPrice?.totalDiscountPrice + minShippingPrice;
+
   const form = useForm<z.infer<typeof orderSchema>>({
     resolver: zodResolver(orderSchema),
   });
 
-  const handleSubmit = (value: z.infer<typeof orderSchema>) => {
-    console.log(value);
+  const handleSubmit = async (value: z.infer<typeof orderSchema>) => {
+    const orderItems = selectItem?.map((item: any) => ({
+      productName: item?.product?.name,
+      price: item?.discountPrice,
+      quantity: item?.quantity,
+      image: item?.product?.image,
+      product: item?.productId,
+    }));
+
+    const data = {
+      ...value,
+      user: user?._id ? user?._id : "",
+      paymentType: "Cash on delivery",
+      orderItems,
+      itemsPrice: totalPrice?.totalDiscountPrice,
+      shippingPrice: minShippingPrice,
+      totalAmount: totalAmount,
+    };
+    console.log(data);
+
+    await createOrder(data);
+    await refetch();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Order Placed successfully");
+      router.replace("/orderSuccess");
+      dispatch(clearCart({}));
+    } else if (isError) {
+      const errroData = error as any;
+      toast.error(errroData?.data?.message);
+    }
+  }, [dispatch, error, isError, isSuccess, refetch, router]);
 
   useEffect(() => {
     form.setValue("fullName", user?.fullName || "");
     form.setValue("email", user?.email || "");
     form.setValue("phone", user?.phone || "");
     form.setValue("address", user?.address || "");
+    form.setValue("orderNots", "");
   }, [form, user?.address, user?.email, user?.fullName, user?.phone]);
 
   return (
@@ -65,7 +118,7 @@ const Checkout = () => {
       className={cn(
         styles.paddingX,
         styles.paddingY,
-        "mt-[140px] max-w-[1200px] w-full mx-auto"
+        "lg:mt-[140px] mt-[80px] max-w-[1200px] w-full mx-auto"
       )}
     >
       <div className="">
@@ -76,7 +129,7 @@ const Checkout = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="flex gap-10 mt-10"
+          className="flex flex-col lg:flex-row gap-10 mt-10"
         >
           <div className="flex-1 bg-primary-foreground p-4">
             <h2 className="mb-6 text-lg font-[500] text-secondary-foreground flex items-center gap-2">
@@ -170,7 +223,13 @@ const Checkout = () => {
               <ListOrdered size={20} /> Your Order{" "}
             </h2>
             <Suspense fallback={<ComponentLoader />}>
-              <Orders cartItems={allCartProducts} totalPrice={totalPrice} />
+              <Orders
+                minShippingPrice={minShippingPrice}
+                selectItem={selectItem}
+                totalPrice={totalPrice}
+                totalAmount={totalAmount}
+                isLoading={isLoading}
+              />
             </Suspense>
           </div>
         </form>
