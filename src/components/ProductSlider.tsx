@@ -16,7 +16,6 @@ const ProductCarousel = ({ images }: { images: [] }) => {
         stopOnHover
         verticalSwipe="standard"
         infiniteLoop
-        width={400}
         thumbWidth={65}
         renderThumbs={(children) => children}
       >

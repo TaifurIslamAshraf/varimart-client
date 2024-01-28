@@ -19,7 +19,7 @@ interface Product {
   images: [string];
 }
 
-const AddToCart = ({ product }: { product: any }) => {
+const AddToCart = ({ product, btnFull }: { product: any; btnFull: string }) => {
   const dispatch = useDispatch();
   const { refetch } = useGetCartItemQuery({});
   const { refetch: totalPriceRefetch } = useTotalPriceQuery({});
@@ -44,7 +44,7 @@ const AddToCart = ({ product }: { product: any }) => {
   return (
     <>
       {isLoading ? (
-        <LoadingButton className="w-full" />
+        <LoadingButton className={btnFull} />
       ) : (
         <Button
           className="hover:bg-[#000000a2] transition-all"

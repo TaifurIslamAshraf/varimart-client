@@ -44,7 +44,7 @@ const ProductCard = async ({ product }: Props) => {
         </h3>
       </div>
 
-      <AddToCart product={product} />
+      <AddToCart btnFull="w-auto" product={product} />
     </div>
   );
 };

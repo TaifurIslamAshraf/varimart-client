@@ -8,6 +8,7 @@ interface CartType {
     selectAll: boolean;
   };
   totalPrice: {};
+  buyNowItem: {};
 }
 
 const initialState: CartType = {
@@ -19,6 +20,7 @@ const initialState: CartType = {
       selectAll: true,
     } || "",
   totalPrice: {},
+  buyNowItem: {},
 };
 
 const cartSlice = createSlice({
@@ -45,9 +47,22 @@ const cartSlice = createSlice({
     totalPrice: (state, action) => {
       state.totalPrice = action.payload;
     },
+
+    byNowItem: (state, action) => {
+      state.buyNowItem = action.payload;
+    },
+    clearBuyNow: (state, action) => {
+      state.buyNowItem = {};
+    },
   },
 });
 
-export const { deleteCartItem, allCartItems, totalPrice, clearCart } =
-  cartSlice.actions;
+export const {
+  deleteCartItem,
+  allCartItems,
+  byNowItem,
+  totalPrice,
+  clearCart,
+  clearBuyNow,
+} = cartSlice.actions;
 export default cartSlice.reducer;
