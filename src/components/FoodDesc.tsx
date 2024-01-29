@@ -12,7 +12,7 @@ const FoodDesc: FC<Props> = ({ description }) => {
   const ingredients = description?.ingredients?.split(",");
   console.log(ingredients);
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 px-4">
       <h1 className="font-semibold text-2xl">Description</h1>
       <Separator />
       <div className="">
@@ -34,7 +34,7 @@ const FoodDesc: FC<Props> = ({ description }) => {
         <div className="">
           {description?.foodDesc && (
             <>
-              <h1 className="my-3 text-lg font-medium">Details:</h1>
+              <h1 className="mb-2 mt-4 text-lg font-medium">Details:</h1>
               <p>{description.foodDesc}</p>
             </>
           )}

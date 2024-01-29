@@ -6,6 +6,7 @@ import FoodDesc from "@/components/FoodDesc";
 import ProductCarousel from "@/components/ProductSlider";
 import Ratings from "@/components/Ratings";
 import RelatedProduct from "@/components/RelatedProduct";
+import Reviews from "@/components/Reviews";
 
 import { singleProduct } from "@/lib/fetch/getProduct";
 import { cn } from "@/lib/utils";
@@ -36,7 +37,7 @@ const page: FC<Props> = async ({ params }) => {
             </h1>
             <div className="">
               <Ratings
-                numOfRating={parseInt(productInfo?.ratings)}
+                numOfRating={Math.ceil(productInfo?.ratings)}
                 size="20px"
                 space="2px"
               />
@@ -131,6 +132,7 @@ const page: FC<Props> = async ({ params }) => {
           <RelatedProduct product={product?.relatedProduct} />
         </div>
       </div>
+
       <div className={cn("bg-primary-foreground my-4 lg:mx-6 mx-0 py-4")}>
         {productInfo?.descriptionType === "electronics" ? (
           <ElectronicDesc
@@ -140,6 +142,17 @@ const page: FC<Props> = async ({ params }) => {
         ) : (
           <FoodDesc description={productInfo?.description} />
         )}
+      </div>
+
+      <div className="bg-primary-foreground my-4 lg:mx-6 mx-0 py-4">
+        <Reviews
+          reviews={productInfo?.reviews}
+          name={productInfo?.name}
+          image={productInfo?.images[0]}
+          productId={productInfo?._id}
+          productRatings={productInfo?.ratings}
+          numOfReviews={productInfo?.numOfReviews}
+        />
       </div>
     </div>
   );

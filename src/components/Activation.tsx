@@ -32,8 +32,8 @@ const Activation = ({ setOpen, open, message }: Props) => {
   const { token } = useSelector((state: any) => state.auth);
   const [activation, { isLoading, error, isSuccess }] = useActivationMutation();
 
-  const activateHandler = () => {
-    activation({
+  const activateHandler = async () => {
+    await activation({
       token: token,
       activation_code: otp,
     });
