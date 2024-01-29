@@ -15,7 +15,7 @@ const Products = async ({ searchParams }: Props) => {
   const data = await getAllProducts(searchParams);
 
   return (
-    <div className={cn(styles.paddingX, "mt-[140px]")}>
+    <div className={cn(styles.paddingX, "lg:mt-[140px] mt-[65px]")}>
       <BannerSlider
         category={searchParams?.subcategory as string}
         bannerType="categoryBanner"

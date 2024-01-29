@@ -29,7 +29,7 @@ const Navbar = async () => {
 
   return (
     <div className="overflow-x-hidden">
-      <div className="fixed hidden lg:block top-0 z-50 bg-slate-200">
+      <div className="fixed hidden lg:block top-0 z-50 bg-slate-100">
         {/* top banner */}
         <div className="">
           {banners && banners?.banner.length > 0 ? (

@@ -1,6 +1,8 @@
 import { styles } from "@/app/styles";
 import AddToCart from "@/components/AddToCart";
 import BuyNow from "@/components/BuyNow";
+import ElectronicDesc from "@/components/ElectronicDesc";
+import FoodDesc from "@/components/FoodDesc";
 import ProductCarousel from "@/components/ProductSlider";
 import Ratings from "@/components/Ratings";
 import RelatedProduct from "@/components/RelatedProduct";
@@ -23,12 +25,12 @@ const page: FC<Props> = async ({ params }) => {
 
   return (
     <div className={cn(styles.paddingX, "lg:mt-[140px] mt-[70px]")}>
-      <div className="flex lg:flex-row flex-col justify-between gap-6 px-6">
+      <div className="flex lg:flex-row flex-col justify-between gap-6 lg:px-6 px-0">
         <div className="bg-primary-foreground w-full flex md:flex-row flex-col justify-center">
-          <div className="flex-1 p-4">
+          <div className="flex-1 md:p-4 p-1">
             <ProductCarousel images={productInfo?.images} />
           </div>
-          <div className="flex-1 p-4 space-y-2">
+          <div className="flex-1 md:p-4 p-1 space-y-2">
             <h1 className="font-[500] md:text-2xl text-xl">
               {productInfo?.name}
             </h1>
@@ -125,9 +127,19 @@ const page: FC<Props> = async ({ params }) => {
             </div>
           </div>
         </div>
-        <div className="bg-primary-foreground basis-1/3 p-4">
+        <div className="bg-primary-foreground basis-1/3 md:p-4 p-1">
           <RelatedProduct product={product?.relatedProduct} />
         </div>
+      </div>
+      <div className={cn("bg-primary-foreground my-4 lg:mx-6 mx-0 py-4")}>
+        {productInfo?.descriptionType === "electronics" ? (
+          <ElectronicDesc
+            description={productInfo?.description}
+            title={productInfo?.name}
+          />
+        ) : (
+          <FoodDesc description={productInfo?.description} />
+        )}
       </div>
     </div>
   );

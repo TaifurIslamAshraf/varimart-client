@@ -1,6 +1,3 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import { LoadingButton } from "./LoaderButton";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
@@ -21,8 +18,6 @@ const BuyNowOrder = ({
   totalAmount,
   isLoading,
 }: Props) => {
-  const router = useRouter();
-
   return (
     <div>
       <table className="w-full table-auto border-collapse border border-gray-400">
