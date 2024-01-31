@@ -139,6 +139,7 @@ const CartPage = () => {
     return <ComponentLoader />;
   }
 
+  // lg:mt-[180px] mt-[100px]
   return (
     <>
       {isLoading || isLoadingFetch ? (
@@ -146,7 +147,7 @@ const CartPage = () => {
       ) : (
         <>
           {allCartProducts?.cartItem?.length > 0 ? (
-            <div className={cn(styles.paddingX, "lg:mt-[180px] mt-[100px]")}>
+            <div className={cn(styles.paddingX, "")}>
               <div className="lg:flex justify-between max-w-[1200px] w-full mx-auto gap-6 md:p-4 p-0 block">
                 <div className="w-full">
                   <div className="flex flex-col-reverse gap-6 md:flex-row items-center justify-between bg-primary-foreground md:p-4 py-3 px-2 shadow-sm">

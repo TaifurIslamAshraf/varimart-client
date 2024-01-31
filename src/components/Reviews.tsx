@@ -1,13 +1,17 @@
 "use client";
 
 import { serverUrl } from "@/lib/utils";
-import { useCreateReviewMutation } from "@/redux/features/reviews/reviewApi";
+import {
+  useCreateReviewMutation,
+  useGetReviewsQuery,
+} from "@/redux/features/reviews/reviewApi";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FC, FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import StarRatings from "react-star-ratings";
+
 import { LoadingButton } from "./LoaderButton";
 import Ratings from "./Ratings";
 import SectionLoader from "./SectionLoader";
@@ -27,11 +31,12 @@ interface StarCounts {
   [key: number]: number;
 }
 
-type Props = {
-  reviews: [
+interface Ireviews {
+  productReviews: [
     {
       user: string;
       fullName: string;
+      avatar: string;
       rating: number;
       comment: string;
       approved: boolean;
@@ -39,6 +44,9 @@ type Props = {
       _id: string;
     }
   ];
+}
+
+type Props = {
   name: string;
   image: string;
   productId: string;
@@ -47,7 +55,6 @@ type Props = {
 };
 
 const Reviews: FC<Props> = ({
-  reviews,
   productRatings,
   name,
   image,
@@ -55,16 +62,21 @@ const Reviews: FC<Props> = ({
   numOfReviews,
 }) => {
   const [isMount, setIsMount] = useState(false);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState<number>();
   const [comment, setComment] = useState("");
 
   const router = useRouter();
 
   const { user } = useSelector((state: any) => state.auth);
+  const { productReview } = useSelector((state: any) => state.porductReviews);
+
   const [createReview, { isLoading, error, isSuccess }] =
     useCreateReviewMutation();
+  const { refetch } = useGetReviewsQuery({ userId: user?._id, productId });
 
-  const isReviewdUser = reviews.find((item) => item.user === user._id);
+  const isReviewdUser = productReview?.productReviews?.find(
+    (item: any) => item?.user?.toString() === user?._id?.toString()
+  );
 
   function countStarRatings(): StarCounts {
     let oneStar = 0;
@@ -73,7 +85,7 @@ const Reviews: FC<Props> = ({
     let fourStar = 0;
     let fiveStar = 0;
 
-    reviews?.forEach((item) => {
+    productReview?.productReviews?.forEach((item: any) => {
       if (item.rating === 1) {
         oneStar++;
       } else if (item.rating === 2) {
@@ -91,7 +103,7 @@ const Reviews: FC<Props> = ({
   }
 
   const reviewCounts: StarCounts = countStarRatings();
-  console.log(reviewCounts);
+
   //change ratings value
   const handleChangeRating = (rating: number) => {
     if (!isReviewdUser) {
@@ -101,12 +113,16 @@ const Reviews: FC<Props> = ({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createReview({
-      rating,
-      comment,
-      productId,
-    });
-    router.refresh();
+    if (!rating) {
+      toast.error("Select Rating");
+    } else {
+      await createReview({
+        rating,
+        comment,
+        productId,
+      });
+      await refetch();
+    }
   };
 
   useEffect(() => {
@@ -120,14 +136,20 @@ const Reviews: FC<Props> = ({
   }, [error, isSuccess]);
 
   useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  useEffect(() => {
     setIsMount(true);
     setRating(isReviewdUser?.rating!);
     setComment(isReviewdUser?.comment!);
-  }, [isReviewdUser?.comment, isReviewdUser?.rating]);
+  }, [isReviewdUser?.comment, isReviewdUser?.rating, refetch]);
 
   if (!isMount) {
     return <SectionLoader />;
   }
+
+  console.log(productReview?.userLength);
 
   return (
     <div className="px-4">
@@ -135,8 +157,8 @@ const Reviews: FC<Props> = ({
         Reviews and Ratings
       </h1>
       <Separator />
-      <div className="flex justify-between items-center mt-3">
-        <div className="space-y-2 flex-1">
+      <div className="flex lg:justify-between justify-center lg:flex-row flex-col-reverse  items-center mt-3 gap-6">
+        <div className="space-y-2 my-4 lg:my-0 text-center lg:text-start lg:flex-1 flex-auto">
           <div className="space-y-3">
             <h2 className="font-[500] text-lg">Your rating & review</h2>
             <div className="">
@@ -162,7 +184,7 @@ const Reviews: FC<Props> = ({
             </div>
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="mt-5">
+                <Button className="mt-5 sm:w-auto w-full">
                   {isReviewdUser ? "Update Your Review" : "Write Your Review"}
                 </Button>
               </DialogTrigger>
@@ -221,9 +243,11 @@ const Reviews: FC<Props> = ({
           </div>
         </div>
 
-        <div className="flex-1">
-          <div className="text-center mr-4 space-y-1">
-            <h1 className="font-semibold text-2xl">{productRatings}</h1>
+        <div className="flex-1 w-full">
+          <div className="text-center lg:mr-4 mr-0 space-y-1">
+            <h1 className="font-semibold text-2xl">
+              {parseFloat(productRatings.toString()).toFixed(2)}
+            </h1>
             <Ratings
               numOfRating={Math.ceil(productRatings)}
               size="20px"
@@ -232,17 +256,84 @@ const Reviews: FC<Props> = ({
             <p>{numOfReviews} Reviews</p>
           </div>
           <div className="">
-            {Object.keys(reviewCounts).map((value, index) => (
-              <div className="flex items-center gap-4 my-3" key={index}>
-                <Ratings numOfRating={parseInt(value)} size="20px" space="0" />
-                <Progress
-                  value={reviewCounts[parseInt(value)]}
-                  className="w-[70%]"
-                />
-              </div>
-            ))}
+            {Object.keys(reviewCounts)
+              ?.reverse()
+              .map((value, index) => {
+                const progressValue =
+                  (reviewCounts[parseInt(value)] / productReview?.userLength) *
+                  100;
+                return (
+                  <div
+                    className="flex items-center justify-center gap-4 my-3"
+                    key={index}
+                  >
+                    <Ratings
+                      numOfRating={parseInt(value)}
+                      size="20px"
+                      space="0"
+                    />
+                    {/* <Line
+                      className="sm:w-[70%] w-[50%]"
+                      strokeColor={"orange"}
+                      strokeWidth={4}
+                      trailWidth={4}
+                      percent={progressValue}
+                    /> */}
+                    <Progress
+                      value={progressValue}
+                      className="sm:w-[70%] w-[50%] bg-gray-300"
+                      indicatorColor="bg-orange-400"
+                    />
+                    <p>{reviewCounts[parseInt(value)]}</p>
+                  </div>
+                );
+              })}
           </div>
         </div>
+      </div>
+
+      <Separator />
+
+      <div className="py-6">
+        {productReview?.productReviews?.map((item: any) => (
+          <>
+            <div className="space-y-3 my-6" key={item._id}>
+              <div className="flex items-center gap-3">
+                <div className="">
+                  {item?.avatar ? (
+                    <Image
+                      className="rounded-full"
+                      src={`${serverUrl}/${item?.avatar}`}
+                      alt="avatar"
+                      width={50}
+                      height={50}
+                    />
+                  ) : (
+                    <Image
+                      src={"/avater.png"}
+                      alt="avatar"
+                      width={50}
+                      height={50}
+                    />
+                  )}
+                </div>
+                <div className="">
+                  <h1 className="font-medium">
+                    {item.fullName},{" "}
+                    <span className="sm:text-sm text-xs font-normal opacity-80">
+                      {" "}
+                      {new Date(item?.createdOn).toDateString()}
+                    </span>
+                  </h1>
+                  <Ratings numOfRating={item?.rating} size="16px" space="0px" />
+                </div>
+              </div>
+              <p>{item.comment}</p>
+            </div>
+
+            <Separator />
+          </>
+        ))}
       </div>
     </div>
   );

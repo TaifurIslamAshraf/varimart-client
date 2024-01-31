@@ -4,6 +4,7 @@ import authSlice from "./features/auth/authSlice";
 import bannerSlice from "./features/banners/bannerSlice";
 import cartSlice from "./features/cart/cartSlice";
 import categorySlice from "./features/category/categorySlice";
+import reviewSlice from "./features/reviews/reviewSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     banner: bannerSlice,
     category: categorySlice,
     cart: cartSlice,
+    porductReviews: reviewSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),

@@ -113,12 +113,13 @@ const Checkout = () => {
     form.setValue("orderNots", "");
   }, [form, user?.address, user?.email, user?.fullName, user?.phone]);
 
+  // lg:mt-[140px] mt-[80px]
   return (
     <div
       className={cn(
         styles.paddingX,
         styles.paddingY,
-        "lg:mt-[140px] mt-[80px] max-w-[1200px] w-full mx-auto"
+        " max-w-[1200px] w-full mx-auto"
       )}
     >
       <div className="">

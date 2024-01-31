@@ -16,7 +16,7 @@ const ProductCard = async ({ product }: Props) => {
   const porductImg = `${serverUrl}/${images[0]}`;
 
   return (
-    <div className="max-w-[250px] w-full h-auto sm:h-[420px] bg-primary-foreground p-4 group shadow-sm hover:shadow-md flex flex-col justify-between">
+    <div className="max-w-[250px] w-full h-auto sm:h-[420px] bg-primary-foreground md:p-4 p-1 group shadow-sm hover:shadow-md flex flex-col justify-between">
       <div className="max-w-[250px] h-auto group-hover:scale-105 transition duration-300">
         <Link href={`/products/${product.slug}`}>
           {" "}

@@ -1,6 +1,7 @@
 import { styles } from "@/app/styles";
 import AddToCart from "@/components/AddToCart";
 import BuyNow from "@/components/BuyNow";
+import Cart from "@/components/Cart";
 import ElectronicDesc from "@/components/ElectronicDesc";
 import FoodDesc from "@/components/FoodDesc";
 import ProductCarousel from "@/components/ProductSlider";
@@ -24,8 +25,12 @@ const page: FC<Props> = async ({ params }) => {
   const product = await singleProduct(slug);
   const productInfo = product?.product;
 
+  // lg:mt-[140px] mt-[70px]
   return (
-    <div className={cn(styles.paddingX, "lg:mt-[140px] mt-[70px]")}>
+    <div className={cn(styles.paddingX, "")}>
+      <div className="fixed top-[90%] z-40 right-5 lg:hidden">
+        <Cart />
+      </div>
       <div className="flex lg:flex-row flex-col justify-between gap-6 lg:px-6 px-0">
         <div className="bg-primary-foreground w-full flex md:flex-row flex-col justify-center">
           <div className="flex-1 md:p-4 p-1">
@@ -146,7 +151,6 @@ const page: FC<Props> = async ({ params }) => {
 
       <div className="bg-primary-foreground my-4 lg:mx-6 mx-0 py-4">
         <Reviews
-          reviews={productInfo?.reviews}
           name={productInfo?.name}
           image={productInfo?.images[0]}
           productId={productInfo?._id}

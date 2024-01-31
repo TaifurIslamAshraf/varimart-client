@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import React, { FC } from "react";
 
@@ -10,6 +11,9 @@ const shopLayout: FC<Props> = async ({ children }) => {
     <div className="">
       <Navbar />
       {children}
+      <div className={"pt-20"}>
+        <Footer />
+      </div>
     </div>
   );
 };

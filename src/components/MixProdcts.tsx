@@ -1,9 +1,7 @@
 import { styles } from "@/app/styles";
 import { mixProduct } from "@/lib/fetch/getProduct";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import ProductCard from "./ProductCard";
-import { Button } from "./ui/button";
 
 const MixProdcts = async () => {
   const data = await mixProduct();
@@ -15,13 +13,6 @@ const MixProdcts = async () => {
         {data?.products?.map((item: any) => (
           <ProductCard key={item._id} product={item} />
         ))}
-      </div>
-      <div className="mx-auto w-[200px] mt-10">
-        <Button variant={"secondary"}>
-          <Link className="font-semibold" href={"/products"}>
-            See More Products
-          </Link>
-        </Button>
       </div>
     </div>
   );

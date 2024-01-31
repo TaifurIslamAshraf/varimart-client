@@ -1,7 +1,6 @@
 import Cart from "@/components/Cart";
 import Category from "@/components/Category";
 import CustomerReview from "@/components/CustomerReview";
-import Footer from "@/components/Footer";
 import MixProdcts from "@/components/MixProdcts";
 import SoldProducts from "@/components/SoldProducts";
 import YoutubePlaylist from "@/components/YoutubePlaylist";
@@ -10,9 +9,10 @@ import { cn } from "@/lib/utils";
 
 import { styles } from "../styles";
 
+// mt-[70px] lg:mt-[140px]
 export default async function Home() {
   return (
-    <main className={cn("mt-[70px] lg:mt-[140px]")}>
+    <main className={cn("")}>
       <div className="fixed top-[90%] z-40 right-5 lg:hidden">
         <Cart />
       </div>
@@ -43,9 +43,6 @@ export default async function Home() {
         <CustomerReview />
       </div>
       <YoutubePlaylist />
-      <div className={"pt-20"}>
-        <Footer />
-      </div>
     </main>
   );
 }

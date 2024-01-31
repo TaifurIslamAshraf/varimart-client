@@ -1,5 +1,5 @@
-const page = () => {
-  return <div>page</div>;
+const OrderHistory = () => {
+  return <div>OrderHistory</div>;
 };
 
-export default page;
+export default OrderHistory;

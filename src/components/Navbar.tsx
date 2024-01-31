@@ -29,23 +29,23 @@ const Navbar = async () => {
 
   return (
     <div className="overflow-x-hidden">
-      <div className="fixed hidden lg:block top-0 z-50 bg-slate-100">
-        {/* top banner */}
-        <div className="">
-          {banners && banners?.banner.length > 0 ? (
-            <Image
-              className="h-[50px] object-cover"
-              src={topBannerImg}
-              alt="banner image"
-              width={1400}
-              height={100}
-              priority
-            />
-          ) : (
-            ""
-          )}
-        </div>
+      {/* top banner */}
+      <div className="sticky">
+        {banners && banners?.banner.length > 0 ? (
+          <Image
+            className="h-[50px] object-cover"
+            src={topBannerImg}
+            alt="banner image"
+            width={1400}
+            height={100}
+            priority
+          />
+        ) : (
+          ""
+        )}
+      </div>
 
+      <div className="sticky hidden lg:block top-0 z-50 bg-slate-100">
         {/* middle nav */}
         <div
           className={cn(
@@ -75,7 +75,7 @@ const Navbar = async () => {
       <div
         className={cn(
           styles.paddingX,
-          "fixed block lg:hidden top-0 z-50 bg-slate-200 w-full py-2"
+          "sticky block lg:hidden top-0 z-50 bg-slate-200 w-full py-2"
         )}
       >
         <div className="flex items-center justify-between">
