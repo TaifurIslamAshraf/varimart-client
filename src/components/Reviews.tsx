@@ -282,7 +282,6 @@ const Reviews: FC<Props> = ({
                     <Progress
                       value={progressValue}
                       className="sm:w-[70%] w-[50%] bg-gray-300"
-                      indicatorColor="bg-orange-400"
                     />
                     <p>{reviewCounts[parseInt(value)]}</p>
                   </div>
