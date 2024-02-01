@@ -26,7 +26,7 @@ const Paginations: FC<Props> = ({ pagination, category }) => {
   const nextPage = pagination?.totalPage === 1 ? 1 : pagination?.nextPage;
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Pagination>
         <PaginationContent>
           <PaginationItem>
