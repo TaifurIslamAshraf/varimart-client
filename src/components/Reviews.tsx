@@ -122,6 +122,7 @@ const Reviews: FC<Props> = ({
         productId,
       });
       await refetch();
+      router.refresh();
     }
   };
 
