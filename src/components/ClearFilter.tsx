@@ -6,7 +6,15 @@ import { Button } from "./ui/button";
 
 const ClearFilter = () => {
   const params = useSearchParams();
-  const url = `/products?subcategory=${params.get("subcategory")}`;
+  const subcategory = params.get("subcategory");
+  const search = params.get("search");
+
+  const filterValue =
+    subcategory !== null && subcategory !== ""
+      ? `subcategory=${subcategory}`
+      : `search=${search}`;
+
+  const url = `/products?${filterValue}`;
 
   return (
     <div>
