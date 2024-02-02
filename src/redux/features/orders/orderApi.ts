@@ -31,7 +31,27 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+
+    getSalesReport: build.query({
+      query: () => ({
+        url: "/order/monthly-sales",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
+    getOrderStatus: build.query({
+      query: () => ({
+        url: "/order/order-status",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useGetOrderQuery, useCreateOrderMutation } = orderApi;
+export const {
+  useGetOrderQuery,
+  useCreateOrderMutation,
+  useGetSalesReportQuery,
+  useGetOrderStatusQuery,
+} = orderApi;
