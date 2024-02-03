@@ -10,12 +10,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const OrderChart = () => {
   const { data } = useGetOrderStatusQuery({});
 
-  console.log(
-    data?.orderSummary?.totalCancelledOrder,
-    data?.orderSummary?.totalPandingOrder,
-    data?.orderSummary?.totalDeliveredOrder
-  );
-
   const pieData = {
     labels: ["Cancelled Orders", "Panding Orders", "Delivered Orders"],
     datasets: [

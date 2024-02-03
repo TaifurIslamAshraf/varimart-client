@@ -1,23 +1,30 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
-const Search = () => {
+type Props = {
+  searchRoute: string;
+  className?: string;
+};
+
+const Search: FC<Props> = ({ searchRoute, className }) => {
   const [name, setName] = useState("");
   const router = useRouter();
 
   const handleSearch = () => {
     if (name) {
-      router.push(`/products?search=${name}`);
+      router.push(`${searchRoute}?search=${name}`);
+      setName("");
     }
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className={cn(className, "flex items-center justify-center w-full")}>
       <Input
         className="max-w-[500px]"
         name="search"

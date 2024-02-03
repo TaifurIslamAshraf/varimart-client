@@ -22,10 +22,12 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn(poppins.className, "max-w-[1400px] mx-auto")}>
+      <body className={cn(poppins.className, "w-full")}>
         <ReduxProvider>
-          {children}
-          <Toaster position="top-center" reverseOrder={false} />
+          <div className="max-w-[1400px] mx-auto">
+            {children}
+            <Toaster position="top-center" reverseOrder={false} />
+          </div>
         </ReduxProvider>
       </body>
     </html>

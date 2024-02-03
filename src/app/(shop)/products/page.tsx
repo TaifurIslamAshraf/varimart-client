@@ -68,6 +68,7 @@ const Products = async ({ searchParams }: Props) => {
 
       {/* paginations  */}
       <Paginations
+        type="user"
         pagination={data?.pagination}
         category={searchParams?.subcategory as string}
       />

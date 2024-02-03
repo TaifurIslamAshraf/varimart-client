@@ -17,28 +17,41 @@ interface Props {
     nextPage: number;
     prevPage: number;
   };
-  category: string;
+  category?: string;
+  type: "user" | "admin";
 }
 
-const Paginations: FC<Props> = ({ pagination, category }) => {
+const Paginations: FC<Props> = ({ pagination, category, type }) => {
   const totalPage = Array.from({ length: pagination?.totalPage });
 
   const nextPage = pagination?.totalPage === 1 ? 1 : pagination?.nextPage;
+
+  const paginationNextPage =
+    type === "user"
+      ? `/products?subcategory=${category}&&page=${nextPage}`
+      : `/dashboard/products?page=${nextPage}`;
+
+  const paginationPrevPage =
+    type === "user"
+      ? `/products?subcategory=${category}&&page=${pagination?.prevPage}`
+      : `/dashboard/products?page=${pagination?.prevPage}`;
 
   return (
     <div className="overflow-x-hidden">
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious
-              href={`/products?subcategory=${category}&&page=${pagination?.prevPage}`}
-            />
+            <PaginationPrevious href={paginationPrevPage} />
           </PaginationItem>
 
           {totalPage.map((_, index: number) => (
             <PaginationItem key={index}>
               <PaginationLink
-                href={`/products?subcategory=${category}&&page=${index + 1}`}
+                href={
+                  type === "user"
+                    ? `/products?subcategory=${category}&&page=${index + 1}`
+                    : `/dashboard/products?page=${index + 1}`
+                }
                 isActive={index + 1 === pagination?.currentPage}
               >
                 {index + 1}
@@ -50,9 +63,7 @@ const Paginations: FC<Props> = ({ pagination, category }) => {
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext
-              href={`/products?subcategory=${category}&&page=${nextPage}`}
-            />
+            <PaginationNext href={paginationNextPage} />
           </PaginationItem>
         </PaginationContent>
       </Pagination>

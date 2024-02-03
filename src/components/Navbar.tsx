@@ -63,7 +63,7 @@ const Navbar = async () => {
               />
             </Link>
           </div>
-          <Search />
+          <Search searchRoute="/products" />
           <div className="flex items-center justify-center gap-7">
             <Cart />
             <Profile />
@@ -100,7 +100,7 @@ const Navbar = async () => {
               <DialogHeader>
                 <DialogTitle>Search Your Product</DialogTitle>
               </DialogHeader>
-              <Search />
+              <Search searchRoute="/products" />
             </DialogContent>
           </Dialog>
         </div>
