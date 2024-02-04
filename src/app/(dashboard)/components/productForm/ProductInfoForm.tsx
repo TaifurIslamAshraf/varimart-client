@@ -20,9 +20,12 @@ import {
 import { ProductSchema } from "@/lib/formSchema/productSchema";
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { z } from "zod";
+
+import { creactProduct } from "@/redux/features/product/productSlice";
 
 interface Props {
   formStep: number;
@@ -31,9 +34,11 @@ interface Props {
 
 const ProductInfoForm: FC<Props> = ({ formStep, setFormStep }) => {
   const [subcategory, setSubcategory] = useState<any[] | null>(null);
+  const [images, setImages] = useState<FileList | null>(null);
 
   //redux state
   const { isLoading, data } = useGetAllCategoryQuery({});
+  const dispatch = useDispatch();
 
   const form = useForm<z.infer<typeof ProductSchema>>({
     resolver: zodResolver(ProductSchema),
@@ -49,10 +54,36 @@ const ProductInfoForm: FC<Props> = ({ formStep, setFormStep }) => {
     },
   });
 
-  console.log(form.formState.errors);
+  const handleSubmit = async (value: z.infer<typeof ProductSchema>) => {
+    const formData = new FormData();
+    if (images) {
+      const imageArray: File[] = [];
 
-  const handleSubmit = (value: z.infer<typeof ProductSchema>) => {
-    console.log(value);
+      for (let i = 0; i < images.length; i++) {
+        const file = images[i];
+        formData.append(`images`, file);
+        imageArray.push(file);
+      }
+
+      await new Promise((resolve) => {
+        resolve({});
+      });
+
+      dispatch(
+        creactProduct({
+          ...value,
+          images: imageArray,
+        })
+      );
+      setFormStep(formStep + 1);
+      console.log(imageArray);
+    }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+
+    setImages(files);
   };
 
   return (
@@ -233,7 +264,21 @@ const ProductInfoForm: FC<Props> = ({ formStep, setFormStep }) => {
             )}
           />
 
-          <Button type="submit">Submit</Button>
+          <div className="">
+            <FormLabel>Shipping Charge</FormLabel>
+            <Input
+              required
+              type="file"
+              multiple
+              onChange={handleChange}
+              accept="image/png, image/jpeg, image/jpg, image/webp"
+              placeholder="Enter Shipping Charge"
+            />
+          </div>
+
+          <div className="flex items-center justify-end">
+            <Button type="submit">Next</Button>
+          </div>
         </form>
       </Form>
     </div>

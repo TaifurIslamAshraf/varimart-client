@@ -19,7 +19,10 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { clearBuyNow } from "@/redux/features/cart/cartSlice";
-import { useCreateOrderMutation } from "@/redux/features/orders/orderApi";
+import {
+  useCreateOrderMutation,
+  useGetOrderStatusQuery,
+} from "@/redux/features/orders/orderApi";
 import { ListOrdered, Receipt } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect } from "react";
@@ -43,6 +46,7 @@ const ByNowCheckout = () => {
 
   const [createOrder, { isLoading, error, isError, isSuccess }] =
     useCreateOrderMutation();
+  const { refetch } = useGetOrderStatusQuery({});
   const { user } = useSelector((state: any) => state.auth);
   const { buyNowItem } = useSelector((state: any) => state.cart);
 
@@ -57,8 +61,6 @@ const ByNowCheckout = () => {
       product: buyNowItem?.product,
     },
   ];
-
-  console.log(orderItems);
 
   const form = useForm<z.infer<typeof orderSchema>>({
     resolver: zodResolver(orderSchema),
@@ -77,6 +79,7 @@ const ByNowCheckout = () => {
       };
 
       await createOrder(data);
+      await refetch();
     } else {
       toast.error("Product select again");
     }

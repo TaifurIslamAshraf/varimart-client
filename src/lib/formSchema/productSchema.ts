@@ -1,8 +1,12 @@
 import { z } from "zod";
 
 export const ElectronicsDescriptionSchema = z.object({
-  colors: z.string({ required_error: "Color is required" }),
-  brand: z.string({ required_error: "Brand is required" }),
+  colors: z
+    .string({ required_error: "Color is required" })
+    .min(1, "Color is required"),
+  brand: z
+    .string({ required_error: "Brand is required" })
+    .min(1, "Brand is required"),
   warrantyPeriod: z.string().optional(),
   countryOrigin: z.string().optional(),
   batteryCapacity: z.string().optional(),
@@ -16,9 +20,11 @@ export const ElectronicsDescriptionSchema = z.object({
 });
 
 export const FoodsDescriptionSchema = z.object({
-  ingredients: z.string({
-    required_error: "Product Ingredients is required",
-  }),
+  ingredients: z
+    .string({
+      required_error: "Product Ingredients is required",
+    })
+    .min(1, "Product Ingredients is required"),
   foodDesc: z.string().optional(),
 });
 

@@ -5,6 +5,7 @@ import bannerSlice from "./features/banners/bannerSlice";
 import cartSlice from "./features/cart/cartSlice";
 import categorySlice from "./features/category/categorySlice";
 import orderSlice from "./features/orders/orderSlice";
+import porductSlice from "./features/product/productSlice";
 import reviewSlice from "./features/reviews/reviewSlice";
 
 export const store = configureStore({
@@ -16,6 +17,7 @@ export const store = configureStore({
     cart: cartSlice,
     porductReviews: reviewSlice,
     order: orderSlice,
+    product: porductSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
