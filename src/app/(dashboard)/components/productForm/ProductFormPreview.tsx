@@ -1,18 +1,24 @@
 "use client";
 
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import ElectronicsDescPreview from "./ElectronicsDescPreview";
 import FoodsDescPreview from "./FoodsDescPreview";
 
-const ProductFormPreview = () => {
+type Props = {
+  localImages: any[];
+};
+
+const ProductFormPreview: FC<Props> = ({ localImages }) => {
   const { productCreateData } = useSelector((state: any) => state.product);
-  console.log(productCreateData);
 
   return (
     <div>
-      {productCreateData?.descriptionType === "foods" && <FoodsDescPreview />}
+      {productCreateData?.descriptionType === "foods" && (
+        <FoodsDescPreview localImages={localImages} />
+      )}
       {productCreateData?.descriptionType === "electronics" && (
-        <ElectronicsDescPreview />
+        <ElectronicsDescPreview localImages={localImages} />
       )}
     </div>
   );

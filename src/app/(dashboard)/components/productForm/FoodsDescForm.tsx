@@ -48,7 +48,11 @@ const FoodsDescForm: FC<Props> = ({ formStep, setFormStep }) => {
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
+        <form
+          encType="multipart/form-data"
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="space-y-5"
+        >
           <FormField
             control={form.control}
             name="ingredients"

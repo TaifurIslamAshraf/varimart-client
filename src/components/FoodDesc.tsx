@@ -10,14 +10,14 @@ type Props = {
 
 const FoodDesc: FC<Props> = ({ description }) => {
   const ingredients = description?.ingredients?.split(",");
-  console.log(ingredients);
+
   return (
     <div className="space-y-4 px-4">
       <h1 className="font-semibold text-2xl">Description</h1>
       <Separator />
       <div className="">
         <div className="">
-          {ingredients[0] !== "" && (
+          {ingredients?.length > 1 && (
             <>
               <h2 className="mb-3 text-lg font-medium">Ingredients:</h2>
               <ul className="list-inside list-disc ml-4">

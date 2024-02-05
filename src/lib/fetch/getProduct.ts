@@ -41,8 +41,7 @@ export const getAllProducts = async ({
 }: QueryProps) => {
   try {
     const res = await fetch(
-      `${serverApi}/product/all-products?page=${page}&ratings=${ratings}&limit=${limit}&category=${category}&subcategory=${subcategory}&search=${search}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
-      { cache: "no-store" }
+      `${serverApi}/product/all-products?page=${page}&ratings=${ratings}&limit=${limit}&category=${category}&subcategory=${subcategory}&search=${search}&minPrice=${minPrice}&maxPrice=${maxPrice}`
     );
 
     const data = await res.json();

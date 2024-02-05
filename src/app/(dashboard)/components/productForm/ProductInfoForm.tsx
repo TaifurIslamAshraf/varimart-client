@@ -20,7 +20,7 @@ import {
 import { ProductSchema } from "@/lib/formSchema/productSchema";
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { z } from "zod";
@@ -30,9 +30,14 @@ import { creactProduct } from "@/redux/features/product/productSlice";
 interface Props {
   formStep: number;
   setFormStep: (formStep: number) => void;
+  setLocalImages: Dispatch<SetStateAction<any[]>>;
 }
 
-const ProductInfoForm: FC<Props> = ({ formStep, setFormStep }) => {
+const ProductInfoForm: FC<Props> = ({
+  formStep,
+  setFormStep,
+  setLocalImages,
+}) => {
   const [subcategory, setSubcategory] = useState<any[] | null>(null);
   const [images, setImages] = useState<FileList | null>(null);
 
@@ -65,18 +70,9 @@ const ProductInfoForm: FC<Props> = ({ formStep, setFormStep }) => {
         imageArray.push(file);
       }
 
-      await new Promise((resolve) => {
-        resolve({});
-      });
-
-      dispatch(
-        creactProduct({
-          ...value,
-          images: imageArray,
-        })
-      );
+      dispatch(creactProduct(value));
+      setLocalImages(imageArray);
       setFormStep(formStep + 1);
-      console.log(imageArray);
     }
   };
 
@@ -89,7 +85,11 @@ const ProductInfoForm: FC<Props> = ({ formStep, setFormStep }) => {
   return (
     <div className="max-w-[700px] w-full mx-auto">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
+        <form
+          encType="multipart/form-data"
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="space-y-5"
+        >
           <FormField
             name="name"
             control={form.control}

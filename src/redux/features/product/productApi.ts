@@ -9,7 +9,16 @@ const productApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+
+    createProduct: build.mutation({
+      query: (data) => ({
+        url: "/product/create-product",
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useGetStockStatusQuery } = productApi;
+export const { useGetStockStatusQuery, useCreateProductMutation } = productApi;

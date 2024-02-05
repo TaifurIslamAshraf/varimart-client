@@ -58,7 +58,11 @@ const ElectronicsDescForm: FC<Props> = ({ formStep, setFormStep }) => {
   return (
     <div className="max-w-[700px] w-full mx-auto">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
+        <form
+          encType="multipart/form-data"
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="space-y-5"
+        >
           <FormField
             control={form.control}
             name="colors"
