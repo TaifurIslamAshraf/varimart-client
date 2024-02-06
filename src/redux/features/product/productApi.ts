@@ -18,7 +18,27 @@ const productApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+    deleteProduct: build.mutation({
+      query: ({ productId }) => ({
+        url: `product/delete-product/${productId}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+    }),
+    updateProduct: build.mutation({
+      query: (data) => ({
+        url: `product/update-product`,
+        method: "PUT",
+        body: data,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useGetStockStatusQuery, useCreateProductMutation } = productApi;
+export const {
+  useGetStockStatusQuery,
+  useCreateProductMutation,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+} = productApi;

@@ -15,7 +15,7 @@ type Props = {
 
 const page: FC<Props> = async ({ searchParams }) => {
   const products = await getAllProducts(searchParams);
-  console.log(searchParams);
+
   return (
     <div className="ml-[230px] mt-[70px] p-4">
       <div className="space-y-6">

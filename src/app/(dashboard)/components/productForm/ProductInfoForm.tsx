@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { z } from "zod";
 
-import { creactProduct } from "@/redux/features/product/productSlice";
+import { creactProductData } from "@/redux/features/product/productSlice";
 
 interface Props {
   formStep: number;
@@ -70,9 +70,10 @@ const ProductInfoForm: FC<Props> = ({
         imageArray.push(file);
       }
 
-      dispatch(creactProduct(value));
+      dispatch(creactProductData(value));
       setLocalImages(imageArray);
       setFormStep(formStep + 1);
+      form.reset();
     }
   };
 
@@ -265,14 +266,14 @@ const ProductInfoForm: FC<Props> = ({
           />
 
           <div className="">
-            <FormLabel>Shipping Charge</FormLabel>
+            <FormLabel>Product Image</FormLabel>
             <Input
               required
               type="file"
               multiple
               onChange={handleChange}
               accept="image/png, image/jpeg, image/jpg, image/webp"
-              placeholder="Enter Shipping Charge"
+              placeholder="Product Image(max 5)"
             />
           </div>
 

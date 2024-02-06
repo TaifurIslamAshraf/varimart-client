@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ElectronicsDescriptionSchema } from "@/lib/formSchema/productSchema";
-import { creactProduct } from "@/redux/features/product/productSlice";
+import { creactProductData } from "@/redux/features/product/productSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -48,11 +48,12 @@ const ElectronicsDescForm: FC<Props> = ({ formStep, setFormStep }) => {
     value: z.infer<typeof ElectronicsDescriptionSchema>
   ) => {
     dispatch(
-      creactProduct({
+      creactProductData({
         ...value,
       })
     );
     setFormStep(formStep >= 1 ? 2 : 2);
+    form.reset();
   };
 
   return (

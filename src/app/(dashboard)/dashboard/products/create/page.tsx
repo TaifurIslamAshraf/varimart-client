@@ -10,14 +10,18 @@ import ProductInfoForm from "@/app/(dashboard)/components/productForm/ProductInf
 import { LoadingButton } from "@/components/LoaderButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { useCreateProductMutation } from "@/redux/features/product/productApi";
-import { revalidatePath } from "next/cache";
+import { resetProductData } from "@/redux/features/product/productSlice";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const CreateProduct = () => {
   const [formStep, setFormStep] = useState(0);
   const [localImages, setLocalImages] = useState<any[]>([]);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const { productCreateData } = useSelector((state: any) => state.product);
   const [createProduct, { data, isSuccess, error, isLoading }] =
@@ -27,7 +31,7 @@ const CreateProduct = () => {
     try {
       const formData = new FormData();
 
-      // Append other form data
+      // Append form data
       formData.append("name", productCreateData.name);
       formData.append("category", productCreateData.category);
       formData.append("subcategory", productCreateData.subcategory);
@@ -38,7 +42,7 @@ const CreateProduct = () => {
       formData.append("shipping", productCreateData.shipping);
       if (productCreateData.descriptionType === "foods") {
         formData.append("ingredients", productCreateData.ingredients);
-        formData.append("shipping", productCreateData.foodDesc);
+        formData.append("foodDesc", productCreateData.foodDesc);
       } else if (productCreateData.descriptionType === "electronics") {
         const {
           colors,
@@ -74,9 +78,9 @@ const CreateProduct = () => {
       });
 
       await createProduct(formData);
-      revalidatePath("/products");
 
-      setLocalImages([]);
+      customRevalidateTag("getAllProducts");
+      router.refresh();
     } catch (error) {
       // Handle errors
       console.error("Error creating product:", error);
@@ -86,11 +90,15 @@ const CreateProduct = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Product Created successfull");
+      setLocalImages([]);
+      dispatch(resetProductData({}));
+      setFormStep(0);
+      router.push("/dashboard/products");
     } else if (error) {
       const errorData = error as any;
       toast.error(errorData?.data?.message);
     }
-  }, [error, isSuccess]);
+  }, [dispatch, error, isSuccess, router]);
 
   return (
     <div className="ml-[230px] mt-[70px] p-4">

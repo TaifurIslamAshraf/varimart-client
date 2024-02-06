@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { FoodsDescriptionSchema } from "@/lib/formSchema/productSchema";
-import { creactProduct } from "@/redux/features/product/productSlice";
+import { creactProductData } from "@/redux/features/product/productSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -38,10 +38,11 @@ const FoodsDescForm: FC<Props> = ({ formStep, setFormStep }) => {
 
   const handleSubmit = (value: z.infer<typeof FoodsDescriptionSchema>) => {
     dispatch(
-      creactProduct({
+      creactProductData({
         ...value,
       })
     );
+    form.reset();
     setFormStep(formStep >= 1 ? 2 : 2);
   };
 
