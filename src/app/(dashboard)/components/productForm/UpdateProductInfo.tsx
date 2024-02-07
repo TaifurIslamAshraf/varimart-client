@@ -22,6 +22,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
+import {
+  useGetCartItemQuery,
+  useTotalPriceQuery,
+} from "@/redux/features/cart/cartApi";
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { useUpdateProductMutation } from "@/redux/features/product/productApi";
 import { useRouter } from "next/navigation";
@@ -40,6 +44,8 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
   const router = useRouter();
 
   //redux state
+  const { refetch } = useGetCartItemQuery({});
+  const { refetch: totalPriceRefetch } = useTotalPriceQuery({});
   const { data } = useGetAllCategoryQuery({});
   const dispatch = useDispatch();
   const [updateProduct, { isLoading, error, isSuccess }] =
@@ -158,6 +164,9 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
       await updateProduct(formData);
 
       customRevalidateTag("getAllProducts");
+      await refetch();
+      await totalPriceRefetch();
+      router.refresh();
     } catch (error) {
       // Handle errors
       console.error("Error creating product:", error);

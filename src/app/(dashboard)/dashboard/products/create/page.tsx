@@ -80,7 +80,6 @@ const CreateProduct = () => {
       await createProduct(formData);
 
       customRevalidateTag("getAllProducts");
-      router.refresh();
     } catch (error) {
       // Handle errors
       console.error("Error creating product:", error);

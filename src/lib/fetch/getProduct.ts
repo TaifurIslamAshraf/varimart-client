@@ -13,7 +13,7 @@ interface QueryProps {
 
 export const mixProduct = async () => {
   const res = await fetch(`${serverApi}/product/all-products`, {
-    cache: "no-store",
+    next: { tags: ["getAllProducts"] },
   });
   const data = await res.json();
 
@@ -22,7 +22,7 @@ export const mixProduct = async () => {
 
 export const resentSold = async () => {
   const res = await fetch(`${serverApi}/product/sold-product`, {
-    cache: "no-store",
+    next: { tags: ["getAllProducts"] },
   });
   const data = await res.json();
 
@@ -55,7 +55,7 @@ export const getAllProducts = async ({
 export const singleProduct = async (slug: string) => {
   try {
     const res = await fetch(`${serverApi}/product/single-product/${slug}`, {
-      cache: "no-store",
+      next: { tags: ["getAllProducts"] },
     });
     const data = await res.json();
 

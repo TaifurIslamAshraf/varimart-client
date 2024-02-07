@@ -1,5 +1,5 @@
 import { apiSlice } from "../apiSlice/apiSlice";
-import { getAllOrders } from "./orderSlice";
+import { getUserOrders } from "./orderSlice";
 
 const orderApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -16,7 +16,7 @@ const orderApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const result = await queryFulfilled;
-          dispatch(getAllOrders(result.data));
+          dispatch(getUserOrders(result.data));
         } catch (error: any) {
           console.log(error.message);
         }
@@ -46,6 +46,17 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getAllOrders: build.query({
+      query: ({ orderStatus, page }) => ({
+        url: "/order/all-orders",
+        params: {
+          orderStatus,
+          page,
+        },
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -54,4 +65,5 @@ export const {
   useCreateOrderMutation,
   useGetSalesReportQuery,
   useGetOrderStatusQuery,
+  useGetAllOrdersQuery,
 } = orderApi;
