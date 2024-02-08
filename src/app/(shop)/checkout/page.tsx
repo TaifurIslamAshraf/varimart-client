@@ -23,7 +23,10 @@ import {
   useTotalPriceQuery,
 } from "@/redux/features/cart/cartApi";
 import { clearCart } from "@/redux/features/cart/cartSlice";
-import { useCreateOrderMutation } from "@/redux/features/orders/orderApi";
+import {
+  useCreateOrderMutation,
+  useGetOrderStatusQuery,
+} from "@/redux/features/orders/orderApi";
 import { ListOrdered, Receipt } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect } from "react";
@@ -46,6 +49,8 @@ const Checkout = () => {
   const dispatch = useDispatch();
 
   const { refetch } = useGetCartItemQuery({});
+  const { refetch: orderStatusRefetch } = useGetOrderStatusQuery({});
+
   const {} = useTotalPriceQuery({});
   const [createOrder, { isLoading, error, isError, isSuccess }] =
     useCreateOrderMutation();
@@ -91,6 +96,7 @@ const Checkout = () => {
     console.log(orderItems);
 
     await createOrder(data);
+    await orderStatusRefetch();
     await refetch();
   };
 

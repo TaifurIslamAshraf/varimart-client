@@ -11,7 +11,13 @@ const OrderChart = () => {
   const { data } = useGetOrderStatusQuery({});
 
   const pieData = {
-    labels: ["Cancelled Orders", "Panding Orders", "Delivered Orders"],
+    labels: [
+      "Cancelled Orders",
+      "Panding Orders",
+      "Delivered Orders",
+      "Shipped Order",
+      "Processing Order",
+    ],
     datasets: [
       {
         label: "Number Of Order",
@@ -19,16 +25,22 @@ const OrderChart = () => {
           data?.orderSummary?.totalCancelledOrder,
           data?.orderSummary?.totalPandingOrder,
           data?.orderSummary?.totalDeliveredOrder,
+          data?.orderSummary?.totalShippedOrder,
+          data?.orderSummary?.totalProcessingOrder,
         ],
         backgroundColor: [
           "rgba(255, 99, 132, 1)",
           "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
+          "#8CB9BD",
+          "#DBCC95",
         ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
           "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
+          "#8CB9BD",
+          "#DBCC95",
         ],
         borderWidth: 1,
       },

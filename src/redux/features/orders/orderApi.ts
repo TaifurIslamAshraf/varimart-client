@@ -57,6 +57,22 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+
+    getSingleOrders: build.query({
+      query: (id) => ({
+        url: `/order/single-order/${id}`,
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
+    updateOrderStatus: build.mutation({
+      query: ({ id, data }) => ({
+        url: `/order/update-order-status/${id}`,
+        method: "PUT",
+        body: data,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -66,4 +82,6 @@ export const {
   useGetSalesReportQuery,
   useGetOrderStatusQuery,
   useGetAllOrdersQuery,
+  useGetSingleOrdersQuery,
+  useUpdateOrderStatusMutation,
 } = orderApi;
