@@ -50,8 +50,6 @@ const SingleOrder: FC<Props> = ({ params }) => {
     }
   }, [error, isSuccess]);
 
-  console.log(data);
-
   return (
     <>
       {isLoading || updateOrderLoading ? (

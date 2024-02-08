@@ -73,6 +73,13 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+    deleteOrder: build.mutation({
+      query: ({ id }) => ({
+        url: `/order/delete-order/${id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -84,4 +91,5 @@ export const {
   useGetAllOrdersQuery,
   useGetSingleOrdersQuery,
   useUpdateOrderStatusMutation,
+  useDeleteOrderMutation,
 } = orderApi;

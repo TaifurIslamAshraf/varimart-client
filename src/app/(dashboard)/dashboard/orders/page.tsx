@@ -14,11 +14,12 @@ const AllOrders: FC<Props> = ({ searchParams }) => {
     orderStatus: searchParams?.orderStatus,
     page: searchParams?.page,
   });
-
+  console.log(data);
   return (
     <div className="ml-[230px] mt-[70px] p-4">
       <h1 className="font-semibold text-2xl">All Orders</h1>
-      <OrdersTable data={data?.orders} />
+
+      <OrdersTable data={data?.orders} pagination={data?.pagination} />
     </div>
   );
 };
