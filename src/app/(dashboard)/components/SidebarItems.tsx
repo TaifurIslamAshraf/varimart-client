@@ -6,6 +6,7 @@ import {
   Layers3,
   LayoutDashboard,
   ListOrdered,
+  MessageCircleWarning,
   ShoppingBasket,
   Star,
   Users,
@@ -34,6 +35,15 @@ const navItems = [
     name: "Reviews",
     path: "/dashboard/reviews",
     icon: <Star />,
+    subMenu: {
+      name: "Create Reviews",
+      path: "/dashboard/reviews/create",
+    },
+  },
+  {
+    name: "Manage Reviews",
+    path: "/dashboard/manage-reviews",
+    icon: <MessageCircleWarning />,
   },
 
   {

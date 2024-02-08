@@ -33,6 +33,14 @@ const productApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+
+    getAllProductReviews: build.query({
+      query: () => ({
+        url: "product/all-product-reviews",
+        method: "GET",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
@@ -41,4 +49,5 @@ export const {
   useCreateProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
+  useGetAllProductReviewsQuery,
 } = productApi;
