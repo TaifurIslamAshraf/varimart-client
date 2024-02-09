@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import StarRatings from "react-star-ratings";
 
+import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { LoadingButton } from "./LoaderButton";
 import Ratings from "./Ratings";
 import SectionLoader from "./SectionLoader";
@@ -121,6 +122,9 @@ const Reviews: FC<Props> = ({
         comment,
         productId,
       });
+
+      customRevalidateTag("getSingleProduct");
+      customRevalidateTag("getAllProducts");
       await refetch();
       router.refresh();
     }
@@ -149,8 +153,6 @@ const Reviews: FC<Props> = ({
   if (!isMount) {
     return <SectionLoader />;
   }
-
-  console.log(productReview?.userLength);
 
   return (
     <div className="px-4">

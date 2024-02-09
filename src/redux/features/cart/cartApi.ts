@@ -31,6 +31,7 @@ const cartApi = apiSlice.injectEndpoints({
         body: { productId },
         credentials: "include",
       }),
+      invalidatesTags: ["Cart"] as any,
     }),
 
     getCartItem: build.query({
@@ -39,7 +40,7 @@ const cartApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
-
+      providesTags: ["Cart"] as any,
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
@@ -57,7 +58,7 @@ const cartApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
-
+      providesTags: ["Cart"] as any,
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;

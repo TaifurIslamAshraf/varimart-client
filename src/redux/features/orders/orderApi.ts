@@ -12,7 +12,7 @@ const orderApi = apiSlice.injectEndpoints({
         },
         credentials: "include",
       }),
-
+      providesTags: ["Orders"] as any,
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const result = await queryFulfilled;
@@ -30,6 +30,7 @@ const orderApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
+      invalidatesTags: ["Orders"] as any,
     }),
 
     getSalesReport: build.query({
@@ -38,6 +39,7 @@ const orderApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["Orders"] as any,
     }),
     getOrderStatus: build.query({
       query: () => ({
@@ -45,6 +47,7 @@ const orderApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["Orders"] as any,
     }),
     getAllOrders: build.query({
       query: ({ orderStatus, page }) => ({
@@ -56,6 +59,7 @@ const orderApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["Orders"] as any,
     }),
 
     getSingleOrders: build.query({
@@ -64,6 +68,7 @@ const orderApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
+      providesTags: ["Orders"] as any,
     }),
     updateOrderStatus: build.mutation({
       query: ({ id, data }) => ({
@@ -72,6 +77,7 @@ const orderApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
+      providesTags: ["Orders"] as any,
     }),
     deleteOrder: build.mutation({
       query: ({ id }) => ({
@@ -79,6 +85,7 @@ const orderApi = apiSlice.injectEndpoints({
         method: "DELETE",
         credentials: "include",
       }),
+      providesTags: ["Orders"] as any,
     }),
   }),
 });

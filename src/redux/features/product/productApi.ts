@@ -8,6 +8,8 @@ const productApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
+
+      providesTags: ["Products"] as never,
     }),
 
     createProduct: build.mutation({
@@ -17,10 +19,11 @@ const productApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
+      invalidatesTags: ["Products"] as never,
     }),
     deleteProduct: build.mutation({
       query: ({ productId }) => ({
-        url: `product/delete-product/${productId}`,
+        url: `/product/delete-product/${productId}`,
         method: "DELETE",
         credentials: "include",
       }),
@@ -32,14 +35,8 @@ const productApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include",
       }),
-    }),
 
-    getAllProductReviews: build.query({
-      query: () => ({
-        url: "product/all-product-reviews",
-        method: "GET",
-        credentials: "include",
-      }),
+      invalidatesTags: ["Products"] as never,
     }),
   }),
 });
@@ -49,5 +46,4 @@ export const {
   useCreateProductMutation,
   useDeleteProductMutation,
   useUpdateProductMutation,
-  useGetAllProductReviewsQuery,
 } = productApi;
