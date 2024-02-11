@@ -35,10 +35,6 @@ const navItems = [
     name: "Reviews",
     path: "/dashboard/reviews",
     icon: <Star />,
-    subMenu: {
-      name: "Create Reviews",
-      path: "/dashboard/reviews/create",
-    },
   },
   {
     name: "Manage Reviews",
@@ -80,7 +76,7 @@ const SidebarItems = () => {
   const selectedSegment = usePathname();
 
   return (
-    <div className="fixed top-0 z-40 bg-gray-100 space-y-6 max-w-[230px] w-full h-screen">
+    <div className="overflow-y-auto no-scrollbar fixed top-0 z-40 bg-gray-100 space-y-6 max-w-[230px] w-full h-screen">
       <div className="px-6 mt-6">
         <Link href={"/"}>
           <Image src={"/logo.png"} alt="shop logo" width={100} height={100} />

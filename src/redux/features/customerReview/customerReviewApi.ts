@@ -18,7 +18,17 @@ export const customerReviewApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    createReview: build.mutation({
+      query: (data) => ({
+        url: "/review/create-customer-review",
+        method: "POST",
+        body: data,
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useGetAllCustomerReviewQuery } = customerReviewApi;
+export const { useGetAllCustomerReviewQuery, useCreateReviewMutation } =
+  customerReviewApi;
