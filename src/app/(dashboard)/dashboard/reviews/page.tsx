@@ -1,9 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { getAllCustomerReviews } from "@/lib/fetch/customerReview";
 import { serverUrl } from "@/lib/utils";
-import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import CreateReviews from "../../components/CreateReviews";
+import ReviewDeleteBtn from "../../components/ReviewDeleteBtn";
 
 type IReviews = {
   _id: string;
@@ -12,11 +11,13 @@ type IReviews = {
 
 const page = async () => {
   const reviews = await getAllCustomerReviews();
-  console.log(reviews);
 
   return (
     <div className="ml-[230px] mt-[70px] p-4 space-y-6">
-      <CreateReviews />
+      <div className="space-y-4">
+        <h1 className="font-semibold text-2xl">Create Reviews</h1>
+        <CreateReviews />
+      </div>
 
       <div className="space-y-4">
         <h1 className="font-semibold text-2xl">All Customer Review</h1>
@@ -33,9 +34,7 @@ const page = async () => {
                 height={200}
               />
               <div className="group-hover:block hidden transition-all absolute top-1 right-1">
-                <Button size={"icon"} className="bg-red-400">
-                  <Trash2 />
-                </Button>
+                <ReviewDeleteBtn id={item._id} />
               </div>
             </div>
           ))}

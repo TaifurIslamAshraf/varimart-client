@@ -7,10 +7,13 @@ import YoutubePlaylist from "@/components/YoutubePlaylist";
 import BannerSlider from "@/components/bannerSlider";
 import { cn } from "@/lib/utils";
 
+import { getBanners } from "@/lib/fetch/banner.data";
 import { styles } from "../styles";
 
 // mt-[70px] lg:mt-[140px]
 export default async function Home() {
+  const banners = await getBanners("mainBanner");
+
   return (
     <main className={cn("")}>
       <div className="fixed top-[90%] z-40 right-5 lg:hidden">
@@ -26,7 +29,7 @@ export default async function Home() {
           <Category />
         </div>
         <div className="h-full w-full">
-          <BannerSlider bannerType="mainBanner" />
+          <BannerSlider banner={banners?.banner} />
         </div>
       </div>
 

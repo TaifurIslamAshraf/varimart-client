@@ -1,6 +1,6 @@
 import { serverApi } from "../utils";
 
-export const getBanners = async (bannerType: string) => {
+export const getBanners = async (bannerType = "") => {
   try {
     const res = await fetch(
       `${serverApi}/banner/get-all-banners?bannerType=${bannerType}`,

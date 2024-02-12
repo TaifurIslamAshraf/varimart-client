@@ -9,16 +9,17 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 
 import { serverUrl } from "@/lib/utils";
-import { useGetAllBannerQuery } from "@/redux/features/banners/bannerApi";
 
 interface Props {
-  bannerType?: string;
-  category?: string;
+  banner: {
+    _id: string;
+    bannerType: string;
+    category?: string;
+    image: string;
+  }[];
 }
 
-const BannerSlider = ({ bannerType, category }: Props) => {
-  const { data } = useGetAllBannerQuery({ bannerType, category });
-
+const BannerSlider = ({ banner }: Props) => {
   return (
     <div className="bg-primary-foreground rounded-lg">
       <Carousel
@@ -33,7 +34,7 @@ const BannerSlider = ({ bannerType, category }: Props) => {
         className=""
       >
         <CarouselContent className="max-h-[320px] h-full">
-          {data?.banner?.map((item: any) => (
+          {banner?.map((item: any) => (
             <CarouselItem key={item._id}>
               <div className="rounded-lg w-full h-full">
                 <Image
