@@ -27,7 +27,18 @@ export const bannerApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+    deleteBanner: build.mutation({
+      query: ({ id }) => ({
+        url: `/banner/delete-banner/${id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+    }),
   }),
 });
 
-export const { useGetTopBannerQuery, useCreateBannerMutation } = bannerApi;
+export const {
+  useGetTopBannerQuery,
+  useCreateBannerMutation,
+  useDeleteBannerMutation,
+} = bannerApi;

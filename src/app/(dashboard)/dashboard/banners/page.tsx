@@ -8,7 +8,9 @@ import CreateBanners from "../../components/CreateBanners";
 type IBanners = {
   _id: string;
   bannerType: string;
-  category?: string;
+  category?: {
+    name: string;
+  };
   image: string;
 };
 
@@ -32,7 +34,7 @@ const page = async () => {
             {banners?.banner?.map((item: IBanners) => (
               <div
                 className="group transition-all duration-500 relative"
-                key={item?._id}
+                key={item._id}
               >
                 {item?.bannerType === "mainBanner" && (
                   <div className="">
@@ -55,7 +57,7 @@ const page = async () => {
         <Separator />
         <div className="space-y-4">
           <h2 className="font-medium text-xl">Category Banners</h2>
-          <div className="flex flex-wrap gap-6">
+          <div className="flex flex-wrap">
             {banners?.banner?.map((item: IBanners) => (
               <div className="" key={item?._id}>
                 {item?.bannerType === "categoryBanner" && (
@@ -68,7 +70,7 @@ const page = async () => {
                     />
                     <div className="flex items-center justify-between space-y-4 bg-gray-100 p-2">
                       <div className="">
-                        <h3>Category: {item?.category}</h3>
+                        <h3>Category: {item?.category?.name}</h3>
                       </div>
                       <BannerDeleteBtn id={item._id} />
                     </div>

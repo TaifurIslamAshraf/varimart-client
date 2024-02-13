@@ -51,19 +51,11 @@ const navItems = [
     name: "Banners",
     path: "/dashboard/banners",
     icon: <FileImage />,
-    subMenu: {
-      name: "Create Product",
-      path: "/dashboard/banners/create",
-    },
   },
   {
     name: "Category",
     path: "/dashboard/category",
     icon: <Layers3 />,
-    subMenu: {
-      name: "Create Product",
-      path: "/dashboard/category/create",
-    },
   },
   {
     name: "Users",

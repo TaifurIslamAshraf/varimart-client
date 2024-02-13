@@ -2,9 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
-import { deleteCustomerReview } from "@/lib/fetch/customerReview";
+import { useDeleteBannerMutation } from "@/redux/features/banners/bannerApi";
 import { Trash2 } from "lucide-react";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import toast from "react-hot-toast";
 
 type Props = {
@@ -12,19 +12,26 @@ type Props = {
 };
 
 const BannerDeleteBtn: FC<Props> = ({ id }) => {
-  const handleCustomerReviewDelete = async (reviewId: string) => {
-    const data = await deleteCustomerReview(reviewId);
+  const [deleteBanner, { isLoading, isSuccess, error }] =
+    useDeleteBannerMutation();
 
-    if (data?.success) {
+  const handleCustomerReviewDelete = async (bannerId: string) => {
+    await deleteBanner({ id: bannerId });
+
+    customRevalidateTag("Banner");
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
       toast.success("Customer review delete success");
-      customRevalidateTag("customerReview");
-    } else if (!data?.success) {
+    } else if (error) {
       toast.error("Somthing is wrong");
     }
-  };
+  }, [error, isSuccess]);
 
   return (
     <Button
+      disabled={isLoading}
       size={"icon"}
       className="bg-red-400"
       onClick={() => handleCustomerReviewDelete(id)}

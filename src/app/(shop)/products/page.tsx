@@ -8,6 +8,7 @@ import RatingsFilters from "@/components/RatingsFilters";
 import SubCategoryFilters from "@/components/SubCategoryFilters";
 import BannerSlider from "@/components/bannerSlider";
 import Paginations from "@/components/pagination";
+import { getBanners } from "@/lib/fetch/banner.data";
 import { getAllProducts } from "@/lib/fetch/getProduct";
 import { cn } from "@/lib/utils";
 
@@ -17,16 +18,19 @@ type Props = {
 
 const Products = async ({ searchParams }: Props) => {
   const data = await getAllProducts(searchParams);
+
+  const banners = await getBanners(
+    "categoryBanner",
+    searchParams?.subcategory as string
+  );
+
   // lg:mt-[140px] mt-[65px]
   return (
     <div className={cn(styles.paddingX)}>
       <div className="fixed top-[90%] z-40 right-5 lg:hidden">
         <Cart />
       </div>
-      <BannerSlider
-        category={searchParams?.subcategory as string}
-        bannerType="categoryBanner"
-      />
+      <BannerSlider banner={banners?.banner} />
       <div className={cn("lg:flex block")}>
         <div
           className={cn(
