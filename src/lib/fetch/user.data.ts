@@ -24,3 +24,14 @@ export const getUserInfo = async () => {
     console.log(error);
   }
 };
+export const getAllUsers = async () => {
+  try {
+    const res = await fetch(`${serverApi}/user/all-users`, {
+      credentials: "include",
+    });
+    const data = res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
