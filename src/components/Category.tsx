@@ -23,7 +23,7 @@ const Category = () => {
 
   return (
     <div className="">
-      <ul className="h-[320px] bg-primary-foreground rounded-md shadow-md">
+      <ul className="h-[320px] bg-primary-foreground rounded-md shadow-md py-3">
         {data?.category.map((item: any) => (
           <li
             key={item._id}

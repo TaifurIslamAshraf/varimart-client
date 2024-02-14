@@ -36,6 +36,7 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
         credentials: "include" as const,
       }),
+      invalidatesTags: ["Users"] as any,
 
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
@@ -90,6 +91,24 @@ export const authApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
     }),
+    getAllUsers: build.query({
+      query: (data) => ({
+        url: "/user/all-users",
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["Users"] as any,
+    }),
+
+    updateUserRole: build.mutation({
+      query: (data) => ({
+        url: "/user/update-role",
+        method: "PUT",
+        body: data,
+        credentials: "include",
+      }),
+      invalidatesTags: ["Users"] as any,
+    }),
   }),
 });
 
@@ -100,4 +119,6 @@ export const {
   useLogoutQuery,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useGetAllUsersQuery,
+  useUpdateUserRoleMutation,
 } = authApi;

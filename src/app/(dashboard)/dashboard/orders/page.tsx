@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 
+import ComponentLoader from "@/components/ComponentLoader";
 import { useGetAllOrdersQuery } from "@/redux/features/orders/orderApi";
 import OrdersTable from "../../components/OrdersTable";
 
@@ -19,7 +20,11 @@ const AllOrders: FC<Props> = ({ searchParams }) => {
     <div className="ml-[230px] mt-[70px] p-4">
       <h1 className="font-semibold text-2xl">All Orders</h1>
 
-      <OrdersTable data={data?.orders} pagination={data?.pagination} />
+      {isLoading ? (
+        <ComponentLoader />
+      ) : (
+        <OrdersTable data={data?.orders} pagination={data?.pagination} />
+      )}
     </div>
   );
 };
