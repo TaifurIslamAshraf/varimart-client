@@ -11,7 +11,7 @@ export const getAllOrders = async ({
 }: QueryProps) => {
   const res = await fetch(
     `${serverApi}/order/all-orders?page=${page}&orderStatus=${orderStatus}`,
-    { credentials: "include" }
+    { credentials: "include", cache: "no-store" }
   );
 
   const result = await res.json();

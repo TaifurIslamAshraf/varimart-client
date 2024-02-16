@@ -33,18 +33,14 @@ interface StarCounts {
 }
 
 interface Ireviews {
-  productReviews: [
-    {
-      user: string;
-      fullName: string;
-      avatar: string;
-      rating: number;
-      comment: string;
-      approved: boolean;
-      createdOn: Date;
-      _id: string;
-    }
-  ];
+  user: string;
+  fullName: string;
+  avatar: string;
+  rating: number;
+  comment: string;
+  approved: boolean;
+  createdOn: Date;
+  _id: string;
 }
 
 type Props = {
@@ -75,10 +71,6 @@ const Reviews: FC<Props> = ({
     useCreateReviewMutation();
   const { refetch } = useGetReviewsQuery({ userId: user?._id, productId });
 
-  const isReviewdUser = productReview?.productReviews?.find(
-    (item: any) => item?.user?.toString() === user?._id?.toString()
-  );
-
   function countStarRatings(): StarCounts {
     let oneStar = 0;
     let twoStar = 0;
@@ -107,9 +99,7 @@ const Reviews: FC<Props> = ({
 
   //change ratings value
   const handleChangeRating = (rating: number) => {
-    if (!isReviewdUser) {
-      setRating(rating);
-    }
+    setRating(rating);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -146,9 +136,7 @@ const Reviews: FC<Props> = ({
 
   useEffect(() => {
     setIsMount(true);
-    setRating(isReviewdUser?.rating!);
-    setComment(isReviewdUser?.comment!);
-  }, [isReviewdUser?.comment, isReviewdUser?.rating, refetch]);
+  }, [refetch]);
 
   if (!isMount) {
     return <SectionLoader />;
@@ -163,7 +151,7 @@ const Reviews: FC<Props> = ({
       <div className="flex lg:justify-between justify-center lg:flex-row flex-col-reverse  items-center mt-3 gap-6">
         <div className="space-y-2 my-4 lg:my-0 text-center lg:text-start lg:flex-1 flex-auto">
           <div className="space-y-3">
-            <h2 className="font-[500] text-lg">Your rating & review</h2>
+            <h2 className="font-[500] text-lg">Write rating & review</h2>
             <div className="">
               <StarRatings
                 rating={rating}
@@ -173,22 +161,11 @@ const Reviews: FC<Props> = ({
                 starSpacing="2px"
                 changeRating={handleChangeRating}
               />
-              {isReviewdUser ? (
-                <h2>
-                  {isReviewdUser?.comment.length > 40 ? (
-                    <>{isReviewdUser?.comment.slice(0, 40)}...</>
-                  ) : (
-                    isReviewdUser?.comment
-                  )}
-                </h2>
-              ) : (
-                ""
-              )}
             </div>
             <Dialog>
               <DialogTrigger asChild>
                 <Button className="mt-5 sm:w-auto w-full">
-                  {isReviewdUser ? "Update Your Review" : "Write Your Review"}
+                  Write Your Review
                 </Button>
               </DialogTrigger>
               <DialogContent>
@@ -232,12 +209,7 @@ const Reviews: FC<Props> = ({
                     {isLoading ? (
                       <LoadingButton />
                     ) : (
-                      <Button
-                        disabled={isReviewdUser ? true : false}
-                        type="submit"
-                      >
-                        Submit
-                      </Button>
+                      <Button type="submit">Submit</Button>
                     )}
                   </form>
                 </div>
