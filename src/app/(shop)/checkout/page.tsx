@@ -102,7 +102,7 @@ const Checkout = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Order Placed successfully");
+      toast.success("Order successfully plased");
       router.replace("/orderSuccess");
       dispatch(clearCart({}));
     } else if (isError) {

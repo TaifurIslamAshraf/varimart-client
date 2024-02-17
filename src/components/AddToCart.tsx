@@ -27,9 +27,14 @@ const AddToCart = ({ product, btnFull }: { product: any; btnFull: string }) => {
   const [addToCart, { isLoading, isSuccess, error, isError }] =
     useAddToCartMutation();
   const handleClick = async () => {
-    await addToCart({ productId: product._id });
-    await refetch();
-    await totalPriceRefetch();
+    console.log(product?.stock);
+    if (product?.stock > 0) {
+      await addToCart({ productId: product._id });
+      await refetch();
+      await totalPriceRefetch();
+    } else {
+      toast.error("Product Out of stock");
+    }
   };
 
   useEffect(() => {
@@ -47,6 +52,7 @@ const AddToCart = ({ product, btnFull }: { product: any; btnFull: string }) => {
         <LoadingButton className={btnFull} />
       ) : (
         <Button
+          disabled={product?.stock <= 0}
           className="hover:bg-[#000000a2] transition-all"
           onClick={handleClick}
         >
