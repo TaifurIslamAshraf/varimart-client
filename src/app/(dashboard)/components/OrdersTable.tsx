@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { useGetAllOrdersQuery } from "@/redux/features/orders/orderApi";
 import { IOrders } from "@/types/order";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -36,6 +37,8 @@ const OrdersTable: FC<Props> = ({ data, pagination }) => {
   const params = new URLSearchParams(searchParams);
   const defaultOrderStatus = params.get("orderStatus");
 
+  const { refetch } = useGetAllOrdersQuery({});
+
   const createQueryString = useCallback(
     (name: string, value: string) => {
       if (value) {
@@ -55,6 +58,8 @@ const OrdersTable: FC<Props> = ({ data, pagination }) => {
     } else {
       router.push(`/dashboard/orders?orderStatus=${value}`);
     }
+
+    refetch();
   };
 
   useEffect(() => {
