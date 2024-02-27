@@ -20,18 +20,17 @@ import {
   useUpdateUserInfoMutation,
 } from "@/redux/features/users/usersApi";
 import { Camera, Loader2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 
 const AccountInfo = () => {
-  const { user } = useSelector((state: any) => state.auth);
   const [fullName, setfullName] = useState<string>();
   const [phone, setPhone] = useState<string>();
   const [address, setAddress] = useState<string>();
   const [isMounded, setIsMounted] = useState(false);
-
+  const session = useSession();
   const [updateProfile, { isSuccess, error, isLoading, data }] =
     useUpdateProfileMutation();
   const [
@@ -71,10 +70,14 @@ const AccountInfo = () => {
     setIsMounted(true);
 
     //initialize user info
-    setfullName(user?.fullName && user.fullName);
-    setPhone(user?.phone && user.phone);
-    setAddress(user?.address && user.address);
-  }, [user.address, user.fullName, user.phone]);
+    setfullName(session?.data?.user?.fullName && session?.data?.user?.fullName);
+    setPhone(session?.data?.user?.phone && session?.data?.user?.phone);
+    setAddress(session?.data?.user?.address && session?.data?.user?.address);
+  }, [
+    session?.data?.user?.address,
+    session?.data?.user?.fullName,
+    session?.data?.user?.phone,
+  ]);
 
   if (!isMounded) {
     return <ComponentLoader />;
@@ -91,8 +94,8 @@ const AccountInfo = () => {
                 isLoading ? "blur-md" : ""
               )}
               src={
-                user?.avatar
-                  ? `${serverUrl}/${user.avatar}`
+                session?.data?.user?.avatar
+                  ? `${serverUrl}/${session?.data?.user?.avatar}`
                   : "/default-avater.jpg"
               }
               alt="default avater"
@@ -134,7 +137,11 @@ const AccountInfo = () => {
           </div>
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
-            <Input defaultValue={user?.email} readOnly disabled />
+            <Input
+              defaultValue={session?.data?.user?.email}
+              readOnly
+              disabled
+            />
           </div>
           <div className="space-y-1">
             <Label htmlFor="phone">Phone Number</Label>
