@@ -8,6 +8,7 @@ import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { useDeleteProductMutation } from "@/redux/features/product/productApi";
 import { IProduct } from "@/types/product";
 import { FilePenLine, Trash } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -17,13 +18,17 @@ type Props = {
 
 const ProductAction: FC<Props> = ({ product }) => {
   const router = useRouter();
+  const session = useSession();
 
   const [deleteProduct, { isLoading, isSuccess, error }] =
     useDeleteProductMutation();
 
   const handleDeleteProduct = async () => {
     const productId = product?._id;
-    await deleteProduct({ productId });
+    await deleteProduct({
+      productId: productId,
+      refresh_token: session?.data?.refreshToken,
+    });
 
     customRevalidateTag("getAllProducts");
     router.refresh();

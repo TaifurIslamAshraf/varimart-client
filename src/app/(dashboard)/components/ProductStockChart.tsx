@@ -4,11 +4,15 @@ import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
 import { useGetStockStatusQuery } from "@/redux/features/product/productApi";
+import { useSession } from "next-auth/react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ProductStockChart = () => {
-  const { data } = useGetStockStatusQuery({});
+  const session = useSession();
+  const { data } = useGetStockStatusQuery({
+    refresh_token: session?.data?.refreshToken,
+  });
 
   const doughnutData = {
     labels: ["Out Of Stock", "Stock Avaliable"],

@@ -1,10 +1,10 @@
 import { serverApi } from "@/lib/utils";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextResponse } from "next/server";
 
 export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_URL,
+
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -20,7 +20,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return new NextResponse("All field are required");
+          return null;
         }
 
         const { email, password } = credentials;
@@ -37,9 +37,12 @@ export const authOptions: AuthOptions = {
         });
 
         const user = await res.json();
-
-        if (!res.ok) {
-          return new NextResponse(user?.message);
+        if (
+          res.status === 400 ||
+          res.status === 404 ||
+          user?.success === false
+        ) {
+          return null;
         }
 
         return user;

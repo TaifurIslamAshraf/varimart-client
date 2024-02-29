@@ -25,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const loginFormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -49,9 +50,15 @@ const Login = () => {
     const result = await signIn("credentials", {
       email: value.email,
       password: value.password,
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
     });
+
+    if (result?.status === 401 || result?.status === 400) {
+      toast.error("Invalid Email or Password");
+    } else if (result?.status === 200 || result?.status === 201) {
+      toast.success("Login Successfull");
+      router.replace("/");
+    }
   };
 
   return (

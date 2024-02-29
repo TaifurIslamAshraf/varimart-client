@@ -9,7 +9,6 @@ import defaultAvater from "../../public/default-avater.jpg";
 
 const Profile = async () => {
   const session = await getServerSession(authOptions);
-  console.log(session);
 
   return (
     <div className="">

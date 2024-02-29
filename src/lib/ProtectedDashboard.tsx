@@ -1,29 +1,18 @@
-"use client";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { authOptions } from "./auth";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+const ProtectedDashboard = async ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const session = await getServerSession(authOptions);
 
-const ProtectedDashboard = ({ children }: { children: React.ReactNode }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const { user } = useSelector((state: any) => state.auth);
-  const router = useRouter();
-
-  const isAuthenticated =
-    user?.fullName && user?.role === "admin" ? true : false;
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
+  if (session?.user.role !== "admin") {
+    return redirect("/");
   }
 
-  if (!isAuthenticated) {
-    router.replace("/");
-  }
-
-  return <>{isAuthenticated && children}</>;
+  return <>{session?.user?.role === "admin" && children}</>;
 };
 export default ProtectedDashboard;

@@ -4,17 +4,20 @@ import { getProductReviews } from "./reviewSlice";
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     createReview: build.mutation({
-      query: (data) => ({
+      query: ({ data, refresh_token }) => ({
         url: "/product/create-review",
         method: "PUT",
         body: data,
         credentials: "include",
+        headers: {
+          refresh_token,
+        },
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
 
     getReviews: build.query({
-      query: ({ productId, userId }) => ({
+      query: ({ productId, userId, refresh_token }) => ({
         url: "/product/all-reviews",
         method: "GET",
         params: {
@@ -22,6 +25,9 @@ const reviewApi = apiSlice.injectEndpoints({
           userId,
         },
         credentials: "include",
+        headers: {
+          refresh_token,
+        },
       }),
       providesTags: ["Reviews"] as any,
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -35,25 +41,31 @@ const reviewApi = apiSlice.injectEndpoints({
     }),
 
     getAllProductReviews: build.query({
-      query: () => ({
+      query: ({ refresh_token }) => ({
         url: "/product/all-product-reviews",
         method: "GET",
         credentials: "include",
+        headers: {
+          refresh_token,
+        },
       }),
       providesTags: ["Reviews"] as any,
     }),
 
     updateReviewStatus: build.mutation({
-      query: (data) => ({
+      query: ({ data, refresh_token }) => ({
         url: "/product/update-review-status",
         method: "PUT",
         body: data,
         credentials: "include",
+        headers: {
+          refresh_token,
+        },
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
     deleteReview: build.mutation({
-      query: ({ reviewId, productId }) => ({
+      query: ({ reviewId, productId, refresh_token }) => ({
         url: `/product/delete-review`,
         method: "DELETE",
         body: {
@@ -61,6 +73,9 @@ const reviewApi = apiSlice.injectEndpoints({
           reviewId,
         },
         credentials: "include",
+        headers: {
+          refresh_token,
+        },
       }),
       invalidatesTags: ["Reviews"] as any,
     }),

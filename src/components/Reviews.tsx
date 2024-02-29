@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import StarRatings from "react-star-ratings";
 
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
+import { useSession } from "next-auth/react";
 import { LoadingButton } from "./LoaderButton";
 import Ratings from "./Ratings";
 import SectionLoader from "./SectionLoader";
@@ -63,7 +64,7 @@ const Reviews: FC<Props> = ({
   const [comment, setComment] = useState("");
 
   const router = useRouter();
-
+  const session = useSession();
   const { user } = useSelector((state: any) => state.auth);
   const { productReview } = useSelector((state: any) => state.porductReviews);
 
@@ -108,9 +109,12 @@ const Reviews: FC<Props> = ({
       toast.error("Select Rating");
     } else {
       await createReview({
-        rating,
-        comment,
-        productId,
+        data: {
+          rating,
+          comment,
+          productId,
+        },
+        refresh_token: session?.data?.refreshToken,
       });
 
       customRevalidateTag("getSingleProduct");
