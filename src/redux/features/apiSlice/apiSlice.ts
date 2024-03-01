@@ -1,11 +1,24 @@
+import { authOptions } from "@/lib/auth";
 import { serverApi } from "@/lib/utils";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getServerSession } from "next-auth";
 import { userLogin } from "../auth/authSlice";
 
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
+    credentials: "include",
     baseUrl: serverApi,
+    mode: "no-cors",
+    prepareHeaders: async (headers) => {
+      const session = await getServerSession(authOptions);
+      headers.set("Content-Type", "application/json");
+      if (session?.refreshToken) {
+        headers.set("refresh_token", session?.refreshToken);
+      }
+      console.log(headers);
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     refreshToken: builder.query({
