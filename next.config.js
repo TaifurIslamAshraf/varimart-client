@@ -7,14 +7,7 @@ const nextConfig = {
             hostname: "abdullah-ecommerce-server.onrender.com"
         }]
     },
-    async rewrites() {
-        return [
-          {
-            source: '/api/:path*',
-            destination: 'http://144.126.157.233:8000/:path*' // Proxy to Backend
-          }
-        ]
-      }
+   
 }
 
 module.exports = nextConfig

@@ -28,6 +28,7 @@ import {
   useGetOrderStatusQuery,
 } from "@/redux/features/orders/orderApi";
 import { ListOrdered, Receipt } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -54,7 +55,9 @@ const Checkout = () => {
   const {} = useTotalPriceQuery({});
   const [createOrder, { isLoading, error, isError, isSuccess }] =
     useCreateOrderMutation();
-  const { user } = useSelector((state: any) => state.auth);
+  const session = useSession();
+  const user = session?.data?.user;
+
   const { allCartProducts, totalPrice } = useSelector(
     (state: any) => state.cart
   );
@@ -93,7 +96,6 @@ const Checkout = () => {
       shippingPrice: minShippingPrice,
       totalAmount: totalAmount,
     };
-    console.log(orderItems);
 
     await createOrder(data);
     await orderStatusRefetch();

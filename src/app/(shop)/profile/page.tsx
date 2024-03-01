@@ -8,12 +8,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { KeySquare, LogOut, UserCog, WalletCards } from "lucide-react";
-import { signOut } from "next-auth/react";
+import {
+  KeySquare,
+  LayoutDashboard,
+  LogOut,
+  UserCog,
+  WalletCards,
+} from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
 export default function Page() {
+  const session = useSession();
+
   const handleLogout = async () => {
     await signOut({ redirect: true, callbackUrl: "/" });
     toast.success("Logout successfull");
@@ -54,7 +62,7 @@ export default function Page() {
           </Link>
         </div>
 
-        {/* {user?.fullName && user.role === "admin" ? (
+        {session.data?.user?.fullName && session.data?.user.role === "admin" ? (
           <div className="flex items-center justify-between border border-purple-200 px-2 py-3 rounded-md">
             <h1 className="font-semibold">Admin Dashboard</h1>
             <Link href={"/dashboard"}>
@@ -65,7 +73,7 @@ export default function Page() {
           </div>
         ) : (
           ""
-        )} */}
+        )}
 
         <div className="flex items-center justify-between border border-purple-200 px-2 py-3 rounded-md">
           <h1 className="font-semibold">Logout account</h1>

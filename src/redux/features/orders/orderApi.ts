@@ -71,7 +71,7 @@ const orderApi = apiSlice.injectEndpoints({
           refresh_token,
         },
       }),
-      providesTags: ["Orders"] as any,
+      invalidatesTags: ["Orders"] as any,
     }),
 
     getSingleOrders: build.query({
