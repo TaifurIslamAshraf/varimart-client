@@ -36,6 +36,7 @@ const CategorySubcategory = () => {
   ] = useDeleteSubcategoryMutation();
 
   const category = data?.category as ICategory;
+  console.log(category);
 
   const handleCategory = (
     categoryId: string,
