@@ -69,6 +69,7 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       invalidatesTags: ["Orders"] as any,

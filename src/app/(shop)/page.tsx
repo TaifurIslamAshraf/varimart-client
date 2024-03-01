@@ -7,15 +7,12 @@ import YoutubePlaylist from "@/components/YoutubePlaylist";
 import BannerSlider from "@/components/bannerSlider";
 import { cn } from "@/lib/utils";
 
-import { authOptions } from "@/lib/auth";
 import { getBanners } from "@/lib/fetch/banner.data";
-import { getServerSession } from "next-auth";
 import { styles } from "../styles";
 
 // mt-[70px] lg:mt-[140px]
 export default async function Home() {
   const banners = await getBanners("mainBanner");
-  const session = await getServerSession(authOptions);
 
   return (
     <main className={cn("")}>
