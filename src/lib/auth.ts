@@ -66,12 +66,13 @@ export const authOptions: AuthOptions = {
       const res = await fetch(`${serverApi}/user/refresh`, {
         method: "POST",
         credentials: "include",
-        body: JSON.stringify({
+        headers: {
           refresh_token: token.refreshToken,
-        }),
+        },
       });
 
       const data = await res.json();
+      if (!data?.success) return token;
       return {
         ...token,
         ...data,

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback } from "react";
 
 import ComponentLoader from "@/components/ComponentLoader";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { getAllOrders } from "@/lib/fetch/orders.data";
 import { cn } from "@/lib/utils";
 import { useGetAllOrdersQuery } from "@/redux/features/orders/orderApi";
 import { IOrders } from "@/types/order";
@@ -33,26 +32,11 @@ const AllOrders: FC<Props> = () => {
   const defaultOrderStatus = params.get("orderStatus");
   const session = useSession();
 
-  const [myOrders, setMyorders] = useState<any>(null);
   const { isLoading, data, refetch } = useGetAllOrdersQuery({
     orderStatus: params.get("orderStatus") || "",
     page: params.get("page") || "",
     refresh_token: session?.data?.refreshToken,
   });
-
-  getAllOrders({
-    orderStatus: params.get("orderStatus") || "",
-    page: params.get("page") || "",
-    refresh_token: session?.data?.refreshToken!,
-  })
-    .then((data) => {
-      console.log(data);
-      // Handle the data
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      // Handle the error
-    });
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
