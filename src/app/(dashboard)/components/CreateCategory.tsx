@@ -16,6 +16,7 @@ import {
   useGetAllCategoryQuery,
 } from "@/redux/features/category/categoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -29,6 +30,7 @@ const CreateCategory = () => {
   const [createCategory, { isLoading, isSuccess, error }] =
     useCreateCategoryMutation();
   const { refetch } = useGetAllCategoryQuery({});
+  const session = useSession();
 
   const form = useForm<z.infer<typeof createCategorySchema>>({
     resolver: zodResolver(createCategorySchema),
@@ -40,7 +42,10 @@ const CreateCategory = () => {
   const handleCreateCategory = async (
     value: z.infer<typeof createCategorySchema>
   ) => {
-    await createCategory(value);
+    await createCategory({
+      data: value,
+      refresh_token: session?.data?.refreshToken,
+    });
     await refetch();
   };
 

@@ -84,27 +84,36 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     forgotPassword: build.mutation({
-      query: (data) => ({
+      query: ({ data, refresh_token }) => ({
         url: "/user/forgot-password",
         method: "POST",
         body: data,
+        headers: {
+          refresh_token,
+        },
         credentials: "include",
       }),
     }),
     getAllUsers: build.query({
-      query: (data) => ({
+      query: ({ refresh_token }) => ({
         url: "/user/all-users",
         method: "GET",
         credentials: "include",
+        headers: {
+          refresh_token,
+        },
       }),
       providesTags: ["Users"] as any,
     }),
 
     updateUserRole: build.mutation({
-      query: (data) => ({
+      query: ({ data, refresh_token }) => ({
         url: "/user/update-role",
         method: "PUT",
         body: data,
+        headers: {
+          refresh_token,
+        },
         credentials: "include",
       }),
       invalidatesTags: ["Users"] as any,

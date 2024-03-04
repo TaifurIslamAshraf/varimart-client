@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { deleteCustomerReview } from "@/lib/fetch/customerReview";
 import { Trash2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { FC } from "react";
 import toast from "react-hot-toast";
 
@@ -12,8 +13,13 @@ type Props = {
 };
 
 const ReviewDeleteBtn: FC<Props> = ({ id }) => {
+  const session = useSession();
+
   const handleCustomerReviewDelete = async (reviewId: string) => {
-    const data = await deleteCustomerReview(reviewId);
+    const data = await deleteCustomerReview(
+      reviewId,
+      session?.data?.refreshToken!
+    );
 
     if (data?.success) {
       toast.success("Customer review delete success");

@@ -24,6 +24,7 @@ import {
 } from "@/redux/features/category/categoryApi";
 import { ICategory } from "@/types/category";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -39,6 +40,7 @@ const CreateSubategory = () => {
   // const [deleteSubcategory, {isSuccess}] = useDeleteSubcategoryMutation()
   const [createSubcategory, { isLoading, isSuccess, error }] =
     useCreateSubcategoryMutation();
+  const session = useSession();
 
   const category = data?.category as ICategory | undefined;
 
@@ -53,7 +55,10 @@ const CreateSubategory = () => {
   const handleCreatesubCategory = async (
     value: z.infer<typeof createSubcategorySchema>
   ) => {
-    await createSubcategory(value);
+    await createSubcategory({
+      data: value,
+      refresh_token: session?.data?.refreshToken,
+    });
     await refetch();
   };
 

@@ -13,13 +13,19 @@ export const getAllCustomerReviews = async () => {
   }
 };
 
-export const deleteCustomerReview = async (id: string) => {
+export const deleteCustomerReview = async (
+  id: string,
+  refresh_token: string
+) => {
   try {
     const res = await fetch(
       `${serverApi}/review/delete-customer-review/${id}`,
       {
         method: "DELETE",
         credentials: "include",
+        headers: {
+          refresh_token,
+        },
       }
     );
 

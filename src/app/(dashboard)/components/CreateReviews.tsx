@@ -3,11 +3,14 @@
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { cn } from "@/lib/utils";
 import { useCreateReviewMutation } from "@/redux/features/customerReview/customerReviewApi";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 
 const CreateReviews = () => {
+  const session = useSession();
+
   const [createReview, { isLoading, isSuccess, error }] =
     useCreateReviewMutation();
 
@@ -26,7 +29,10 @@ const CreateReviews = () => {
         const formData = new FormData();
 
         formData.append("image", file);
-        await createReview(formData);
+        await createReview({
+          data: formData,
+          refresh_token: session?.data?.refreshToken,
+        });
         customRevalidateTag("customerReview");
       },
     });
