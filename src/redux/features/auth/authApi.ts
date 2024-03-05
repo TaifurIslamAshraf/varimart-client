@@ -1,5 +1,5 @@
 import { apiSlice } from "../apiSlice/apiSlice";
-import { userLogin, userLogout, userRegistretion } from "./authSlice";
+import { loadUser, userLogin, userLogout, userRegistretion } from "./authSlice";
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -84,13 +84,11 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     forgotPassword: build.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ email }) => ({
         url: "/user/forgot-password",
         method: "POST",
-        body: data,
-        headers: {
-          refresh_token,
-        },
+        body: { email: email },
+
         credentials: "include",
       }),
     }),
@@ -118,6 +116,23 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Users"] as any,
     }),
+
+    getMe: build.query({
+      query: ({ refresh_token }) => ({
+        url: "/user/me",
+        method: "GET",
+        headers: {
+          refresh_token,
+        },
+        credentials: "include",
+      }),
+      invalidatesTags: ["Users"] as any,
+
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        const result = await queryFulfilled;
+        dispatch(loadUser(result?.data?.user));
+      },
+    }),
   }),
 });
 
@@ -130,4 +145,5 @@ export const {
   useResetPasswordMutation,
   useGetAllUsersQuery,
   useUpdateUserRoleMutation,
+  useGetMeQuery,
 } = authApi;

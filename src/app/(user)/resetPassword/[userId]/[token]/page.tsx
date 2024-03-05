@@ -18,9 +18,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { userAuth } from "@/lib/userAuth";
 import { useResetPasswordMutation } from "@/redux/features/auth/authApi";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -41,8 +41,9 @@ const Page = () => {
   const [resetPassword, { isLoading, isSuccess, error }] =
     useResetPasswordMutation();
   const { userId, token } = useParams();
+  const session = useSession();
+
   const router = useRouter();
-  const user = userAuth();
 
   const form = useForm<z.infer<typeof resetPassSchema>>({
     resolver: zodResolver(resetPassSchema),
@@ -61,7 +62,7 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (session?.data?.accessToken) {
       router.replace("/");
       toast.error("You alredy login. change password form your profile");
     }
@@ -74,7 +75,7 @@ const Page = () => {
       const errorData = error as any;
       toast.error(errorData.data.message);
     }
-  }, [error, isSuccess, router, user]);
+  }, [error, isSuccess, router, session?.data?.accessToken]);
 
   return (
     <div className="m-auto h-screen flex flex-col items-center justify-center">

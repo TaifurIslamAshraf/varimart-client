@@ -15,6 +15,7 @@ import { LoadingButton } from "@/components/LoaderButton";
 import { cn, serverUrl } from "@/lib/utils";
 
 import ComponentLoader from "@/components/ComponentLoader";
+import { useGetMeQuery } from "@/redux/features/auth/authApi";
 import {
   useUpdateProfileMutation,
   useUpdateUserInfoMutation,
@@ -37,17 +38,27 @@ const AccountInfo = () => {
     updateUserInfo,
     { isSuccess: nameIsSuccess, isLoading: nameIsLoading, data: nameData },
   ] = useUpdateUserInfoMutation();
+  const { data: user, refetch } = useGetMeQuery({
+    refresh_token: session?.data?.refreshToken,
+  });
 
   const router = useRouter();
-  const handleImage = (e: any) => {
+  const handleImage = async (e: any) => {
     const avatar = e.target.files[0];
     const formData = new FormData();
     formData.append("avatar", avatar);
-    updateProfile(formData);
+    await updateProfile({
+      formData,
+      refresh_token: session?.data?.refreshToken,
+    });
+    await refetch();
   };
 
   const handleName = async () => {
-    await updateUserInfo({ fullName, phone, address });
+    await updateUserInfo({
+      data: { fullName, phone, address },
+      refresh_token: session?.data?.refreshToken,
+    });
   };
 
   useEffect(() => {
@@ -70,14 +81,10 @@ const AccountInfo = () => {
     setIsMounted(true);
 
     //initialize user info
-    setfullName(session?.data?.user?.fullName && session?.data?.user?.fullName);
-    setPhone(session?.data?.user?.phone && session?.data?.user?.phone);
-    setAddress(session?.data?.user?.address && session?.data?.user?.address);
-  }, [
-    session?.data?.user?.address,
-    session?.data?.user?.fullName,
-    session?.data?.user?.phone,
-  ]);
+    setfullName(user?.user?.fullName && user?.user?.fullName);
+    setPhone(user?.user?.phone && user?.user?.phone);
+    setAddress(user?.user?.address && user?.user?.address);
+  }, [user?.user?.address, user?.user?.fullName, user?.user?.phone]);
 
   if (!isMounded) {
     return <ComponentLoader />;
@@ -94,8 +101,8 @@ const AccountInfo = () => {
                 isLoading ? "blur-md" : ""
               )}
               src={
-                session?.data?.user?.avatar
-                  ? `${serverUrl}/${session?.data?.user?.avatar}`
+                user?.user?.avatar
+                  ? `${serverUrl}/${user?.user?.avatar}`
                   : "/default-avater.jpg"
               }
               alt="default avater"
