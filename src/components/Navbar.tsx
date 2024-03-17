@@ -58,7 +58,7 @@ const Navbar = async () => {
               <Image
                 src={"/logo.png"}
                 alt="shop logo"
-                width={130}
+                width={200}
                 height={120}
               />
             </Link>
@@ -85,7 +85,7 @@ const Navbar = async () => {
               <Image
                 src={"/logo.png"}
                 alt="shop logo"
-                width={100}
+                width={130}
                 height={100}
               />
             </Link>
