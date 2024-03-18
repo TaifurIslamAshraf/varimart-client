@@ -112,7 +112,7 @@ const ByNowCheckout = () => {
       className={cn(
         styles.paddingX,
         styles.paddingY,
-        " max-w-[1200px] w-full mx-auto"
+        "max-w-[1200px] w-full mx-auto"
       )}
     >
       <div className="">
