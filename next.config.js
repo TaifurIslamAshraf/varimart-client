@@ -1,11 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    async headers() {
+        return [
+          {
+            source: '/:path*',
+            headers: [
+              {
+                key: 'Access-Control-Allow-Origin',
+                value: '*',
+              },
+            ],
+          },
+        ];
+      },
     images:{
         remotePatterns:[{
-            hostname: "localhost"
-        },{
-            hostname: "abdullah-ecommerce-server.onrender.com"
-        }, {hostname: "ecommerce-server-5rzq.onrender.com"}]
+            hostname: "178.16.139.2"
+        }]
     },
    
 }
