@@ -42,7 +42,7 @@ const AddToCart = ({ product, btnFull }: { product: any; btnFull: string }) => {
       toast.success("Product Add To Cart");
     } else if (isError) {
       const errorData = error as any;
-      toast.error(errorData.data.message);
+      toast.error(errorData?.data?.message);
     }
   }, [error, isError, isSuccess]);
 

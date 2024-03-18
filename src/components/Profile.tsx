@@ -21,6 +21,7 @@ const Profile = () => {
         <Link href={"/profile"}>
           <div className="cursor-pointer rounded-full m-auto w-[40px] h-[40px]">
             <Image
+              unoptimized
               className="rounded-full object-cover"
               src={
                 user?.avatar ? `${serverUrl}/${user?.avatar}` : defaultAvater
