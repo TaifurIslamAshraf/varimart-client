@@ -16,6 +16,8 @@ const nextConfig = {
     images:{
         remotePatterns:[{
             hostname: "178.16.139.2"
+        }, {
+          hostname: "localhost"
         }]
     },
    
