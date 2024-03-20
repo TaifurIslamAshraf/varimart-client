@@ -3,7 +3,7 @@ import { getProductReviews } from "./reviewSlice";
 
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    createReview: build.mutation({
+    createProductReview: build.mutation({
       query: ({ data, refresh_token }) => ({
         url: "/product/create-review",
         method: "PUT",
@@ -83,7 +83,7 @@ const reviewApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useCreateReviewMutation,
+  useCreateProductReviewMutation,
   useGetReviewsQuery,
   useUpdateReviewStatusMutation,
   useGetAllProductReviewsQuery,

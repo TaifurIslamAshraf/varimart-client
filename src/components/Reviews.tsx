@@ -2,7 +2,7 @@
 
 import { serverUrl } from "@/lib/utils";
 import {
-  useCreateReviewMutation,
+  useCreateProductReviewMutation,
   useGetReviewsQuery,
 } from "@/redux/features/reviews/reviewApi";
 import Image from "next/image";
@@ -69,7 +69,7 @@ const Reviews: FC<Props> = ({
   const { productReview } = useSelector((state: any) => state.porductReviews);
 
   const [createReview, { isLoading, error, isSuccess }] =
-    useCreateReviewMutation();
+    useCreateProductReviewMutation();
   const { refetch } = useGetReviewsQuery({ userId: user?._id, productId });
 
   function countStarRatings(): StarCounts {
