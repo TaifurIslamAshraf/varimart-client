@@ -32,6 +32,7 @@ const AccountInfo = () => {
   const [address, setAddress] = useState<string>();
   const [isMounded, setIsMounted] = useState(false);
   const session = useSession();
+
   const [updateProfile, { isSuccess, error, isLoading, data }] =
     useUpdateProfileMutation();
   const [
