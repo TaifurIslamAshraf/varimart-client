@@ -18,19 +18,14 @@ import {
   useGetAllProductReviewsQuery,
   useUpdateReviewStatusMutation,
 } from "@/redux/features/reviews/reviewApi";
-import { IManageReview } from "@/types/review";
 import { Trash2 } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { IManageReview } from "../../../../../types/review";
 
 const ManageReviews = () => {
-  const session = useSession();
-
-  const { data } = useGetAllProductReviewsQuery({
-    refresh_token: session?.data?.refreshToken,
-  });
+  const { data } = useGetAllProductReviewsQuery({});
   const [updateReviewStatus, { isSuccess, error }] =
     useUpdateReviewStatusMutation();
   const [
@@ -57,7 +52,6 @@ const ManageReviews = () => {
     };
     await updateReviewStatus({
       data,
-      refresh_token: session?.data?.refreshToken,
     });
     customRevalidateTag("getSingleProduct");
     customRevalidateTag("getAllProducts");
@@ -67,7 +61,6 @@ const ManageReviews = () => {
     await deleteReview({
       reviewId,
       productId,
-      refresh_token: session?.data?.refreshToken,
     });
     customRevalidateTag("getSingleProduct");
     customRevalidateTag("getAllProducts");

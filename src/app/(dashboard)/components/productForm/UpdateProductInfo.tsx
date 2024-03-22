@@ -28,7 +28,7 @@ import {
 } from "@/redux/features/cart/cartApi";
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { useUpdateProductMutation } from "@/redux/features/product/productApi";
-import { useSession } from "next-auth/react";
+
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -43,7 +43,6 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
   const [subcategory, setSubcategory] = useState<any[] | null>(null);
   const [images, setImages] = useState<FileList | null>(null);
   const router = useRouter();
-  const session = useSession();
 
   //redux state
   const { refetch } = useGetCartItemQuery({});
@@ -165,7 +164,6 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
 
       await updateProduct({
         data: formData,
-        refresh_token: session?.data?.refreshToken,
       });
 
       customRevalidateTag("getAllProducts");

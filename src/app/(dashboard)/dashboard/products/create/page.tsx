@@ -13,7 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { useCreateProductMutation } from "@/redux/features/product/productApi";
 import { resetProductData } from "@/redux/features/product/productSlice";
-import { useSession } from "next-auth/react";
+
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +24,6 @@ const CreateProduct = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const session = useSession();
   const { productCreateData } = useSelector((state: any) => state.product);
   const [createProduct, { data, isSuccess, error, isLoading }] =
     useCreateProductMutation({});
@@ -81,7 +80,6 @@ const CreateProduct = () => {
 
       await createProduct({
         data: formData,
-        refresh_token: session?.data?.refreshToken,
       });
 
       customRevalidateTag("getAllProducts");

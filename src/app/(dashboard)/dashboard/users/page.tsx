@@ -13,7 +13,6 @@ import {
   useGetAllUsersQuery,
   useUpdateUserRoleMutation,
 } from "@/redux/features/auth/authApi";
-import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 
@@ -31,11 +30,7 @@ type IUsers = {
 };
 
 const Users = () => {
-  const session = useSession();
-
-  const { isLoading, data } = useGetAllUsersQuery({
-    refresh_token: session?.data?.refreshToken,
-  });
+  const { isLoading, data } = useGetAllUsersQuery({});
   const [updateUserRole, { isSuccess, error }] = useUpdateUserRoleMutation();
 
   const handleChangeRole = async (value: string, userId: string) => {
@@ -44,7 +39,6 @@ const Users = () => {
         userId: userId,
         role: value,
       },
-      refresh_token: session?.data?.refreshToken,
     });
   };
 

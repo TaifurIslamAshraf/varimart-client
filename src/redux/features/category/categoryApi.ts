@@ -17,12 +17,11 @@ export const categoryApi = apiSlice.injectEndpoints({
     }),
 
     createCategory: build.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data }) => ({
         url: "/category/create-category",
         method: "POST",
         body: data,
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
         credentials: "include",
@@ -30,12 +29,11 @@ export const categoryApi = apiSlice.injectEndpoints({
     }),
 
     createSubcategory: build.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data }) => ({
         url: "/subcategory/create-subcategory",
         method: "POST",
         body: data,
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
         credentials: "include",
@@ -43,25 +41,25 @@ export const categoryApi = apiSlice.injectEndpoints({
     }),
 
     deleteCategory: build.mutation({
-      query: ({ id, refresh_token }) => ({
+      query: ({ id }) => ({
         url: `/category/delete-category/${id}`,
         method: "DELETE",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
+
         credentials: "include",
       }),
     }),
 
     deleteSubcategory: build.mutation({
-      query: ({ id, refresh_token }) => ({
+      query: ({ id }) => ({
         url: `/subcategory/delete-subcategory/${id}`,
         method: "DELETE",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
+
         credentials: "include",
       }),
     }),

@@ -3,10 +3,10 @@ import Paginations from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 import { getAllProducts } from "@/lib/fetch/getProduct";
 import { serverUrl } from "@/lib/utils";
-import { IProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
+import { IProduct } from "../../../../../types/product";
 import ProductAction from "../../components/ProductAction";
 
 type Props = {

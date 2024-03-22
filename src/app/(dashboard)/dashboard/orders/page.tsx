@@ -13,9 +13,9 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useGetAllOrdersQuery } from "@/redux/features/orders/orderApi";
-import { IOrders } from "@/types/order";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { IOrders } from "../../../../../types/order";
+
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import OrderAction from "../../components/OrderAction";
@@ -30,12 +30,10 @@ const AllOrders: FC<Props> = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const params = new URLSearchParams(searchParams);
   const defaultOrderStatus = params.get("orderStatus");
-  const session = useSession();
 
   const { isLoading, data, refetch } = useGetAllOrdersQuery({
     orderStatus: params.get("orderStatus") || "",
     page: params.get("page") || "",
-    refresh_token: session?.data?.refreshToken,
   });
 
   const createQueryString = useCallback(

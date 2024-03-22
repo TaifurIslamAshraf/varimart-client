@@ -22,9 +22,7 @@ import {
   useCreateSubcategoryMutation,
   useGetAllCategoryQuery,
 } from "@/redux/features/category/categoryApi";
-import { ICategory } from "@/types/category";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -40,9 +38,8 @@ const CreateSubategory = () => {
   // const [deleteSubcategory, {isSuccess}] = useDeleteSubcategoryMutation()
   const [createSubcategory, { isLoading, isSuccess, error }] =
     useCreateSubcategoryMutation();
-  const session = useSession();
 
-  const category = data?.category as ICategory | undefined;
+  const category = data?.category as any | undefined;
 
   const form = useForm<z.infer<typeof createSubcategorySchema>>({
     resolver: zodResolver(createSubcategorySchema),
@@ -57,7 +54,6 @@ const CreateSubategory = () => {
   ) => {
     await createSubcategory({
       data: value,
-      refresh_token: session?.data?.refreshToken,
     });
     await refetch();
   };
@@ -97,7 +93,7 @@ const CreateSubategory = () => {
                   </FormControl>
                   <SelectContent>
                     {category &&
-                      category?.map((item) => (
+                      category?.map((item: any) => (
                         <SelectItem
                           value={item?._id.toString()}
                           key={item?._id}

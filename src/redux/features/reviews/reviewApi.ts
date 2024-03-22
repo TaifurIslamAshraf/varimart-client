@@ -4,13 +4,12 @@ import { getProductReviews } from "./reviewSlice";
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     createProductReview: build.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data }) => ({
         url: "/product/create-review",
         method: "PUT",
         body: data,
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),
@@ -18,7 +17,7 @@ const reviewApi = apiSlice.injectEndpoints({
     }),
 
     getReviews: build.query({
-      query: ({ productId, userId, refresh_token }) => ({
+      query: ({ productId, userId }) => ({
         url: "/product/all-reviews",
         method: "GET",
         params: {
@@ -27,7 +26,6 @@ const reviewApi = apiSlice.injectEndpoints({
         },
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),
@@ -43,12 +41,11 @@ const reviewApi = apiSlice.injectEndpoints({
     }),
 
     getAllProductReviews: build.query({
-      query: ({ refresh_token }) => ({
+      query: ({}) => ({
         url: "/product/all-product-reviews",
         method: "GET",
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),
@@ -56,20 +53,19 @@ const reviewApi = apiSlice.injectEndpoints({
     }),
 
     updateReviewStatus: build.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data }) => ({
         url: "/product/update-review-status",
         method: "PUT",
         body: data,
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
     deleteReview: build.mutation({
-      query: ({ reviewId, productId, refresh_token }) => ({
+      query: ({ reviewId, productId }) => ({
         url: `/product/delete-review`,
         method: "DELETE",
         body: {
@@ -78,7 +74,6 @@ const reviewApi = apiSlice.injectEndpoints({
         },
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),

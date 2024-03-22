@@ -4,7 +4,7 @@ import { getUserOrders } from "./orderSlice";
 const orderApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getOrder: build.query({
-      query: ({ userId, refresh_token }) => ({
+      query: ({ userId }) => ({
         url: "/order/user-orders",
         method: "GET",
         params: {
@@ -12,7 +12,6 @@ const orderApi = apiSlice.injectEndpoints({
         },
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),
@@ -38,24 +37,22 @@ const orderApi = apiSlice.injectEndpoints({
     }),
 
     getSalesReport: build.query({
-      query: ({ refresh_token }) => ({
+      query: ({}) => ({
         url: "/order/monthly-sales",
         method: "GET",
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),
       providesTags: ["Orders"] as any,
     }),
     getOrderStatus: build.query({
-      query: ({ refresh_token }) => ({
+      query: ({}) => ({
         url: "/order/order-status",
         method: "GET",
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),
@@ -87,25 +84,23 @@ const orderApi = apiSlice.injectEndpoints({
       providesTags: ["Orders"] as any,
     }),
     updateOrderStatus: build.mutation({
-      query: ({ id, data, refresh_token }) => ({
+      query: ({ id, data }) => ({
         url: `/order/update-order-status/${id}`,
         method: "PUT",
         body: data,
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),
       providesTags: ["Orders"] as any,
     }),
     deleteOrder: build.mutation({
-      query: ({ id, refresh_token }) => ({
+      query: ({ id }) => ({
         url: `/order/delete-order/${id}`,
         method: "DELETE",
         credentials: "include",
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
       }),

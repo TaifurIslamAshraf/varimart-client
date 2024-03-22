@@ -4,12 +4,11 @@ import { updateUser } from "../auth/authSlice";
 export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     updateProfile: builder.mutation({
-      query: ({ formData, refresh_token }) => ({
+      query: ({ formData }) => ({
         url: "/user/update-avatar",
         method: "PUT",
         body: formData,
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
         credentials: "include" as const,
@@ -29,12 +28,11 @@ export const userApi = apiSlice.injectEndpoints({
       },
     }),
     updateUserInfo: builder.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data }) => ({
         url: "/user/update-info",
         method: "PUT",
         body: data,
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
         credentials: "include",
@@ -54,7 +52,7 @@ export const userApi = apiSlice.injectEndpoints({
       },
     }),
     updateUserPassword: builder.mutation({
-      query: ({ oldPassword, newPassword, refresh_token }) => ({
+      query: ({ oldPassword, newPassword }) => ({
         url: "/user/update-password",
         method: "PUT",
         body: {
@@ -62,7 +60,6 @@ export const userApi = apiSlice.injectEndpoints({
           newPassword,
         },
         headers: {
-          refresh_token,
           "Content-Type": "application/json",
         },
         credentials: "include",
