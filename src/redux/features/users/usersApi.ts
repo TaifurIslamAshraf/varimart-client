@@ -10,6 +10,7 @@ export const userApi = apiSlice.injectEndpoints({
         body: formData,
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include" as const,
       }),
@@ -34,6 +35,7 @@ export const userApi = apiSlice.injectEndpoints({
         body: data,
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include",
       }),
@@ -61,6 +63,7 @@ export const userApi = apiSlice.injectEndpoints({
         },
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include",
       }),

@@ -99,6 +99,7 @@ export const authApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Users"] as any,
@@ -111,6 +112,7 @@ export const authApi = apiSlice.injectEndpoints({
         body: data,
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include",
       }),

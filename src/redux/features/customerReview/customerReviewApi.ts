@@ -25,7 +25,8 @@ export const customerReviewApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
         headers: {
-          refresh_token: refresh_token,
+          refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include",
       }),

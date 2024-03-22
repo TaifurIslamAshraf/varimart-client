@@ -26,6 +26,7 @@ export const bannerApi = apiSlice.injectEndpoints({
         body: data,
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include",
       }),

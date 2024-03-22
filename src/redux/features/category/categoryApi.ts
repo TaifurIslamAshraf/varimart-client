@@ -23,6 +23,7 @@ export const categoryApi = apiSlice.injectEndpoints({
         body: data,
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include",
       }),
@@ -35,6 +36,7 @@ export const categoryApi = apiSlice.injectEndpoints({
         body: data,
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include",
       }),
@@ -46,6 +48,7 @@ export const categoryApi = apiSlice.injectEndpoints({
         method: "DELETE",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include",
       }),
@@ -57,6 +60,7 @@ export const categoryApi = apiSlice.injectEndpoints({
         method: "DELETE",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
         credentials: "include",
       }),

@@ -13,6 +13,7 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Orders"] as any,
@@ -43,6 +44,7 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Orders"] as any,
@@ -54,6 +56,7 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Orders"] as any,
@@ -91,6 +94,7 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Orders"] as any,
@@ -102,6 +106,7 @@ const orderApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Orders"] as any,

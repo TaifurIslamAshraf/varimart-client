@@ -11,6 +11,7 @@ const reviewApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       invalidatesTags: ["Reviews"] as any,
@@ -27,6 +28,7 @@ const reviewApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Reviews"] as any,
@@ -47,6 +49,7 @@ const reviewApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       providesTags: ["Reviews"] as any,
@@ -60,6 +63,7 @@ const reviewApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       invalidatesTags: ["Reviews"] as any,
@@ -75,6 +79,7 @@ const reviewApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       invalidatesTags: ["Reviews"] as any,

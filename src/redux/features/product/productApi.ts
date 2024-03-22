@@ -9,6 +9,7 @@ const productApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
 
@@ -23,6 +24,7 @@ const productApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
       invalidatesTags: ["Products"] as never,
@@ -34,6 +36,7 @@ const productApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
     }),
@@ -45,6 +48,7 @@ const productApi = apiSlice.injectEndpoints({
         credentials: "include",
         headers: {
           refresh_token,
+          "Content-Type": "application/json",
         },
       }),
 
