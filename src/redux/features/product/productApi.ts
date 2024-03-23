@@ -7,9 +7,6 @@ const productApi = apiSlice.injectEndpoints({
         url: "/product/stock-status",
         method: "GET",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
 
       providesTags: ["Products"] as never,
@@ -21,9 +18,6 @@ const productApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       invalidatesTags: ["Products"] as never,
     }),
@@ -32,9 +26,6 @@ const productApi = apiSlice.injectEndpoints({
         url: `/product/delete-product/${productId}`,
         method: "DELETE",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
     }),
     updateProduct: build.mutation({
@@ -43,9 +34,6 @@ const productApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
 
       invalidatesTags: ["Products"] as never,

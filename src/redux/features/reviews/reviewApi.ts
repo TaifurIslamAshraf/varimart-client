@@ -9,9 +9,6 @@ const reviewApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
@@ -25,9 +22,6 @@ const reviewApi = apiSlice.injectEndpoints({
           userId,
         },
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       providesTags: ["Reviews"] as any,
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -45,9 +39,6 @@ const reviewApi = apiSlice.injectEndpoints({
         url: "/product/all-product-reviews",
         method: "GET",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       providesTags: ["Reviews"] as any,
     }),
@@ -58,9 +49,6 @@ const reviewApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
@@ -73,9 +61,6 @@ const reviewApi = apiSlice.injectEndpoints({
           reviewId,
         },
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       invalidatesTags: ["Reviews"] as any,
     }),

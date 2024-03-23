@@ -11,9 +11,6 @@ const orderApi = apiSlice.injectEndpoints({
           userId,
         },
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       providesTags: ["Orders"] as any,
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -41,9 +38,6 @@ const orderApi = apiSlice.injectEndpoints({
         url: "/order/monthly-sales",
         method: "GET",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       providesTags: ["Orders"] as any,
     }),
@@ -52,9 +46,6 @@ const orderApi = apiSlice.injectEndpoints({
         url: "/order/order-status",
         method: "GET",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       providesTags: ["Orders"] as any,
     }),
@@ -67,10 +58,6 @@ const orderApi = apiSlice.injectEndpoints({
         },
         method: "GET",
         credentials: "include",
-        headers: {
-          refresh_token,
-          "Content-Type": "application/json",
-        },
       }),
       invalidatesTags: ["Orders"] as any,
     }),
@@ -89,9 +76,6 @@ const orderApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       providesTags: ["Orders"] as any,
     }),
@@ -100,9 +84,6 @@ const orderApi = apiSlice.injectEndpoints({
         url: `/order/delete-order/${id}`,
         method: "DELETE",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
       }),
       providesTags: ["Orders"] as any,
     }),

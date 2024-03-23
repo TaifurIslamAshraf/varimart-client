@@ -24,9 +24,7 @@ export const bannerApi = apiSlice.injectEndpoints({
         url: "/banner/create-banner",
         method: "POST",
         body: data,
-        headers: {
-          "Content-Type": "application/json",
-        },
+
         credentials: "include",
       }),
     }),
@@ -34,10 +32,6 @@ export const bannerApi = apiSlice.injectEndpoints({
       query: ({ id }) => ({
         url: `/banner/delete-banner/${id}`,
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
         credentials: "include",
       }),
     }),

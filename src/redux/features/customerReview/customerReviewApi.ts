@@ -24,9 +24,6 @@ export const customerReviewApi = apiSlice.injectEndpoints({
         url: "/review/create-customer-review",
         method: "POST",
         body: data,
-        headers: {
-          "Content-Type": "application/json",
-        },
         credentials: "include",
       }),
     }),

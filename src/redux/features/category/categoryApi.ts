@@ -21,9 +21,6 @@ export const categoryApi = apiSlice.injectEndpoints({
         url: "/category/create-category",
         method: "POST",
         body: data,
-        headers: {
-          "Content-Type": "application/json",
-        },
         credentials: "include",
       }),
     }),
@@ -33,9 +30,6 @@ export const categoryApi = apiSlice.injectEndpoints({
         url: "/subcategory/create-subcategory",
         method: "POST",
         body: data,
-        headers: {
-          "Content-Type": "application/json",
-        },
         credentials: "include",
       }),
     }),
@@ -44,10 +38,6 @@ export const categoryApi = apiSlice.injectEndpoints({
       query: ({ id }) => ({
         url: `/category/delete-category/${id}`,
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
         credentials: "include",
       }),
     }),
@@ -56,10 +46,6 @@ export const categoryApi = apiSlice.injectEndpoints({
       query: ({ id }) => ({
         url: `/subcategory/delete-subcategory/${id}`,
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
         credentials: "include",
       }),
     }),

@@ -38,7 +38,6 @@ const Navbar = async () => {
             alt="banner image"
             width={1400}
             height={100}
-            priority
           />
         ) : (
           ""

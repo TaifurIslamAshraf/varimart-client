@@ -82,6 +82,8 @@ const CreateProduct = () => {
         data: formData,
       });
 
+      console.log(formData);
+
       customRevalidateTag("getAllProducts");
     } catch (error) {
       // Handle errors

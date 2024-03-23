@@ -8,9 +8,6 @@ export const userApi = apiSlice.injectEndpoints({
         url: "/user/update-avatar",
         method: "PUT",
         body: formData,
-        headers: {
-          "Content-Type": "application/json",
-        },
         credentials: "include" as const,
       }),
 
@@ -32,9 +29,7 @@ export const userApi = apiSlice.injectEndpoints({
         url: "/user/update-info",
         method: "PUT",
         body: data,
-        headers: {
-          "Content-Type": "application/json",
-        },
+
         credentials: "include",
       }),
 
@@ -59,9 +54,7 @@ export const userApi = apiSlice.injectEndpoints({
           oldPassword,
           newPassword,
         },
-        headers: {
-          "Content-Type": "application/json",
-        },
+
         credentials: "include",
       }),
 
