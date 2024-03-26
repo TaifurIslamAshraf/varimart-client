@@ -47,8 +47,14 @@ const Category = () => {
                 }`}
               >
                 {item.subcategory.map((subItem: any) => (
-                  <li className="py-1 px-4 hover:bg-white" key={subItem._id}>
-                    <Link href={`/products?subcategory=${subItem._id}`}>
+                  <li
+                    className="py-1 px-4 hover:bg-white hover:underline"
+                    key={subItem._id}
+                  >
+                    <Link
+                      href={`/products?subcategory=${subItem._id}`}
+                      className="block"
+                    >
                       {" "}
                       {subItem.name}
                     </Link>
