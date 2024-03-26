@@ -11,7 +11,7 @@ export const apiSlice = createApi({
     refreshToken: builder.query({
       query: () => ({
         url: "/user/refresh",
-        method: "GET",
+        method: "POST",
         credentials: "include" as const,
       }),
     }),

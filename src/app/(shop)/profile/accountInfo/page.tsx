@@ -42,8 +42,10 @@ const AccountInfo = () => {
   const router = useRouter();
   const handleImage = (e: any) => {
     const avatar = e.target.files[0];
+
     const formData = new FormData();
     formData.append("avatar", avatar);
+
     updateProfile(formData);
   };
 

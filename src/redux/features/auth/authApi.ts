@@ -93,7 +93,7 @@ export const authApi = apiSlice.injectEndpoints({
       }),
     }),
     getAllUsers: build.query({
-      query: ({ refresh_token }) => ({
+      query: ({}) => ({
         url: "/user/all-users",
         method: "GET",
         credentials: "include",
@@ -102,7 +102,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     updateUserRole: build.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data }) => ({
         url: "/user/update-role",
         method: "PUT",
         body: data,
@@ -113,7 +113,7 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     getMe: build.query({
-      query: ({ refresh_token }) => ({
+      query: ({}) => ({
         url: "/user/me",
         method: "GET",
         credentials: "include",
