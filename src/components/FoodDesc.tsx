@@ -35,7 +35,9 @@ const FoodDesc: FC<Props> = ({ description }) => {
           {description?.foodDesc && (
             <>
               <h1 className="mb-2 mt-4 text-lg font-medium">Details:</h1>
-              <p>{description.foodDesc}</p>
+              <pre className="font-mono whitespace-pre-wrap">
+                {description.foodDesc}
+              </pre>
             </>
           )}
         </div>
