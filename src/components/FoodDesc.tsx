@@ -17,7 +17,7 @@ const FoodDesc: FC<Props> = ({ description }) => {
       <Separator />
       <div className="">
         <div className="">
-          {ingredients?.length > 1 && (
+          {ingredients?.length >= 1 && (
             <>
               <h2 className="mb-3 text-lg font-medium">Ingredients:</h2>
               <ul className="list-inside list-disc ml-4">
