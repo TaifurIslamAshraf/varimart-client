@@ -30,10 +30,10 @@ const Navbar = async () => {
   return (
     <div className="overflow-x-hidden">
       {/* top banner */}
-      <div className="sticky">
+      <div className="sticky hidden lg:block xl:block 2xl:block">
         {banners && banners?.banner.length > 0 ? (
           <Image
-            className="h-[50px] object-cover"
+            className="h-[50px] object-fill"
             src={topBannerImg}
             alt="banner image"
             width={1400}
