@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import {
   useGetOrderStatusQuery,
   useGetSingleOrdersQuery,
@@ -37,6 +38,7 @@ const SingleOrder: FC<Props> = ({ params }) => {
       data: { orderStatus: value },
     });
 
+    customRevalidateTag("getAllProducts");
     await refetch();
     await orderStatusRefetch();
   };

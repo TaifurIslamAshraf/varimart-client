@@ -108,6 +108,9 @@ const AllOrders: FC<Props> = () => {
                       Placed Date
                     </th>
                     <th className="border-2 border-slate-200 px-4 py-2">
+                      Delivered At
+                    </th>
+                    <th className="border-2 border-slate-200 px-4 py-2">
                       Actions
                     </th>
                   </tr>
@@ -144,6 +147,26 @@ const AllOrders: FC<Props> = () => {
                               day: "numeric",
                               year: "numeric",
                             }
+                          )}
+                        </td>
+                        <td className="border-2 border-slate-200 px-4 py-2 text-center">
+                          {item?.deliveredAt ? (
+                            <>
+                              {" "}
+                              {new Date(item.deliveredAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                }
+                              )}
+                            </>
+                          ) : (
+                            <span className="text-center">--/--</span>
                           )}
                         </td>
                         <td className="border-2 border-slate-200 px-4 py-2">

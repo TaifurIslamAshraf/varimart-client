@@ -100,8 +100,8 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
       name: product?.name ? product?.name : "",
       price: product?.price ? product?.price.toString() : "",
       discountPrice: product?.discountPrice ? product?.discountPrice : "",
-      shipping: product?.shipping ? product?.shipping.toString() : "",
-      stock: product?.stock ? product?.stock.toString() : "",
+      shipping: product?.shipping === 0 ? "0" : product?.shipping.toString(),
+      stock: product?.stock === 0 ? "0" : product?.stock.toString(),
       descriptionType: product?.descriptionType ? product?.descriptionType : "",
       category: product?.category?._id ? product?.category?._id : "",
       subcategory: product?.subcategory?._id ? product?.subcategory?._id : "",
@@ -267,7 +267,7 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
                   <FormLabel>Stock</FormLabel>
                   <FormControl>
                     <Input
-                      type="number"
+                      type="text"
                       placeholder="Enter Product Stock"
                       {...field}
                     />
@@ -285,7 +285,7 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
                   <FormLabel>Shipping Charge</FormLabel>
                   <FormControl>
                     <Input
-                      type="number"
+                      type="text"
                       placeholder="Enter Shipping Charge"
                       {...field}
                     />

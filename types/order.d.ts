@@ -23,7 +23,7 @@ export type IOrders = {
   shippingPrice: string;
   totalAmount: string;
   createdAt: Date;
-
+  deliveredAt?: Date;
   updatedAt: Date;
 };
 
