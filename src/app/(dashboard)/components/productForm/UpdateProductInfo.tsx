@@ -98,10 +98,10 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
   const form = useForm({
     defaultValues: {
       name: product?.name ? product?.name : "",
-      price: product?.price ? product?.price.toString() : "",
+      price: product?.price ? product?.price?.toString() : "",
       discountPrice: product?.discountPrice ? product?.discountPrice : "",
-      shipping: product?.shipping === 0 ? "0" : product?.shipping.toString(),
-      stock: product?.stock === 0 ? "0" : product?.stock.toString(),
+      shipping: product?.shipping === 0 ? "0" : product?.shipping?.toString(),
+      stock: product?.stock === 0 ? "0" : product?.stock?.toString(),
       descriptionType: product?.descriptionType ? product?.descriptionType : "",
       category: product?.category?._id ? product?.category?._id : "",
       subcategory: product?.subcategory?._id ? product?.subcategory?._id : "",
