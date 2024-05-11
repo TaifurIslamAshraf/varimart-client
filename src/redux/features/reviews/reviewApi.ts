@@ -3,21 +3,33 @@ import { getProductReviews } from "./reviewSlice";
 
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
+<<<<<<< HEAD
     createReview: build.mutation({
       query: ({ data, accessToken }) => ({
+=======
+    createProductReview: build.mutation({
+      query: ({ data }) => ({
+>>>>>>> origin/production-version
         url: "/product/create-review",
         method: "PUT",
         body: data,
         credentials: "include",
+<<<<<<< HEAD
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+>>>>>>> origin/production-version
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
 
     getReviews: build.query({
+<<<<<<< HEAD
       query: ({ productId, userId, accessToken }) => ({
+=======
+      query: ({ productId, userId }) => ({
+>>>>>>> origin/production-version
         url: "/product/all-reviews",
         method: "GET",
         params: {
@@ -25,9 +37,12 @@ const reviewApi = apiSlice.injectEndpoints({
           userId,
         },
         credentials: "include",
+<<<<<<< HEAD
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+>>>>>>> origin/production-version
       }),
       providesTags: ["Reviews"] as any,
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -41,6 +56,7 @@ const reviewApi = apiSlice.injectEndpoints({
     }),
 
     getAllProductReviews: build.query({
+<<<<<<< HEAD
       query: ({ accessToken }) => ({
         url: "/product/all-product-reviews",
         method: "GET",
@@ -48,24 +64,41 @@ const reviewApi = apiSlice.injectEndpoints({
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: ({}) => ({
+        url: "/product/all-product-reviews",
+        method: "GET",
+        credentials: "include",
+>>>>>>> origin/production-version
       }),
       providesTags: ["Reviews"] as any,
     }),
 
     updateReviewStatus: build.mutation({
+<<<<<<< HEAD
       query: ({ data, accessToken }) => ({
+=======
+      query: ({ data }) => ({
+>>>>>>> origin/production-version
         url: "/product/update-review-status",
         method: "PUT",
         body: data,
         credentials: "include",
+<<<<<<< HEAD
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+>>>>>>> origin/production-version
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
     deleteReview: build.mutation({
+<<<<<<< HEAD
       query: ({ reviewId, productId, accessToken }) => ({
+=======
+      query: ({ reviewId, productId }) => ({
+>>>>>>> origin/production-version
         url: `/product/delete-review`,
         method: "DELETE",
         body: {
@@ -73,9 +106,12 @@ const reviewApi = apiSlice.injectEndpoints({
           reviewId,
         },
         credentials: "include",
+<<<<<<< HEAD
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+>>>>>>> origin/production-version
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
@@ -83,7 +119,7 @@ const reviewApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useCreateReviewMutation,
+  useCreateProductReviewMutation,
   useGetReviewsQuery,
   useUpdateReviewStatusMutation,
   useGetAllProductReviewsQuery,

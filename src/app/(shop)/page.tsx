@@ -3,7 +3,6 @@ import Category from "@/components/Category";
 import CustomerReview from "@/components/CustomerReview";
 import MixProdcts from "@/components/MixProdcts";
 import SoldProducts from "@/components/SoldProducts";
-import YoutubePlaylist from "@/components/YoutubePlaylist";
 import BannerSlider from "@/components/bannerSlider";
 import { cn } from "@/lib/utils";
 
@@ -45,7 +44,7 @@ export default async function Home() {
         </h1>
         <CustomerReview />
       </div>
-      <YoutubePlaylist />
+      {/* <YoutubePlaylist /> */}
     </main>
   );
 }

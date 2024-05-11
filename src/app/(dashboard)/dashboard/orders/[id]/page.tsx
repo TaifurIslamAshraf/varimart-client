@@ -10,12 +10,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import {
   useGetOrderStatusQuery,
   useGetSingleOrdersQuery,
   useUpdateOrderStatusMutation,
 } from "@/redux/features/orders/orderApi";
-import { useSession } from "next-auth/react";
 import { FC, useEffect } from "react";
 import toast from "react-hot-toast";
 
@@ -26,7 +26,6 @@ type Props = {
 const SingleOrder: FC<Props> = ({ params }) => {
   const { isLoading, data, refetch } = useGetSingleOrdersQuery(params.id);
   const { refetch: orderStatusRefetch } = useGetOrderStatusQuery({});
-  const session = useSession();
 
   const [
     updateOrderStatus,
@@ -37,9 +36,13 @@ const SingleOrder: FC<Props> = ({ params }) => {
     await updateOrderStatus({
       id: params.id,
       data: { orderStatus: value },
+<<<<<<< HEAD
       accessToken: session?.data?.accessToken,
+=======
+>>>>>>> origin/production-version
     });
 
+    customRevalidateTag("getAllProducts");
     await refetch();
     await orderStatusRefetch();
   };

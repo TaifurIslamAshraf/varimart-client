@@ -15,50 +15,42 @@ import { LoadingButton } from "@/components/LoaderButton";
 import { cn, serverUrl } from "@/lib/utils";
 
 import ComponentLoader from "@/components/ComponentLoader";
-import { useGetMeQuery } from "@/redux/features/auth/authApi";
 import {
   useUpdateProfileMutation,
   useUpdateUserInfoMutation,
 } from "@/redux/features/users/usersApi";
 import { Camera, Loader2 } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const AccountInfo = () => {
+  const { user } = useSelector((state: any) => state.auth);
   const [fullName, setfullName] = useState<string>();
   const [phone, setPhone] = useState<string>();
   const [address, setAddress] = useState<string>();
   const [isMounded, setIsMounted] = useState(false);
-  const session = useSession();
+
   const [updateProfile, { isSuccess, error, isLoading, data }] =
     useUpdateProfileMutation();
   const [
     updateUserInfo,
     { isSuccess: nameIsSuccess, isLoading: nameIsLoading, data: nameData },
   ] = useUpdateUserInfoMutation();
-  const { data: user, refetch } = useGetMeQuery({
-    refresh_token: session?.data?.refreshToken,
-  });
 
   const router = useRouter();
-  const handleImage = async (e: any) => {
+  const handleImage = (e: any) => {
     const avatar = e.target.files[0];
+
     const formData = new FormData();
     formData.append("avatar", avatar);
-    await updateProfile({
-      formData,
-      refresh_token: session?.data?.refreshToken,
-    });
-    await refetch();
+
+    updateProfile(formData);
   };
 
   const handleName = async () => {
-    await updateUserInfo({
-      data: { fullName, phone, address },
-      refresh_token: session?.data?.refreshToken,
-    });
+    await updateUserInfo({ fullName, phone, address });
   };
 
   useEffect(() => {
@@ -81,10 +73,10 @@ const AccountInfo = () => {
     setIsMounted(true);
 
     //initialize user info
-    setfullName(user?.user?.fullName && user?.user?.fullName);
-    setPhone(user?.user?.phone && user?.user?.phone);
-    setAddress(user?.user?.address && user?.user?.address);
-  }, [user?.user?.address, user?.user?.fullName, user?.user?.phone]);
+    setfullName(user?.fullName && user.fullName);
+    setPhone(user?.phone && user.phone);
+    setAddress(user?.address && user.address);
+  }, [user.address, user.fullName, user.phone]);
 
   if (!isMounded) {
     return <ComponentLoader />;
@@ -101,8 +93,8 @@ const AccountInfo = () => {
                 isLoading ? "blur-md" : ""
               )}
               src={
-                user?.user?.avatar
-                  ? `${serverUrl}/${user?.user?.avatar}`
+                user?.avatar
+                  ? `${serverUrl}/${user.avatar}`
                   : "/default-avater.jpg"
               }
               alt="default avater"
@@ -144,11 +136,7 @@ const AccountInfo = () => {
           </div>
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
-            <Input
-              defaultValue={session?.data?.user?.email}
-              readOnly
-              disabled
-            />
+            <Input defaultValue={user?.email} readOnly disabled />
           </div>
           <div className="space-y-1">
             <Label htmlFor="phone">Phone Number</Label>

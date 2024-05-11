@@ -28,7 +28,7 @@ import {
 } from "@/redux/features/cart/cartApi";
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { useUpdateProductMutation } from "@/redux/features/product/productApi";
-import { useSession } from "next-auth/react";
+
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -43,7 +43,6 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
   const [subcategory, setSubcategory] = useState<any[] | null>(null);
   const [images, setImages] = useState<FileList | null>(null);
   const router = useRouter();
-  const session = useSession();
 
   //redux state
   const { refetch } = useGetCartItemQuery({});
@@ -99,10 +98,10 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
   const form = useForm({
     defaultValues: {
       name: product?.name ? product?.name : "",
-      price: product?.price ? product?.price.toString() : "",
+      price: product?.price ? product?.price?.toString() : "",
       discountPrice: product?.discountPrice ? product?.discountPrice : "",
-      shipping: product?.shipping ? product?.shipping.toString() : "",
-      stock: product?.stock ? product?.stock.toString() : "",
+      shipping: product?.shipping === 0 ? "0" : product?.shipping?.toString(),
+      stock: product?.stock === 0 ? "0" : product?.stock?.toString(),
       descriptionType: product?.descriptionType ? product?.descriptionType : "",
       category: product?.category?._id ? product?.category?._id : "",
       subcategory: product?.subcategory?._id ? product?.subcategory?._id : "",
@@ -165,7 +164,10 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
 
       await updateProduct({
         data: formData,
+<<<<<<< HEAD
         accessToken: session?.data?.accessToken,
+=======
+>>>>>>> origin/production-version
       });
 
       customRevalidateTag("getAllProducts");
@@ -269,7 +271,7 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
                   <FormLabel>Stock</FormLabel>
                   <FormControl>
                     <Input
-                      type="number"
+                      type="text"
                       placeholder="Enter Product Stock"
                       {...field}
                     />
@@ -287,7 +289,7 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
                   <FormLabel>Shipping Charge</FormLabel>
                   <FormControl>
                     <Input
-                      type="number"
+                      type="text"
                       placeholder="Enter Shipping Charge"
                       {...field}
                     />

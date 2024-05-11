@@ -4,16 +4,19 @@ import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import { Pie } from "react-chartjs-2";
 
 import { useGetOrderStatusQuery } from "@/redux/features/orders/orderApi";
-import { useSession } from "next-auth/react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const OrderChart = () => {
+<<<<<<< HEAD
   const session = useSession();
 
   const { data } = useGetOrderStatusQuery({
     accessToken: session.data?.accessToken,
   });
+=======
+  const { data } = useGetOrderStatusQuery({});
+>>>>>>> origin/production-version
 
   const pieData = {
     labels: [

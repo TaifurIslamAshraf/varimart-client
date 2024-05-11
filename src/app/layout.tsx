@@ -1,4 +1,3 @@
-import AuthProvider from "@/lib/AuthProvider";
 import ReduxProvider from "@/lib/ReduxProvider";
 import { allkeywords, descriptionShop } from "@/lib/contstens";
 import { cn } from "@/lib/utils";
@@ -26,14 +25,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cn(poppins.className, "w-full")}>
-        <AuthProvider>
-          <ReduxProvider>
-            <div className="max-w-[1400px] mx-auto">
-              {children}
-              <Toaster position="top-center" reverseOrder={false} />
-            </div>
-          </ReduxProvider>
-        </AuthProvider>
+        <ReduxProvider>
+          <div className="max-w-[1400px] mx-auto">
+            {children}
+            <Toaster position="top-center" reverseOrder={false} />
+          </div>
+        </ReduxProvider>
       </body>
     </html>
   );

@@ -4,6 +4,7 @@ import { updateUser } from "../auth/authSlice";
 export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     updateProfile: builder.mutation({
+<<<<<<< HEAD
       query: ({ formData, accessToken }) => ({
         url: "/user/update-avatar",
         method: "PUT",
@@ -11,6 +12,12 @@ export const userApi = apiSlice.injectEndpoints({
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: (formData) => ({
+        url: "/user/update-avatar",
+        method: "PUT",
+        body: formData,
+>>>>>>> origin/production-version
         credentials: "include" as const,
       }),
 
@@ -28,6 +35,7 @@ export const userApi = apiSlice.injectEndpoints({
       },
     }),
     updateUserInfo: builder.mutation({
+<<<<<<< HEAD
       query: ({ data, accessToken }) => ({
         url: "/user/update-info",
         method: "PUT",
@@ -35,6 +43,13 @@ export const userApi = apiSlice.injectEndpoints({
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: (data) => ({
+        url: "/user/update-info",
+        method: "PUT",
+        body: data,
+
+>>>>>>> origin/production-version
         credentials: "include",
       }),
 
@@ -52,16 +67,24 @@ export const userApi = apiSlice.injectEndpoints({
       },
     }),
     updateUserPassword: builder.mutation({
+<<<<<<< HEAD
       query: ({ oldPassword, newPassword, accessToken }) => ({
+=======
+      query: ({ oldPassword, newPassword }) => ({
+>>>>>>> origin/production-version
         url: "/user/update-password",
         method: "PUT",
         body: {
           oldPassword,
           newPassword,
         },
+<<<<<<< HEAD
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+
+>>>>>>> origin/production-version
         credentials: "include",
       }),
 

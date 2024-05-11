@@ -4,16 +4,23 @@ import { getUserOrders } from "./orderSlice";
 const orderApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getOrder: build.query({
+<<<<<<< HEAD
       query: ({ userId, accessToken }) => ({
+=======
+      query: ({ userId }) => ({
+>>>>>>> origin/production-version
         url: "/order/user-orders",
         method: "GET",
         params: {
           userId,
         },
         credentials: "include",
+<<<<<<< HEAD
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+>>>>>>> origin/production-version
       }),
       providesTags: ["Orders"] as any,
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
@@ -37,6 +44,7 @@ const orderApi = apiSlice.injectEndpoints({
     }),
 
     getSalesReport: build.query({
+<<<<<<< HEAD
       query: ({ accessToken }) => ({
         url: "/order/monthly-sales",
         method: "GET",
@@ -44,10 +52,17 @@ const orderApi = apiSlice.injectEndpoints({
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: ({}) => ({
+        url: "/order/monthly-sales",
+        method: "GET",
+        credentials: "include",
+>>>>>>> origin/production-version
       }),
       providesTags: ["Orders"] as any,
     }),
     getOrderStatus: build.query({
+<<<<<<< HEAD
       query: ({ accessToken }) => ({
         url: "/order/order-status",
         method: "GET",
@@ -55,6 +70,12 @@ const orderApi = apiSlice.injectEndpoints({
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: ({}) => ({
+        url: "/order/order-status",
+        method: "GET",
+        credentials: "include",
+>>>>>>> origin/production-version
       }),
       providesTags: ["Orders"] as any,
     }),
@@ -67,10 +88,13 @@ const orderApi = apiSlice.injectEndpoints({
         },
         method: "GET",
         credentials: "include",
+<<<<<<< HEAD
         headers: {
           authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
+=======
+>>>>>>> origin/production-version
       }),
       invalidatesTags: ["Orders"] as any,
     }),
@@ -84,18 +108,26 @@ const orderApi = apiSlice.injectEndpoints({
       providesTags: ["Orders"] as any,
     }),
     updateOrderStatus: build.mutation({
+<<<<<<< HEAD
       query: ({ id, data, accessToken }) => ({
+=======
+      query: ({ id, data }) => ({
+>>>>>>> origin/production-version
         url: `/order/update-order-status/${id}`,
         method: "PUT",
         body: data,
         credentials: "include",
+<<<<<<< HEAD
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+>>>>>>> origin/production-version
       }),
       providesTags: ["Orders"] as any,
     }),
     deleteOrder: build.mutation({
+<<<<<<< HEAD
       query: ({ id, accessToken }) => ({
         url: `/order/delete-order/${id}`,
         method: "DELETE",
@@ -103,6 +135,12 @@ const orderApi = apiSlice.injectEndpoints({
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: ({ id }) => ({
+        url: `/order/delete-order/${id}`,
+        method: "DELETE",
+        credentials: "include",
+>>>>>>> origin/production-version
       }),
       providesTags: ["Orders"] as any,
     }),

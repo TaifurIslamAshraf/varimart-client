@@ -17,6 +17,7 @@ export const categoryApi = apiSlice.injectEndpoints({
     }),
 
     createCategory: build.mutation({
+<<<<<<< HEAD
       query: ({ data, accessToken }) => ({
         url: "/category/create-category",
         method: "POST",
@@ -24,11 +25,18 @@ export const categoryApi = apiSlice.injectEndpoints({
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: ({ data }) => ({
+        url: "/category/create-category",
+        method: "POST",
+        body: data,
+>>>>>>> origin/production-version
         credentials: "include",
       }),
     }),
 
     createSubcategory: build.mutation({
+<<<<<<< HEAD
       query: ({ data, accessToken }) => ({
         url: "/subcategory/create-subcategory",
         method: "POST",
@@ -36,28 +44,46 @@ export const categoryApi = apiSlice.injectEndpoints({
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: ({ data }) => ({
+        url: "/subcategory/create-subcategory",
+        method: "POST",
+        body: data,
+>>>>>>> origin/production-version
         credentials: "include",
       }),
     }),
 
     deleteCategory: build.mutation({
+<<<<<<< HEAD
       query: ({ id, accessToken }) => ({
         url: `/category/delete-category/${id}`,
         method: "DELETE",
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: ({ id }) => ({
+        url: `/category/delete-category/${id}`,
+        method: "DELETE",
+>>>>>>> origin/production-version
         credentials: "include",
       }),
     }),
 
     deleteSubcategory: build.mutation({
+<<<<<<< HEAD
       query: ({ id, accessToken }) => ({
         url: `/subcategory/delete-subcategory/${id}`,
         method: "DELETE",
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
+=======
+      query: ({ id }) => ({
+        url: `/subcategory/delete-subcategory/${id}`,
+        method: "DELETE",
+>>>>>>> origin/production-version
         credentials: "include",
       }),
     }),

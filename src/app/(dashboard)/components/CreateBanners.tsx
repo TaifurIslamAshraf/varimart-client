@@ -21,7 +21,6 @@ import { cn } from "@/lib/utils";
 import { useCreateBannerMutation } from "@/redux/features/banners/bannerApi";
 import { useGetAllCategoryQuery } from "@/redux/features/category/categoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
@@ -30,7 +29,6 @@ import { z } from "zod";
 
 const CreateBanners = () => {
   const [subcategory, setSubcategory] = useState<any[] | null>([]);
-  const session = useSession();
 
   const [createBanner, { isLoading, isSuccess, error }] =
     useCreateBannerMutation();
@@ -76,7 +74,10 @@ const CreateBanners = () => {
     }
     await createBanner({
       data: formData,
+<<<<<<< HEAD
       accessToken: session?.data?.accessToken,
+=======
+>>>>>>> origin/production-version
     });
     customRevalidateTag("Banner");
   };

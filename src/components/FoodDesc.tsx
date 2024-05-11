@@ -17,7 +17,7 @@ const FoodDesc: FC<Props> = ({ description }) => {
       <Separator />
       <div className="">
         <div className="">
-          {ingredients?.length > 1 && (
+          {ingredients?.length >= 1 && (
             <>
               <h2 className="mb-3 text-lg font-medium">Ingredients:</h2>
               <ul className="list-inside list-disc ml-4">
@@ -35,7 +35,9 @@ const FoodDesc: FC<Props> = ({ description }) => {
           {description?.foodDesc && (
             <>
               <h1 className="mb-2 mt-4 text-lg font-medium">Details:</h1>
-              <p>{description.foodDesc}</p>
+              <pre className="font-mono whitespace-pre-wrap">
+                {description.foodDesc}
+              </pre>
             </>
           )}
         </div>

@@ -24,7 +24,6 @@ import {
   useGetOrderStatusQuery,
 } from "@/redux/features/orders/orderApi";
 import { ListOrdered, Receipt } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -48,8 +47,7 @@ const ByNowCheckout = () => {
   const [createOrder, { isLoading, error, isError, isSuccess }] =
     useCreateOrderMutation();
   const { refetch } = useGetOrderStatusQuery({});
-  const session = useSession();
-  const user = session?.data?.user;
+  const { user } = useSelector((state: any) => state.auth);
   const { buyNowItem } = useSelector((state: any) => state.cart);
 
   const totalAmount =
@@ -112,7 +110,7 @@ const ByNowCheckout = () => {
       className={cn(
         styles.paddingX,
         styles.paddingY,
-        "max-w-[1200px] w-full mx-auto"
+        " max-w-[1200px] w-full mx-auto"
       )}
     >
       <div className="">
