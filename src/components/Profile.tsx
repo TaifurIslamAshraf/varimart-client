@@ -12,7 +12,8 @@ import defaultAvater from "../../public/default-avater.jpg";
 
 const Profile = () => {
   const session = useSession();
-  const {} = useGetMeQuery({ refresh_token: session?.data?.refreshToken });
+
+  const {} = useGetMeQuery({ accessToken: session?.data?.accessToken });
   const { user } = useSelector((state: any) => state.auth);
 
   return (

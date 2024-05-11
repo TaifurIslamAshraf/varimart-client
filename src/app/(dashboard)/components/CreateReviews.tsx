@@ -31,7 +31,7 @@ const CreateReviews = () => {
         formData.append("image", file);
         await createReview({
           data: formData,
-          refresh_token: session?.data?.refreshToken,
+          accessToken: session?.data?.accessToken,
         });
         customRevalidateTag("customerReview");
       },

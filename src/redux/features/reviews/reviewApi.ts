@@ -4,20 +4,20 @@ import { getProductReviews } from "./reviewSlice";
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     createReview: build.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data, accessToken }) => ({
         url: "/product/create-review",
         method: "PUT",
         body: data,
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
 
     getReviews: build.query({
-      query: ({ productId, userId, refresh_token }) => ({
+      query: ({ productId, userId, accessToken }) => ({
         url: "/product/all-reviews",
         method: "GET",
         params: {
@@ -26,7 +26,7 @@ const reviewApi = apiSlice.injectEndpoints({
         },
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       providesTags: ["Reviews"] as any,
@@ -41,31 +41,31 @@ const reviewApi = apiSlice.injectEndpoints({
     }),
 
     getAllProductReviews: build.query({
-      query: ({ refresh_token }) => ({
+      query: ({ accessToken }) => ({
         url: "/product/all-product-reviews",
         method: "GET",
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       providesTags: ["Reviews"] as any,
     }),
 
     updateReviewStatus: build.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data, accessToken }) => ({
         url: "/product/update-review-status",
         method: "PUT",
         body: data,
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       invalidatesTags: ["Reviews"] as any,
     }),
     deleteReview: build.mutation({
-      query: ({ reviewId, productId, refresh_token }) => ({
+      query: ({ reviewId, productId, accessToken }) => ({
         url: `/product/delete-review`,
         method: "DELETE",
         body: {
@@ -74,7 +74,7 @@ const reviewApi = apiSlice.injectEndpoints({
         },
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       invalidatesTags: ["Reviews"] as any,

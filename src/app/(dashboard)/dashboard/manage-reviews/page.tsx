@@ -29,7 +29,7 @@ const ManageReviews = () => {
   const session = useSession();
 
   const { data } = useGetAllProductReviewsQuery({
-    refresh_token: session?.data?.refreshToken,
+    accessToken: session?.data?.accessToken,
   });
   const [updateReviewStatus, { isSuccess, error }] =
     useUpdateReviewStatusMutation();
@@ -57,7 +57,7 @@ const ManageReviews = () => {
     };
     await updateReviewStatus({
       data,
-      refresh_token: session?.data?.refreshToken,
+      accessToken: session?.data?.accessToken,
     });
     customRevalidateTag("getSingleProduct");
     customRevalidateTag("getAllProducts");
@@ -67,7 +67,7 @@ const ManageReviews = () => {
     await deleteReview({
       reviewId,
       productId,
-      refresh_token: session?.data?.refreshToken,
+      accessToken: session?.data?.accessToken,
     });
     customRevalidateTag("getSingleProduct");
     customRevalidateTag("getAllProducts");

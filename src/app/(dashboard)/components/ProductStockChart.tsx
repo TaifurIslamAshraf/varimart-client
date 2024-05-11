@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const ProductStockChart = () => {
   const session = useSession();
   const { data } = useGetStockStatusQuery({
-    refresh_token: session?.data?.refreshToken,
+    accessToken: session?.data?.accessToken,
   });
 
   const doughnutData = {

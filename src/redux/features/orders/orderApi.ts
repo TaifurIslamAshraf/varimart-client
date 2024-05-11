@@ -4,7 +4,7 @@ import { getUserOrders } from "./orderSlice";
 const orderApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getOrder: build.query({
-      query: ({ userId, refresh_token }) => ({
+      query: ({ userId, accessToken }) => ({
         url: "/order/user-orders",
         method: "GET",
         params: {
@@ -12,7 +12,7 @@ const orderApi = apiSlice.injectEndpoints({
         },
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       providesTags: ["Orders"] as any,
@@ -37,29 +37,29 @@ const orderApi = apiSlice.injectEndpoints({
     }),
 
     getSalesReport: build.query({
-      query: ({ refresh_token }) => ({
+      query: ({ accessToken }) => ({
         url: "/order/monthly-sales",
         method: "GET",
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       providesTags: ["Orders"] as any,
     }),
     getOrderStatus: build.query({
-      query: ({ refresh_token }) => ({
+      query: ({ accessToken }) => ({
         url: "/order/order-status",
         method: "GET",
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       providesTags: ["Orders"] as any,
     }),
     getAllOrders: build.query({
-      query: ({ orderStatus, page, refresh_token }) => ({
+      query: ({ orderStatus, page, accessToken }) => ({
         url: "/order/all-orders",
         params: {
           orderStatus,
@@ -68,7 +68,7 @@ const orderApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
       }),
@@ -84,24 +84,24 @@ const orderApi = apiSlice.injectEndpoints({
       providesTags: ["Orders"] as any,
     }),
     updateOrderStatus: build.mutation({
-      query: ({ id, data, refresh_token }) => ({
+      query: ({ id, data, accessToken }) => ({
         url: `/order/update-order-status/${id}`,
         method: "PUT",
         body: data,
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       providesTags: ["Orders"] as any,
     }),
     deleteOrder: build.mutation({
-      query: ({ id, refresh_token }) => ({
+      query: ({ id, accessToken }) => ({
         url: `/order/delete-order/${id}`,
         method: "DELETE",
         credentials: "include",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
       }),
       providesTags: ["Orders"] as any,

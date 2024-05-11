@@ -38,7 +38,7 @@ export const authOptions: AuthOptions = {
 
         const user = await res.json();
         if (
-          res.status === 400 ||
+          res.status === 401 ||
           res.status === 404 ||
           user?.success === false
         ) {
@@ -67,7 +67,7 @@ export const authOptions: AuthOptions = {
         method: "POST",
         credentials: "include",
         headers: {
-          refresh_token: token.refreshToken,
+          authorization: `Refresh ${token.refreshToken}`,
         },
       });
 

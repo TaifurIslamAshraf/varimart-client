@@ -81,7 +81,7 @@ const CreateProduct = () => {
 
       await createProduct({
         data: formData,
-        refresh_token: session?.data?.refreshToken,
+        accessToken: session?.data?.accessToken,
       });
 
       customRevalidateTag("getAllProducts");

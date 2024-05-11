@@ -48,11 +48,11 @@ const CategorySubcategory = () => {
   };
 
   const handleDeleteCategory = async (id: string) => {
-    await deleteCategory({ id, refresh_token: session?.data?.refreshToken });
+    await deleteCategory({ id, accessToken: session?.data?.accessToken });
     await refetch();
   };
   const handleDeletesubCategory = async (id: string) => {
-    await deletesubCategory({ id, refresh_token: session?.data?.refreshToken });
+    await deletesubCategory({ id, accessToken: session?.data?.accessToken });
     await refetch();
   };
 

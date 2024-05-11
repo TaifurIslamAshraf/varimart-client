@@ -35,7 +35,7 @@ const AllOrders: FC<Props> = () => {
   const { isLoading, data, refetch } = useGetAllOrdersQuery({
     orderStatus: params.get("orderStatus") || "",
     page: params.get("page") || "",
-    refresh_token: session?.data?.refreshToken,
+    accessToken: session?.data?.accessToken,
   });
 
   const createQueryString = useCallback(

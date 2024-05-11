@@ -20,22 +20,22 @@ export const bannerApi = apiSlice.injectEndpoints({
     }),
 
     createBanner: build.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data, accessToken }) => ({
         url: "/banner/create-banner",
         method: "POST",
         body: data,
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
         credentials: "include",
       }),
     }),
     deleteBanner: build.mutation({
-      query: ({ id, refresh_token }) => ({
+      query: ({ id, accessToken }) => ({
         url: `/banner/delete-banner/${id}`,
         method: "DELETE",
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
         credentials: "include",
       }),

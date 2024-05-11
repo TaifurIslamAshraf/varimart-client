@@ -18,7 +18,7 @@ const ReviewDeleteBtn: FC<Props> = ({ id }) => {
   const handleCustomerReviewDelete = async (reviewId: string) => {
     const data = await deleteCustomerReview(
       reviewId,
-      session?.data?.refreshToken!
+      session?.data?.accessToken!
     );
 
     if (data?.success) {

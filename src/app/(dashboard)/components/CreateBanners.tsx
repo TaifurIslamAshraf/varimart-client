@@ -76,7 +76,7 @@ const CreateBanners = () => {
     }
     await createBanner({
       data: formData,
-      refresh_token: session?.data?.refreshToken,
+      accessToken: session?.data?.accessToken,
     });
     customRevalidateTag("Banner");
   };

@@ -37,7 +37,7 @@ const SingleOrder: FC<Props> = ({ params }) => {
     await updateOrderStatus({
       id: params.id,
       data: { orderStatus: value },
-      refresh_token: session?.data?.refreshToken,
+      accessToken: session?.data?.accessToken,
     });
 
     await refetch();

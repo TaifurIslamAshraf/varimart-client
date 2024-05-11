@@ -34,7 +34,7 @@ const Users = () => {
   const session = useSession();
 
   const { isLoading, data } = useGetAllUsersQuery({
-    refresh_token: session?.data?.refreshToken,
+    accessToken: session?.data?.accessToken,
   });
   const [updateUserRole, { isSuccess, error }] = useUpdateUserRoleMutation();
 
@@ -44,7 +44,7 @@ const Users = () => {
         userId: userId,
         role: value,
       },
-      refresh_token: session?.data?.refreshToken,
+      accessToken: session?.data?.accessToken,
     });
   };
 

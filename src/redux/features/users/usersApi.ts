@@ -4,12 +4,12 @@ import { updateUser } from "../auth/authSlice";
 export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     updateProfile: builder.mutation({
-      query: ({ formData, refresh_token }) => ({
+      query: ({ formData, accessToken }) => ({
         url: "/user/update-avatar",
         method: "PUT",
         body: formData,
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
         credentials: "include" as const,
       }),
@@ -28,12 +28,12 @@ export const userApi = apiSlice.injectEndpoints({
       },
     }),
     updateUserInfo: builder.mutation({
-      query: ({ data, refresh_token }) => ({
+      query: ({ data, accessToken }) => ({
         url: "/user/update-info",
         method: "PUT",
         body: data,
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
         credentials: "include",
       }),
@@ -52,7 +52,7 @@ export const userApi = apiSlice.injectEndpoints({
       },
     }),
     updateUserPassword: builder.mutation({
-      query: ({ oldPassword, newPassword, refresh_token }) => ({
+      query: ({ oldPassword, newPassword, accessToken }) => ({
         url: "/user/update-password",
         method: "PUT",
         body: {
@@ -60,7 +60,7 @@ export const userApi = apiSlice.injectEndpoints({
           newPassword,
         },
         headers: {
-          refresh_token,
+          authorization: `Bearer ${accessToken}`,
         },
         credentials: "include",
       }),
