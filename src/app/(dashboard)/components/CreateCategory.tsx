@@ -44,7 +44,7 @@ const CreateCategory = () => {
   ) => {
     await createCategory({
       data: value,
-      accessToken: session?.data?.accessToken,
+      refresh_token: session?.data?.refreshToken,
     });
     await refetch();
   };

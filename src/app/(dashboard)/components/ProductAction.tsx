@@ -27,7 +27,7 @@ const ProductAction: FC<Props> = ({ product }) => {
     const productId = product?._id;
     await deleteProduct({
       productId: productId,
-      accessToken: session?.data?.accessToken,
+      refresh_token: session?.data?.refreshToken,
     });
 
     customRevalidateTag("getAllProducts");

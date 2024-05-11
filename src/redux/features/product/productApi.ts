@@ -3,12 +3,12 @@ import { apiSlice } from "../apiSlice/apiSlice";
 const productApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getStockStatus: build.query({
-      query: ({ accessToken }) => ({
+      query: ({ refresh_token }) => ({
         url: "/product/stock-status",
         method: "GET",
         credentials: "include",
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          refresh_token,
         },
       }),
 
@@ -16,35 +16,35 @@ const productApi = apiSlice.injectEndpoints({
     }),
 
     createProduct: build.mutation({
-      query: ({ data, accessToken }) => ({
+      query: ({ data, refresh_token }) => ({
         url: "/product/create-product",
         method: "POST",
         body: data,
         credentials: "include",
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          refresh_token,
         },
       }),
       invalidatesTags: ["Products"] as never,
     }),
     deleteProduct: build.mutation({
-      query: ({ productId, accessToken }) => ({
+      query: ({ productId, refresh_token }) => ({
         url: `/product/delete-product/${productId}`,
         method: "DELETE",
         credentials: "include",
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          refresh_token,
         },
       }),
     }),
     updateProduct: build.mutation({
-      query: ({ data, accessToken }) => ({
+      query: ({ data, refresh_token }) => ({
         url: `product/update-product`,
         method: "PUT",
         body: data,
         credentials: "include",
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          refresh_token,
         },
       }),
 

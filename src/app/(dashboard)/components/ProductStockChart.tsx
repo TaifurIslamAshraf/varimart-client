@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const ProductStockChart = () => {
   const session = useSession();
   const { data } = useGetStockStatusQuery({
-    accessToken: session?.data?.accessToken,
+    refresh_token: session?.data?.refreshToken,
   });
   const { data } = useGetStockStatusQuery({});
 

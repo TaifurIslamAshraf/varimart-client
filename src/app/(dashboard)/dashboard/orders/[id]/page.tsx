@@ -38,7 +38,7 @@ const SingleOrder: FC<Props> = ({ params }) => {
     await updateOrderStatus({
       id: params.id,
       data: { orderStatus: value },
-      accessToken: session?.data?.accessToken,
+      refresh_token: session?.data?.refreshToken,
     });
 
     customRevalidateTag("getAllProducts");

@@ -93,24 +93,24 @@ export const authApi = apiSlice.injectEndpoints({
       }),
     }),
     getAllUsers: build.query({
-      query: ({ accessToken }) => ({
+      query: ({ refresh_token }) => ({
         url: "/user/all-users",
         method: "GET",
         credentials: "include",
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          refresh_token,
         },
       }),
       providesTags: ["Users"] as any,
     }),
 
     updateUserRole: build.mutation({
-      query: ({ data, accessToken }) => ({
+      query: ({ data, refresh_token }) => ({
         url: "/user/update-role",
         method: "PUT",
         body: data,
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          refresh_token,
         },
         credentials: "include",
       }),
@@ -118,11 +118,11 @@ export const authApi = apiSlice.injectEndpoints({
     }),
 
     getMe: build.query({
-      query: ({ accessToken }) => ({
+      query: ({ refresh_token }) => ({
         url: "/user/me",
         method: "GET",
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          refresh_token,
         },
         credentials: "include",
       }),

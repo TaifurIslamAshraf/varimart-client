@@ -26,7 +26,7 @@ const OrderAction: FC<Props> = ({ id }) => {
   const handleDeleteOrder = async (orderId: string) => {
     await deleteOrder({
       id: orderId,
-      accessToken: session?.data?.accessToken,
+      refresh_token: session?.data?.refreshToken,
     });
     await refetch();
     await orderStatusRefetch();

@@ -48,16 +48,20 @@ const CategorySubcategory = () => {
   };
 
   const handleDeleteCategory = async (id: string) => {
-    await deleteCategory({ id, accessToken: session?.data?.accessToken });
+    await deleteCategory({ id, refresh_token: session?.data?.refreshToken });
     await refetch();
   };
   const handleDeletesubCategory = async (id: string) => {
+<<<<<<< HEAD
     await deletesubCategory({ id, accessToken: session?.data?.accessToken });
     await deleteCategory({ id });
     await refetch();
   };
   const handleDeletesubCategory = async (id: string) => {
     await deletesubCategory({ id });
+=======
+    await deletesubCategory({ id, refresh_token: session?.data?.refreshToken });
+>>>>>>> parent of dd4062c (make compateble with next-auth)
     await refetch();
   };
 

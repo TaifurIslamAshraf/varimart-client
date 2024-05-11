@@ -82,7 +82,7 @@ const CreateProduct = () => {
 
       await createProduct({
         data: formData,
-        accessToken: session?.data?.accessToken,
+        refresh_token: session?.data?.refreshToken,
       });
 
       console.log(formData);

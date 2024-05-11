@@ -12,7 +12,7 @@ const OrderChart = () => {
   const session = useSession();
 
   const { data } = useGetOrderStatusQuery({
-    accessToken: session.data?.accessToken,
+    refresh_token: session.data?.refreshToken,
   });
   const { data } = useGetOrderStatusQuery({});
 

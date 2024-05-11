@@ -20,12 +20,12 @@ export const customerReviewApi = apiSlice.injectEndpoints({
     }),
 
     createReview: build.mutation({
-      query: ({ data, accessToken }) => ({
+      query: ({ data, refresh_token }) => ({
         url: "/review/create-customer-review",
         method: "POST",
         body: data,
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          refresh_token: refresh_token,
         },
         credentials: "include",
       }),

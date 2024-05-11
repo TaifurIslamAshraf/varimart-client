@@ -166,7 +166,7 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
 
       await updateProduct({
         data: formData,
-        accessToken: session?.data?.accessToken,
+        refresh_token: session?.data?.refreshToken,
       });
 
       customRevalidateTag("getAllProducts");

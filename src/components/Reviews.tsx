@@ -116,7 +116,7 @@ const Reviews: FC<Props> = ({
           comment,
           productId,
         },
-        accessToken: session?.data?.accessToken,
+        refresh_token: session?.data?.refreshToken,
       });
 
       customRevalidateTag("getSingleProduct");

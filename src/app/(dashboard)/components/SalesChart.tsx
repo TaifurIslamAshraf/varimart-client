@@ -16,7 +16,7 @@ import {
 const SalesChart = () => {
   const session = useSession();
   const { isLoading, data } = useGetSalesReportQuery({
-    accessToken: session.data?.accessToken,
+    refresh_token: session.data?.refreshToken,
   });
   const { isLoading, data } = useGetSalesReportQuery({});
 

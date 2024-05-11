@@ -29,7 +29,7 @@ const ManageReviews = () => {
   const session = useSession();
 
   const { data } = useGetAllProductReviewsQuery({
-    accessToken: session?.data?.accessToken,
+    refresh_token: session?.data?.refreshToken,
   });
   const { data } = useGetAllProductReviewsQuery({});
   const [updateReviewStatus, { isSuccess, error }] =
@@ -59,9 +59,13 @@ const ManageReviews = () => {
     await updateReviewStatus({
       data,
 <<<<<<< HEAD
+<<<<<<< HEAD
       accessToken: session?.data?.accessToken,
 =======
 >>>>>>> origin/production-version
+=======
+      refresh_token: session?.data?.refreshToken,
+>>>>>>> parent of dd4062c (make compateble with next-auth)
     });
     customRevalidateTag("getSingleProduct");
     customRevalidateTag("getAllProducts");
@@ -72,9 +76,13 @@ const ManageReviews = () => {
       reviewId,
       productId,
 <<<<<<< HEAD
+<<<<<<< HEAD
       accessToken: session?.data?.accessToken,
 =======
 >>>>>>> origin/production-version
+=======
+      refresh_token: session?.data?.refreshToken,
+>>>>>>> parent of dd4062c (make compateble with next-auth)
     });
     customRevalidateTag("getSingleProduct");
     customRevalidateTag("getAllProducts");

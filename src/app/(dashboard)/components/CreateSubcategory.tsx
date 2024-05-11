@@ -56,7 +56,7 @@ const CreateSubategory = () => {
   ) => {
     await createSubcategory({
       data: value,
-      accessToken: session?.data?.accessToken,
+      refresh_token: session?.data?.refreshToken,
     });
     await refetch();
   };

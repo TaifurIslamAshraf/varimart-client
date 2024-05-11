@@ -21,7 +21,7 @@ const BannerDeleteBtn: FC<Props> = ({ id }) => {
   const handleCustomerReviewDelete = async (bannerId: string) => {
     await deleteBanner({
       id: bannerId,
-      accessToken: session?.data?.accessToken,
+      refresh_token: session?.data?.refreshToken,
     });
 
     customRevalidateTag("Banner");
