@@ -16,6 +16,7 @@ import { useGetAllOrdersQuery } from "@/redux/features/orders/orderApi";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { IOrders } from "../../../../../types/order";
 
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import OrderAction from "../../components/OrderAction";
@@ -27,6 +28,8 @@ type Props = {
 const AllOrders: FC<Props> = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const session = useSession();
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const params = new URLSearchParams(searchParams);
   const defaultOrderStatus = params.get("orderStatus");
@@ -34,10 +37,7 @@ const AllOrders: FC<Props> = () => {
   const { isLoading, data, refetch } = useGetAllOrdersQuery({
     orderStatus: params.get("orderStatus") || "",
     page: params.get("page") || "",
-<<<<<<< HEAD
     accessToken: session?.data?.accessToken,
-=======
->>>>>>> origin/production-version
   });
 
   const createQueryString = useCallback(

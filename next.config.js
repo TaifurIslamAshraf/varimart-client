@@ -15,13 +15,8 @@ const nextConfig = {
       },
     images:{
         remotePatterns:[{
-<<<<<<< HEAD
-            hostname: "localhost"
-        }]
-=======
             hostname: "server.varimartbd.com"
         }, {hostname: "localhost"}]
->>>>>>> origin/production-version
     },
    
 }

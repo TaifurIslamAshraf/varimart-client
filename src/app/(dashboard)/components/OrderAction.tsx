@@ -7,6 +7,7 @@ import {
   useGetOrderStatusQuery,
 } from "@/redux/features/orders/orderApi";
 import { Edit, Trash2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { FC, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -20,14 +21,12 @@ const OrderAction: FC<Props> = ({ id }) => {
     useDeleteOrderMutation();
   const { refetch } = useGetAllOrdersQuery({});
   const { refetch: orderStatusRefetch } = useGetOrderStatusQuery({});
+  const session = useSession();
 
   const handleDeleteOrder = async (orderId: string) => {
     await deleteOrder({
       id: orderId,
-<<<<<<< HEAD
       accessToken: session?.data?.accessToken,
-=======
->>>>>>> origin/production-version
     });
     await refetch();
     await orderStatusRefetch();

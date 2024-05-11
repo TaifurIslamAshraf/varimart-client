@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { ChangeEvent, FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -43,6 +44,7 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
   const [subcategory, setSubcategory] = useState<any[] | null>(null);
   const [images, setImages] = useState<FileList | null>(null);
   const router = useRouter();
+  const session = useSession();
 
   //redux state
   const { refetch } = useGetCartItemQuery({});
@@ -164,10 +166,7 @@ const UpdateProductInfo: FC<Props> = ({ product }) => {
 
       await updateProduct({
         data: formData,
-<<<<<<< HEAD
         accessToken: session?.data?.accessToken,
-=======
->>>>>>> origin/production-version
       });
 
       customRevalidateTag("getAllProducts");

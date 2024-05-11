@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetSalesReportQuery } from "@/redux/features/orders/orderApi";
+import { useSession } from "next-auth/react";
 import {
   Bar,
   BarChart,
@@ -13,14 +14,11 @@ import {
 } from "recharts";
 
 const SalesChart = () => {
-<<<<<<< HEAD
   const session = useSession();
   const { isLoading, data } = useGetSalesReportQuery({
     accessToken: session.data?.accessToken,
   });
-=======
   const { isLoading, data } = useGetSalesReportQuery({});
->>>>>>> origin/production-version
 
   return (
     <ResponsiveContainer width="95%" height={340}>

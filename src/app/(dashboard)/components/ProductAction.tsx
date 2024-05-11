@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { useDeleteProductMutation } from "@/redux/features/product/productApi";
 import { FilePenLine, Trash } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { IProduct } from "../../../../types/product";
@@ -20,15 +21,13 @@ const ProductAction: FC<Props> = ({ product }) => {
 
   const [deleteProduct, { isLoading, isSuccess, error }] =
     useDeleteProductMutation();
+  const session = useSession();
 
   const handleDeleteProduct = async () => {
     const productId = product?._id;
     await deleteProduct({
       productId: productId,
-<<<<<<< HEAD
       accessToken: session?.data?.accessToken,
-=======
->>>>>>> origin/production-version
     });
 
     customRevalidateTag("getAllProducts");

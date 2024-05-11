@@ -23,6 +23,7 @@ import {
   useGetAllCategoryQuery,
 } from "@/redux/features/category/categoryApi";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -40,6 +41,7 @@ const CreateSubategory = () => {
     useCreateSubcategoryMutation();
 
   const category = data?.category as any | undefined;
+  const session = useSession();
 
   const form = useForm<z.infer<typeof createSubcategorySchema>>({
     resolver: zodResolver(createSubcategorySchema),
@@ -54,10 +56,7 @@ const CreateSubategory = () => {
   ) => {
     await createSubcategory({
       data: value,
-<<<<<<< HEAD
       accessToken: session?.data?.accessToken,
-=======
->>>>>>> origin/production-version
     });
     await refetch();
   };

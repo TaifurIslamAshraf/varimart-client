@@ -14,6 +14,7 @@ import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { useCreateProductMutation } from "@/redux/features/product/productApi";
 import { resetProductData } from "@/redux/features/product/productSlice";
 
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,6 +24,7 @@ const CreateProduct = () => {
   const [localImages, setLocalImages] = useState<any[]>([]);
   const dispatch = useDispatch();
   const router = useRouter();
+  const session = useSession();
 
   const { productCreateData } = useSelector((state: any) => state.product);
   const [createProduct, { data, isSuccess, error, isLoading }] =
@@ -80,10 +82,7 @@ const CreateProduct = () => {
 
       await createProduct({
         data: formData,
-<<<<<<< HEAD
         accessToken: session?.data?.accessToken,
-=======
->>>>>>> origin/production-version
       });
 
       console.log(formData);

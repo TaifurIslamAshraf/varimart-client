@@ -19,21 +19,19 @@ import {
   useUpdateReviewStatusMutation,
 } from "@/redux/features/reviews/reviewApi";
 import { Trash2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { IManageReview } from "../../../../../types/review";
 
 const ManageReviews = () => {
-<<<<<<< HEAD
   const session = useSession();
 
   const { data } = useGetAllProductReviewsQuery({
     accessToken: session?.data?.accessToken,
   });
-=======
   const { data } = useGetAllProductReviewsQuery({});
->>>>>>> origin/production-version
   const [updateReviewStatus, { isSuccess, error }] =
     useUpdateReviewStatusMutation();
   const [

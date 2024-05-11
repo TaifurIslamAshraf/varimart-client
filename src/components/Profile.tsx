@@ -2,20 +2,19 @@
 
 import { serverUrl } from "@/lib/utils";
 import { CircleUserRound } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 
+import { useGetMeQuery } from "@/redux/features/auth/authApi";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import defaultAvater from "../../public/default-avater.jpg";
 
 const Profile = () => {
-<<<<<<< HEAD
   const session = useSession();
 
   const {} = useGetMeQuery({ accessToken: session?.data?.accessToken });
-=======
->>>>>>> origin/production-version
   const { user } = useSelector((state: any) => state.auth);
   const [isMounded, setIsMounted] = useState(false);
 

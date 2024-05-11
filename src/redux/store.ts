@@ -25,14 +25,14 @@ export const store = configureStore({
 
 // initialize app
 
-const initiallize = () => {
-  store.dispatch(
-    apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })
-  );
+// const initiallize = () => {
+//   store.dispatch(
+//     apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })
+//   );
 
-  store.dispatch(
-    apiSlice.endpoints.userInfo.initiate({}, { forceRefetch: true })
-  );
-};
+//   store.dispatch(
+//     apiSlice.endpoints.userInfo.initiate({}, { forceRefetch: true })
+//   );
+// };
 
-initiallize();
+// initiallize();

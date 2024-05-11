@@ -5,6 +5,7 @@ import {
   useCreateProductReviewMutation,
   useGetReviewsQuery,
 } from "@/redux/features/reviews/reviewApi";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FC, FormEvent, useEffect, useState } from "react";
@@ -64,6 +65,7 @@ const Reviews: FC<Props> = ({
   const [comment, setComment] = useState("");
 
   const router = useRouter();
+  const session = useSession();
 
   const { user } = useSelector((state: any) => state.auth);
   const { productReview } = useSelector((state: any) => state.porductReviews);
@@ -114,10 +116,7 @@ const Reviews: FC<Props> = ({
           comment,
           productId,
         },
-<<<<<<< HEAD
         accessToken: session?.data?.accessToken,
-=======
->>>>>>> origin/production-version
       });
 
       customRevalidateTag("getSingleProduct");

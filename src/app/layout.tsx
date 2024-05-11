@@ -1,3 +1,4 @@
+import NextAuthProvider from "@/lib/NextAuthProvider";
 import ReduxProvider from "@/lib/ReduxProvider";
 import { allkeywords, descriptionShop } from "@/lib/contstens";
 import { cn } from "@/lib/utils";
@@ -25,12 +26,14 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={cn(poppins.className, "w-full")}>
-        <ReduxProvider>
-          <div className="max-w-[1400px] mx-auto">
-            {children}
-            <Toaster position="top-center" reverseOrder={false} />
-          </div>
-        </ReduxProvider>
+        <NextAuthProvider>
+          <ReduxProvider>
+            <div className="max-w-[1400px] mx-auto">
+              {children}
+              <Toaster position="top-center" reverseOrder={false} />
+            </div>
+          </ReduxProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );

@@ -7,6 +7,7 @@ import {
   useGetAllCategoryQuery,
 } from "@/redux/features/category/categoryApi";
 import { Trash2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ICategory, ISubcategory } from "../../../../../types/category";
@@ -16,6 +17,7 @@ import CreateSubategory from "../../components/CreateSubcategory";
 const CategorySubcategory = () => {
   const [subcategory, setSubcategory] = useState<ISubcategory | undefined>();
   const [categoryId, setCategoryId] = useState("");
+  const session = useSession();
 
   const { data, refetch } = useGetAllCategoryQuery({});
   const [
@@ -46,19 +48,16 @@ const CategorySubcategory = () => {
   };
 
   const handleDeleteCategory = async (id: string) => {
-<<<<<<< HEAD
     await deleteCategory({ id, accessToken: session?.data?.accessToken });
     await refetch();
   };
   const handleDeletesubCategory = async (id: string) => {
     await deletesubCategory({ id, accessToken: session?.data?.accessToken });
-=======
     await deleteCategory({ id });
     await refetch();
   };
   const handleDeletesubCategory = async (id: string) => {
     await deletesubCategory({ id });
->>>>>>> origin/production-version
     await refetch();
   };
 
