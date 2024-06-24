@@ -1,6 +1,7 @@
 import ReduxProvider from "@/lib/ReduxProvider";
 import { allkeywords, descriptionShop } from "@/lib/contstens";
 import { cn } from "@/lib/utils";
+import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -28,6 +29,7 @@ export default async function RootLayout({
         <ReduxProvider>
           <div className="max-w-[1400px] mx-auto">
             {children}
+            <GoogleTagManager gtmId="GTM-M7RXHBCL" />
             <Toaster position="top-center" reverseOrder={false} />
           </div>
         </ReduxProvider>
