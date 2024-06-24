@@ -25,11 +25,11 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
+      <GoogleTagManager gtmId="GTM-M7RXHBCL" />
       <body className={cn(poppins.className, "w-full")}>
         <ReduxProvider>
           <div className="max-w-[1400px] mx-auto">
             {children}
-            <GoogleTagManager gtmId="GTM-M7RXHBCL" />
             <Toaster position="top-center" reverseOrder={false} />
           </div>
         </ReduxProvider>
