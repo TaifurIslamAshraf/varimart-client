@@ -26,7 +26,7 @@ type Props = {
 const SingleOrder: FC<Props> = ({ params }) => {
   const { isLoading, data, refetch } = useGetSingleOrdersQuery(params.id);
   const { refetch: orderStatusRefetch } = useGetOrderStatusQuery({});
-
+  console.log(data?.data);
   const [
     updateOrderStatus,
     { isSuccess, error, isLoading: updateOrderLoading },
