@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard";
 
 const MixProdcts = async () => {
   const data = await mixProduct();
+  console.log(data);
 
   return (
     <div className={cn(styles.paddingY)}>
