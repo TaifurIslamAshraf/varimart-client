@@ -74,7 +74,7 @@ export default function Page() {
             </Link>
           </div>
 
-          {user?.fullName && user.role === "admin" ? (
+          {user?.fullName && user?.role === "admin" ? (
             <div className="flex items-center justify-between border border-purple-200 px-2 py-3 rounded-md">
               <h1 className="font-semibold">Admin Dashboard</h1>
               <Link href={"/dashboard"}>
