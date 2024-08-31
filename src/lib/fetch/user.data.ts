@@ -5,6 +5,9 @@ export const refreshToken = async () => {
     const res = await fetch(`${serverApi}/user/refresh`, {
       credentials: "include" as const,
       cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     const data = res.json();
     return data;

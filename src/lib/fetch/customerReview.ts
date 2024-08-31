@@ -4,6 +4,9 @@ export const getAllCustomerReviews = async () => {
   try {
     const res = await fetch(`${serverApi}/review/get-customer-review`, {
       next: { tags: ["customerReview"] },
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     const data = await res.json();
 
@@ -20,6 +23,9 @@ export const deleteCustomerReview = async (id: string) => {
       {
         method: "DELETE",
         credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
 

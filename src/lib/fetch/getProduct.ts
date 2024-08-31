@@ -14,6 +14,9 @@ interface QueryProps {
 export const mixProduct = async () => {
   const res = await fetch(`${serverApi}/product/all-products`, {
     next: { tags: ["getAllProducts"] },
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   const data = await res.json();
 
@@ -23,6 +26,9 @@ export const mixProduct = async () => {
 export const resentSold = async () => {
   const res = await fetch(`${serverApi}/product/sold-product`, {
     next: { tags: ["getAllProducts"] },
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
   const data = await res.json();
 
@@ -42,7 +48,12 @@ export const getAllProducts = async ({
   try {
     const res = await fetch(
       `${serverApi}/product/all-products?page=${page}&ratings=${ratings}&limit=${limit}&category=${category}&subcategory=${subcategory}&search=${search}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
-      { next: { tags: ["getAllProducts"] } }
+      {
+        next: { tags: ["getAllProducts"] },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
     );
 
     const data = await res.json();
@@ -56,6 +67,9 @@ export const singleProduct = async (slug: string) => {
   try {
     const res = await fetch(`${serverApi}/product/single-product/${slug}`, {
       next: { tags: ["getAllProducts"] },
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     const data = await res.json();
 

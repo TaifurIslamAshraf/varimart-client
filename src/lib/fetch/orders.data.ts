@@ -18,6 +18,7 @@ export const getAllOrders = async ({
       cache: "no-store",
       headers: {
         refresh_token,
+        "Content-Type": "application/json",
       },
     }
   );
