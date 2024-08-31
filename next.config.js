@@ -29,11 +29,9 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        hostname: "server.varimartbd.com",
-      },
+  
       { hostname: "localhost" },
-      { hostname: "web-production-5dac.up.railway.app" },
+      { hostname: "web-production-b912.up.railway.app" },
     ],
   },
 };
