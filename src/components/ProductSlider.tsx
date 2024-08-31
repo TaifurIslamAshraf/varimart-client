@@ -19,7 +19,7 @@ const ProductCarousel = ({ images }: { images: [] }) => {
         thumbWidth={65}
         renderThumbs={(children) => children}
       >
-        {images.map((item, index) => (
+        {images?.map((item, index) => (
           <div className="" key={index}>
             <Image
               className=""

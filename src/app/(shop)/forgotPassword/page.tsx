@@ -40,8 +40,10 @@ const ForgotPassword = () => {
     },
   });
 
-  const handleForgotPassword = (data: z.infer<typeof forgotPassSchema>) => {
-    forgotPassword({
+  const handleForgotPassword = async (
+    data: z.infer<typeof forgotPassSchema>
+  ) => {
+    await forgotPassword({
       email: data.email,
     });
   };

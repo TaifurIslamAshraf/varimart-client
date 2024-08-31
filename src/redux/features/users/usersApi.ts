@@ -29,6 +29,7 @@ export const userApi = apiSlice.injectEndpoints({
         url: "/user/update-info",
         method: "PUT",
         body: data,
+
         credentials: "include",
       }),
 
@@ -46,10 +47,14 @@ export const userApi = apiSlice.injectEndpoints({
       },
     }),
     updateUserPassword: builder.mutation({
-      query: (data) => ({
+      query: ({ oldPassword, newPassword }) => ({
         url: "/user/update-password",
         method: "PUT",
-        body: data,
+        body: {
+          oldPassword,
+          newPassword,
+        },
+
         credentials: "include",
       }),
 

@@ -16,7 +16,6 @@ type IBanners = {
 
 const page = async () => {
   const banners = await getBanners();
-  console.log(banners);
 
   return (
     <div className="ml-[230px] mt-[70px] p-4 space-y-6">

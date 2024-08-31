@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { useDeleteBannerMutation } from "@/redux/features/banners/bannerApi";
 import { Trash2 } from "lucide-react";
+
 import { FC, useEffect } from "react";
 import toast from "react-hot-toast";
 
@@ -16,7 +17,9 @@ const BannerDeleteBtn: FC<Props> = ({ id }) => {
     useDeleteBannerMutation();
 
   const handleCustomerReviewDelete = async (bannerId: string) => {
-    await deleteBanner({ id: bannerId });
+    await deleteBanner({
+      id: bannerId,
+    });
 
     customRevalidateTag("Banner");
   };

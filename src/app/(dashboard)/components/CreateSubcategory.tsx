@@ -22,7 +22,6 @@ import {
   useCreateSubcategoryMutation,
   useGetAllCategoryQuery,
 } from "@/redux/features/category/categoryApi";
-import { ICategory } from "@/types/category";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -40,7 +39,7 @@ const CreateSubategory = () => {
   const [createSubcategory, { isLoading, isSuccess, error }] =
     useCreateSubcategoryMutation();
 
-  const category = data?.category as ICategory | undefined;
+  const category = data?.category as any | undefined;
 
   const form = useForm<z.infer<typeof createSubcategorySchema>>({
     resolver: zodResolver(createSubcategorySchema),
@@ -53,7 +52,9 @@ const CreateSubategory = () => {
   const handleCreatesubCategory = async (
     value: z.infer<typeof createSubcategorySchema>
   ) => {
-    await createSubcategory(value);
+    await createSubcategory({
+      data: value,
+    });
     await refetch();
   };
 
@@ -92,7 +93,7 @@ const CreateSubategory = () => {
                   </FormControl>
                   <SelectContent>
                     {category &&
-                      category?.map((item) => (
+                      category?.map((item: any) => (
                         <SelectItem
                           value={item?._id.toString()}
                           key={item?._id}

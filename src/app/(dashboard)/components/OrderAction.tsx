@@ -22,7 +22,9 @@ const OrderAction: FC<Props> = ({ id }) => {
   const { refetch: orderStatusRefetch } = useGetOrderStatusQuery({});
 
   const handleDeleteOrder = async (orderId: string) => {
-    await deleteOrder({ id: orderId });
+    await deleteOrder({
+      id: orderId,
+    });
     await refetch();
     await orderStatusRefetch();
   };

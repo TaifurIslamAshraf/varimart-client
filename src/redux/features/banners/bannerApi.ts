@@ -20,10 +20,11 @@ export const bannerApi = apiSlice.injectEndpoints({
     }),
 
     createBanner: build.mutation({
-      query: (data) => ({
+      query: ({ data }) => ({
         url: "/banner/create-banner",
         method: "POST",
         body: data,
+
         credentials: "include",
       }),
     }),

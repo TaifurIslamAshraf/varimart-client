@@ -17,7 +17,7 @@ export const categoryApi = apiSlice.injectEndpoints({
     }),
 
     createCategory: build.mutation({
-      query: (data) => ({
+      query: ({ data }) => ({
         url: "/category/create-category",
         method: "POST",
         body: data,
@@ -26,7 +26,7 @@ export const categoryApi = apiSlice.injectEndpoints({
     }),
 
     createSubcategory: build.mutation({
-      query: (data) => ({
+      query: ({ data }) => ({
         url: "/subcategory/create-subcategory",
         method: "POST",
         body: data,
@@ -38,7 +38,6 @@ export const categoryApi = apiSlice.injectEndpoints({
       query: ({ id }) => ({
         url: `/category/delete-category/${id}`,
         method: "DELETE",
-
         credentials: "include",
       }),
     }),
@@ -47,7 +46,6 @@ export const categoryApi = apiSlice.injectEndpoints({
       query: ({ id }) => ({
         url: `/subcategory/delete-subcategory/${id}`,
         method: "DELETE",
-
         credentials: "include",
       }),
     }),

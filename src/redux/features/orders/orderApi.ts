@@ -34,7 +34,7 @@ const orderApi = apiSlice.injectEndpoints({
     }),
 
     getSalesReport: build.query({
-      query: () => ({
+      query: ({}) => ({
         url: "/order/monthly-sales",
         method: "GET",
         credentials: "include",
@@ -42,7 +42,7 @@ const orderApi = apiSlice.injectEndpoints({
       providesTags: ["Orders"] as any,
     }),
     getOrderStatus: build.query({
-      query: () => ({
+      query: ({}) => ({
         url: "/order/order-status",
         method: "GET",
         credentials: "include",
@@ -50,7 +50,7 @@ const orderApi = apiSlice.injectEndpoints({
       providesTags: ["Orders"] as any,
     }),
     getAllOrders: build.query({
-      query: ({ orderStatus, page }) => ({
+      query: ({ orderStatus, page, refresh_token }) => ({
         url: "/order/all-orders",
         params: {
           orderStatus,
@@ -59,7 +59,7 @@ const orderApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: ["Orders"] as any,
+      invalidatesTags: ["Orders"] as any,
     }),
 
     getSingleOrders: build.query({

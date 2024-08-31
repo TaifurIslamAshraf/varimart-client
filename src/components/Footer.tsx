@@ -70,9 +70,11 @@ const Footer = () => {
               <Image src={Logo} alt="shop logo" width={100} height={100} />
             </div>
             <p className="text-[#cfc6c6]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quis
-              rem dicta sint ipsa sequi perspiciatis. Commodi maiores dolorum
-              iusto autem distinctio.
+              At Varimartbd.com, we strive to ensure your complete satisfaction
+              with every purchase. If, for any reason, you are not entirely
+              satisfied with your order due to receiving a broken or
+              misrepresented product, we are here to assist you with our
+              straightforward return policy.
             </p>
             <div className="flex items-center gap-4">
               <Link href={"/"}>
@@ -83,11 +85,11 @@ const Footer = () => {
                 <Youtube className="border border-secondary h-[45px] p-2 w-[45px] rounded-full" />
               </Link>
 
-              <Link href={"mailto:someone@example.com"}>
+              <Link href={"mailto:varimartbd@gmail.com"}>
                 <Mail className="border border-secondary h-[45px] p-2 w-[45px] rounded-full" />
               </Link>
 
-              <Link href={"tel:+8801645120517"}>
+              <Link href={"tel:+8801606677285"}>
                 <Phone className="border border-secondary h-[45px] p-2 w-[45px] rounded-full" />
               </Link>
             </div>
@@ -98,7 +100,7 @@ const Footer = () => {
               QUICK LINKS
             </h1>
             <div className="flex flex-col gap-2">
-              <Link href={"/"}>About Us</Link>
+              <Link href={"/about"}>About Us</Link>
               <Link href={"/"}>Products</Link>
               <Link href={"/"}>Blogs</Link>
               <Link href={"/"}>FAQ</Link>
@@ -110,8 +112,8 @@ const Footer = () => {
               OUR COMPANY
             </h1>
             <div className="flex flex-col gap-2">
-              <Link href={"mailto:"}>Privacy Policy</Link>
-              <Link href={"/"}>Refund and Returns Policy</Link>
+              <Link href={"/policy"}>Privacy Policy</Link>
+              <Link href={"/policy"}>Refund and Returns Policy</Link>
               <Link href={"/"}>Customer Support</Link>
               <Link href={"/"}>Report Bugs</Link>
             </div>
@@ -122,17 +124,30 @@ const Footer = () => {
             <div className="flex flex-col gap-2">
               <Link
                 target="_blank"
-                href="https://wa.me/+8801645120517?text=How can i help you ?"
+                href="https://wa.me/+8801606677285?text=How can i help you ?"
               >
-                Whatsapp: +8801645120517
+                Whatsapp: +8801606677285
               </Link>
-              <Link href={"tel:+8801645120517"}>Phone: +8801645120517</Link>
-              <Link href={"mailto:someone@example.com"}>
-                Email: example@gmail.com
+              <Link href={"tel:+8801645120517"}>Phone: +8801606677285</Link>
+              <Link href={"mailto:varimartbd@gmail.com"}>
+                Email: varimartbd@gmail.com
               </Link>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="font-semibold text-sm flex items-center justify-between bg-[#275b5f] px-10 py-3 text-white">
+        <span>&copy; 2024 varimartbd</span>
+        <span>
+          develop by{" "}
+          <Link
+            className="text-blue-400 underline"
+            href={"https://github.com/TaifurIslamAshraf"}
+          >
+            MD. Taifur
+          </Link>
+        </span>
       </div>
     </>
   );

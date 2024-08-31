@@ -72,7 +72,9 @@ const CreateBanners = () => {
       formData.append("category", value.category!);
       formData.append("image", value.subcategory!);
     }
-    await createBanner(formData);
+    await createBanner({
+      data: formData,
+    });
     customRevalidateTag("Banner");
   };
 

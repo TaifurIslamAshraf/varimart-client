@@ -3,8 +3,8 @@ import { getProductReviews } from "./reviewSlice";
 
 const reviewApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
-    createReview: build.mutation({
-      query: (data) => ({
+    createProductReview: build.mutation({
+      query: ({ data }) => ({
         url: "/product/create-review",
         method: "PUT",
         body: data,
@@ -35,7 +35,7 @@ const reviewApi = apiSlice.injectEndpoints({
     }),
 
     getAllProductReviews: build.query({
-      query: () => ({
+      query: ({}) => ({
         url: "/product/all-product-reviews",
         method: "GET",
         credentials: "include",
@@ -44,7 +44,7 @@ const reviewApi = apiSlice.injectEndpoints({
     }),
 
     updateReviewStatus: build.mutation({
-      query: (data) => ({
+      query: ({ data }) => ({
         url: "/product/update-review-status",
         method: "PUT",
         body: data,
@@ -68,7 +68,7 @@ const reviewApi = apiSlice.injectEndpoints({
 });
 
 export const {
-  useCreateReviewMutation,
+  useCreateProductReviewMutation,
   useGetReviewsQuery,
   useUpdateReviewStatusMutation,
   useGetAllProductReviewsQuery,

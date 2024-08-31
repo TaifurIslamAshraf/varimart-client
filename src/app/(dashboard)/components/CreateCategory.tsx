@@ -40,7 +40,9 @@ const CreateCategory = () => {
   const handleCreateCategory = async (
     value: z.infer<typeof createCategorySchema>
   ) => {
-    await createCategory(value);
+    await createCategory({
+      data: value,
+    });
     await refetch();
   };
 

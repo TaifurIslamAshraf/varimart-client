@@ -35,8 +35,10 @@ const Users = () => {
 
   const handleChangeRole = async (value: string, userId: string) => {
     await updateUserRole({
-      userId: userId,
-      role: value,
+      data: {
+        userId: userId,
+        role: value,
+      },
     });
   };
 

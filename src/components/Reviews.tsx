@@ -2,7 +2,7 @@
 
 import { serverUrl } from "@/lib/utils";
 import {
-  useCreateReviewMutation,
+  useCreateProductReviewMutation,
   useGetReviewsQuery,
 } from "@/redux/features/reviews/reviewApi";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import StarRatings from "react-star-ratings";
 
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
+
 import { LoadingButton } from "./LoaderButton";
 import Ratings from "./Ratings";
 import SectionLoader from "./SectionLoader";
@@ -68,7 +69,7 @@ const Reviews: FC<Props> = ({
   const { productReview } = useSelector((state: any) => state.porductReviews);
 
   const [createReview, { isLoading, error, isSuccess }] =
-    useCreateReviewMutation();
+    useCreateProductReviewMutation();
   const { refetch } = useGetReviewsQuery({ userId: user?._id, productId });
 
   function countStarRatings(): StarCounts {
@@ -108,9 +109,11 @@ const Reviews: FC<Props> = ({
       toast.error("Select Rating");
     } else {
       await createReview({
-        rating,
-        comment,
-        productId,
+        data: {
+          rating,
+          comment,
+          productId,
+        },
       });
 
       customRevalidateTag("getSingleProduct");

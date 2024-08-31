@@ -12,7 +12,7 @@ const SuccessOrder = () => {
       />
 
       <h1 className="text-2xl font-semibold">
-        Your Order successfully Plased.
+        Your order successfully placed.
       </h1>
 
       <h1>Note: we contact very soon. thanks for order</h1>

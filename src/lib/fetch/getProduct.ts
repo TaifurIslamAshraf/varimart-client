@@ -55,7 +55,7 @@ export const getAllProducts = async ({
 export const singleProduct = async (slug: string) => {
   try {
     const res = await fetch(`${serverApi}/product/single-product/${slug}`, {
-      next: { tags: ["getSingleProduct"] },
+      next: { tags: ["getAllProducts"] },
     });
     const data = await res.json();
 

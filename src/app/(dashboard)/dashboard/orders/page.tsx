@@ -13,8 +13,9 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useGetAllOrdersQuery } from "@/redux/features/orders/orderApi";
-import { IOrders } from "@/types/order";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { IOrders } from "../../../../../types/order";
+
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import OrderAction from "../../components/OrderAction";
@@ -29,14 +30,11 @@ const AllOrders: FC<Props> = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const params = new URLSearchParams(searchParams);
   const defaultOrderStatus = params.get("orderStatus");
-  console.log(params);
 
   const { isLoading, data, refetch } = useGetAllOrdersQuery({
     orderStatus: params.get("orderStatus") || "",
     page: params.get("page") || "",
   });
-
-  console.log(data);
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -110,6 +108,9 @@ const AllOrders: FC<Props> = () => {
                       Placed Date
                     </th>
                     <th className="border-2 border-slate-200 px-4 py-2">
+                      Delivered At
+                    </th>
+                    <th className="border-2 border-slate-200 px-4 py-2">
                       Actions
                     </th>
                   </tr>
@@ -146,6 +147,26 @@ const AllOrders: FC<Props> = () => {
                               day: "numeric",
                               year: "numeric",
                             }
+                          )}
+                        </td>
+                        <td className="border-2 border-slate-200 px-4 py-2 text-center">
+                          {item?.deliveredAt ? (
+                            <>
+                              {" "}
+                              {new Date(item.deliveredAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                }
+                              )}
+                            </>
+                          ) : (
+                            <span className="text-center">--/--</span>
                           )}
                         </td>
                         <td className="border-2 border-slate-200 px-4 py-2">

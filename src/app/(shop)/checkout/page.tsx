@@ -93,7 +93,6 @@ const Checkout = () => {
       shippingPrice: minShippingPrice,
       totalAmount: totalAmount,
     };
-    console.log(orderItems);
 
     await createOrder(data);
     await orderStatusRefetch();

@@ -71,8 +71,12 @@ const MobileMenu = () => {
                       >
                         {item?.subcategory.length > 0 &&
                           item.subcategory.map((subItem: any) => (
-                            <li key={subItem._id}>
+                            <li
+                              key={subItem._id}
+                              className="hover:underline hover:text-blue-500"
+                            >
                               <Link
+                                className="block"
                                 href={`/products?subcategory=${subItem._id}`}
                               >
                                 {subItem.name}

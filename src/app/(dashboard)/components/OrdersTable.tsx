@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useGetAllOrdersQuery } from "@/redux/features/orders/orderApi";
-import { IOrders } from "@/types/order";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FC, useCallback, useEffect, useState } from "react";
+import { IOrders } from "../../../../types/order";
 import OrderAction from "./OrderAction";
 
 interface Props {

@@ -25,7 +25,7 @@ export const store = configureStore({
 
 // initialize app
 
-const initiallize = async () => {
+const initiallize = () => {
   store.dispatch(
     apiSlice.endpoints.refreshToken.initiate({}, { forceRefetch: true })
   );

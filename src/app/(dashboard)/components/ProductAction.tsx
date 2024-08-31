@@ -6,10 +6,10 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { useDeleteProductMutation } from "@/redux/features/product/productApi";
-import { IProduct } from "@/types/product";
 import { FilePenLine, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { IProduct } from "../../../../types/product";
 
 type Props = {
   product: IProduct;
@@ -23,7 +23,9 @@ const ProductAction: FC<Props> = ({ product }) => {
 
   const handleDeleteProduct = async () => {
     const productId = product?._id;
-    await deleteProduct({ productId });
+    await deleteProduct({
+      productId: productId,
+    });
 
     customRevalidateTag("getAllProducts");
     router.refresh();

@@ -6,10 +6,10 @@ import {
   useDeleteSubcategoryMutation,
   useGetAllCategoryQuery,
 } from "@/redux/features/category/categoryApi";
-import { ICategory, ISubcategory } from "@/types/category";
 import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { ICategory, ISubcategory } from "../../../../../types/category";
 import CreateCategory from "../../components/CreateCategory";
 import CreateSubategory from "../../components/CreateSubcategory";
 

@@ -27,7 +27,6 @@ const AddToCart = ({ product, btnFull }: { product: any; btnFull: string }) => {
   const [addToCart, { isLoading, isSuccess, error, isError }] =
     useAddToCartMutation();
   const handleClick = async () => {
-    console.log(product?.stock);
     if (product?.stock > 0) {
       await addToCart({ productId: product._id });
       await refetch();
@@ -42,7 +41,7 @@ const AddToCart = ({ product, btnFull }: { product: any; btnFull: string }) => {
       toast.success("Product Add To Cart");
     } else if (isError) {
       const errorData = error as any;
-      toast.error(errorData.data.message);
+      toast.error(errorData?.data?.message);
     }
   }, [error, isError, isSuccess]);
 

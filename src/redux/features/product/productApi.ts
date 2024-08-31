@@ -3,7 +3,7 @@ import { apiSlice } from "../apiSlice/apiSlice";
 const productApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getStockStatus: build.query({
-      query: () => ({
+      query: ({}) => ({
         url: "/product/stock-status",
         method: "GET",
         credentials: "include",
@@ -13,7 +13,7 @@ const productApi = apiSlice.injectEndpoints({
     }),
 
     createProduct: build.mutation({
-      query: (data) => ({
+      query: ({ data }) => ({
         url: "/product/create-product",
         method: "POST",
         body: data,
@@ -29,7 +29,7 @@ const productApi = apiSlice.injectEndpoints({
       }),
     }),
     updateProduct: build.mutation({
-      query: (data) => ({
+      query: ({ data }) => ({
         url: `product/update-product`,
         method: "PUT",
         body: data,

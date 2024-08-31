@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 import { useCreateProductMutation } from "@/redux/features/product/productApi";
 import { resetProductData } from "@/redux/features/product/productSlice";
+
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +26,7 @@ const CreateProduct = () => {
 
   const { productCreateData } = useSelector((state: any) => state.product);
   const [createProduct, { data, isSuccess, error, isLoading }] =
-    useCreateProductMutation();
+    useCreateProductMutation({});
 
   const handleCreate = async () => {
     try {
@@ -77,7 +78,11 @@ const CreateProduct = () => {
         formData.append("images", image);
       });
 
-      await createProduct(formData);
+      await createProduct({
+        data: formData,
+      });
+
+      console.log(formData);
 
       customRevalidateTag("getAllProducts");
     } catch (error) {

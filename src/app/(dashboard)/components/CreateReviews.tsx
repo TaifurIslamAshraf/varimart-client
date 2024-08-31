@@ -26,7 +26,9 @@ const CreateReviews = () => {
         const formData = new FormData();
 
         formData.append("image", file);
-        await createReview(formData);
+        await createReview({
+          data: formData,
+        });
         customRevalidateTag("customerReview");
       },
     });

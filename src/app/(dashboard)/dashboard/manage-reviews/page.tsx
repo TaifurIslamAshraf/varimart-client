@@ -18,11 +18,11 @@ import {
   useGetAllProductReviewsQuery,
   useUpdateReviewStatusMutation,
 } from "@/redux/features/reviews/reviewApi";
-import { IManageReview } from "@/types/review";
 import { Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { IManageReview } from "../../../../../types/review";
 
 const ManageReviews = () => {
   const { data } = useGetAllProductReviewsQuery({});
@@ -30,7 +30,12 @@ const ManageReviews = () => {
     useUpdateReviewStatusMutation();
   const [
     deleteReview,
-    { isLoading, isSuccess: deleteIsSuccess, error: deleteError },
+    {
+      isLoading,
+      isSuccess: deleteIsSuccess,
+      error: deleteError,
+      data: deleteData,
+    },
   ] = useDeleteReviewMutation();
 
   const productReviews = data?.productsReviews as IManageReview[];
@@ -45,14 +50,18 @@ const ManageReviews = () => {
       reviewId,
       approved: Boolean(value),
     };
-    await updateReviewStatus(data);
+    await updateReviewStatus({
+      data,
+    });
     customRevalidateTag("getSingleProduct");
     customRevalidateTag("getAllProducts");
   };
 
   const handleDelete = async (reviewId: string, productId: string) => {
-    console.log(reviewId, productId);
-    await deleteReview({ reviewId, productId });
+    await deleteReview({
+      reviewId,
+      productId,
+    });
     customRevalidateTag("getSingleProduct");
     customRevalidateTag("getAllProducts");
   };
@@ -71,6 +80,7 @@ const ManageReviews = () => {
       toast.success("Review delete successfull");
     } else if (error) {
       const errorData = deleteError as any;
+
       toast.error(errorData?.data?.message);
     }
   }, [deleteError, deleteIsSuccess, error]);
@@ -89,8 +99,8 @@ const ManageReviews = () => {
 
               <div className="space-y-4">
                 <h2 className="font-medium text-xl">Reviews</h2>
-                {item?.reviews?.map((review) => (
-                  <div className="space-y-4" key={item?._id}>
+                {item?.reviews?.map((review, index) => (
+                  <div className="space-y-4" key={index}>
                     <Separator />
                     <div className="flex justify-between">
                       <div className="flex items-center gap-3">

@@ -10,7 +10,7 @@ const ProtectedDashboard = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   const isAuthenticated =
-    user?.fullName && user?.role === "admin" ? true : false;
+    (user?.fullName && user?.role === "admin") || "visitor" ? true : false;
 
   useEffect(() => {
     setIsMounted(true);

@@ -39,10 +39,10 @@ export const ProductSchema = z.object({
     .refine((value) => value !== "", {
       message: "Product descriptionType is required",
     }),
-  price: z
+  price: z.string().optional(),
+  discountPrice: z
     .string({ required_error: "Product price is required" })
-    .min(1, "Product name is required"),
-  discountPrice: z.string().optional(),
+    .min(1, "Product price is required"),
   stock: z
     .string({ required_error: "Product stock is required" })
     .min(1, "Product name is required"),
