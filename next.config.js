@@ -12,7 +12,7 @@ const nextConfig = {
           },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://web-production-b912.up.railway.app",
+            value: "ecommerce-server-byjv.onrender.com",
           },
           {
             key: "Access-Control-Allow-Methods",
@@ -32,6 +32,7 @@ const nextConfig = {
   
       { hostname: "localhost" },
       { hostname: "web-production-b912.up.railway.app" },
+      { hostname: "ecommerce-server-byjv.onrender.com" },
     ],
   },
 };
