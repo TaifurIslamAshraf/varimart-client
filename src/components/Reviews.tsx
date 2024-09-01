@@ -14,6 +14,7 @@ import StarRatings from "react-star-ratings";
 
 import { customRevalidateTag } from "@/lib/actions/RevalidateTag";
 
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import { LoadingButton } from "./LoaderButton";
 import Ratings from "./Ratings";
 import SectionLoader from "./SectionLoader";
@@ -175,7 +176,7 @@ const Reviews: FC<Props> = ({
                 <DialogHeader>
                   <DialogTitle className="text-start">
                     <div className="flex items-center gap-4">
-                      <Image
+                      <MyImage
                         src={`${serverUrl}/${image}`}
                         alt={name}
                         width={50}
@@ -278,7 +279,7 @@ const Reviews: FC<Props> = ({
               <div className="flex items-center gap-3">
                 <div className="">
                   {item?.avatar ? (
-                    <Image
+                    <MyImage
                       className="rounded-full"
                       src={`${serverUrl}/${item?.avatar}`}
                       alt="avatar"

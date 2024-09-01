@@ -1,5 +1,5 @@
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import { serverUrl } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import Ratings from "./Ratings";
@@ -32,7 +32,7 @@ const RelatedProduct: FC<Props> = ({ product }) => {
               href={item?.slug}
             >
               <div className="p-2 bg-white">
-                <Image
+                <MyImage
                   src={`${serverUrl}/${item?.images[0]}`}
                   alt={item.name}
                   width={60}
