@@ -1,26 +1,25 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { userAuth } from "./userAuth";
+import { useEffect } from "react";
+import UserAuth from "./userAuth";
 
 const Protected = ({ children }: { children: React.ReactNode }) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const isAuthenticated = userAuth();
+  const isAuthenticated = UserAuth();
   const router = useRouter();
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    if (!isAuthenticated) {
+      router.replace("/"); // Redirect to homepage if not authenticated
+    }
+  }, [isAuthenticated, router]);
 
-  if (!isMounted) {
+  // Return null while redirecting
+  if (!isAuthenticated) {
     return null;
   }
 
-  if (!isAuthenticated) {
-    router.replace("/");
-  }
-
-  return <>{isAuthenticated && children}</>;
+  return <>{children}</>;
 };
+
 export default Protected;

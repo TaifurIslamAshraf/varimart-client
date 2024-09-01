@@ -1,29 +1,27 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const ProtectedDashboard = ({ children }: { children: React.ReactNode }) => {
-  const [isMounted, setIsMounted] = useState(false);
   const { user } = useSelector((state: any) => state.auth);
   const router = useRouter();
 
-  const isAuthenticated =
-    (user?.fullName && user?.role === "admin") || "visitor" ? true : false;
+  const isAuthenticated = user?.fullName && user?.role === "admin";
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    if (!isAuthenticated) {
+      router.replace("/");
+    }
+  }, [isAuthenticated, router]);
 
-  if (!isMounted) {
+  // Return null while redirecting
+  if (!isAuthenticated) {
     return null;
   }
 
-  if (!isAuthenticated) {
-    router.replace("/");
-  }
-
-  return <>{isAuthenticated && children}</>;
+  return <>{children}</>;
 };
+
 export default ProtectedDashboard;
