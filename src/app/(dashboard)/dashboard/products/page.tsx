@@ -3,10 +3,10 @@ import Paginations from "@/components/pagination";
 import { Button } from "@/components/ui/button";
 import { getAllProducts } from "@/lib/fetch/getProduct";
 import { serverUrl } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import { IProduct } from "../../../../../types/product";
+import { MyImage } from "../../components/CustomImg";
 import ProductAction from "../../components/ProductAction";
 
 type Props = {
@@ -47,7 +47,7 @@ const page: FC<Props> = async ({ searchParams }) => {
                 products?.products?.map((item: IProduct) => (
                   <tr key={item._id}>
                     <td className="border-2 border-slate-300 px-4 py-2">
-                      <Image
+                      <MyImage
                         src={`${serverUrl}/${item?.images[0]}`}
                         alt={item.name}
                         width={60}

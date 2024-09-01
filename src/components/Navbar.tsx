@@ -1,12 +1,12 @@
 import { cn, serverUrl } from "@/lib/utils";
 
 import { styles } from "@/app/styles";
-import Image from "next/image";
 import Link from "next/link";
 
 import { getBanners } from "@/lib/fetch/banner.data";
 import { SearchIcon } from "lucide-react";
 
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import Cart from "./Cart";
 import MobileMenu from "./MobileMenu";
 import Profile from "./Profile";
@@ -32,7 +32,7 @@ const Navbar = async () => {
       {/* top banner */}
       <div className="sticky hidden lg:block xl:block 2xl:block">
         {banners && banners?.banner.length > 0 ? (
-          <Image
+          <MyImage
             className="h-[50px] object-fill"
             src={topBannerImg}
             alt="banner image"
@@ -54,7 +54,7 @@ const Navbar = async () => {
         >
           <div className="">
             <Link href={"/"}>
-              <Image
+              <MyImage
                 src={"/logo.png"}
                 alt="shop logo"
                 width={200}
@@ -81,7 +81,7 @@ const Navbar = async () => {
           <MobileMenu />
           <div className="">
             <Link href={"/"}>
-              <Image
+              <MyImage
                 src={"/logo.png"}
                 alt="shop logo"
                 width={130}

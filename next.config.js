@@ -33,6 +33,7 @@ const nextConfig = {
       { hostname: "localhost" },
       { hostname: "web-production-b912.up.railway.app" },
       { hostname: "ecommerce-server-byjv.onrender.com" },
+      
     ],
   },
 };

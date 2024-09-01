@@ -1,3 +1,4 @@
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import {
   Carousel,
   CarouselContent,
@@ -7,7 +8,6 @@ import {
 } from "@/components/ui/carousel";
 import { getAllCustomerReviews } from "@/lib/fetch/customerReview";
 import { serverUrl } from "@/lib/utils";
-import Image from "next/image";
 
 const CustomerReview = async () => {
   const data = await getAllCustomerReviews();
@@ -24,7 +24,7 @@ const CustomerReview = async () => {
           {data?.customerReview?.map((item: any, index: number) => (
             <CarouselItem key={index} className="md:basis-1/2">
               <div className="p-1">
-                <Image
+                <MyImage
                   className="w-[340px] mx-auto"
                   src={`${serverUrl}/${item.image}`}
                   alt="customer review"

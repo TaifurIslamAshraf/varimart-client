@@ -1,5 +1,6 @@
 "use client";
 
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import { styles } from "@/app/styles";
 import ComponentLoader from "@/components/ComponentLoader";
 import { Button } from "@/components/ui/button";
@@ -199,7 +200,7 @@ const CartPage = () => {
                                 />
                                 <div className="flex flex-grow justify-start gap-4">
                                   <div className="flex-shrink-0">
-                                    <Image
+                                    <MyImage
                                       className="max-w-full max-h-full object-contain"
                                       src={`${serverUrl}/${product?.product?.image}`}
                                       alt={product?.product?.slug}

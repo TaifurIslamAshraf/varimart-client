@@ -1,7 +1,7 @@
 "use client";
 
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import { serverUrl } from "@/lib/utils";
-import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -21,7 +21,7 @@ const ProductCarousel = ({ images }: { images: [] }) => {
       >
         {images?.map((item, index) => (
           <div className="" key={index}>
-            <Image
+            <MyImage
               className=""
               src={`${serverUrl}/${item}`}
               alt="product images"

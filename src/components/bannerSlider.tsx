@@ -6,8 +6,8 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import Image from "next/image";
 
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import { serverUrl } from "@/lib/utils";
 
 interface Props {
@@ -37,7 +37,7 @@ const BannerSlider = ({ banner }: Props) => {
           {banner?.map((item: any) => (
             <CarouselItem key={item._id}>
               <div className="rounded-lg w-full h-full">
-                <Image
+                <MyImage
                   src={`${serverUrl}/${item.image}`}
                   alt="avater"
                   height={320}

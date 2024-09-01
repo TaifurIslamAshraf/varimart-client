@@ -1,5 +1,5 @@
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import { cn, serverUrl } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import AddToCart from "./AddToCart";
 import Ratings from "./Ratings";
@@ -20,7 +20,7 @@ const ProductCard = async ({ product }: Props) => {
       <div className="max-w-[250px] h-auto group-hover:scale-105 transition duration-300">
         <Link href={`/products/${product.slug}`}>
           {" "}
-          <Image src={porductImg} alt={name} width={250} height={100} />
+          <MyImage src={porductImg} alt={name} width={250} height={100} />
         </Link>
       </div>
 

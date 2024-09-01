@@ -19,10 +19,10 @@ import {
   useUpdateReviewStatusMutation,
 } from "@/redux/features/reviews/reviewApi";
 import { Trash2 } from "lucide-react";
-import Image from "next/image";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { IManageReview } from "../../../../../types/review";
+import { MyImage } from "../../components/CustomImg";
 
 const ManageReviews = () => {
   const { data } = useGetAllProductReviewsQuery({});
@@ -104,7 +104,7 @@ const ManageReviews = () => {
                     <Separator />
                     <div className="flex justify-between">
                       <div className="flex items-center gap-3">
-                        <Image
+                        <MyImage
                           className="rounded-full"
                           src={
                             review?.avatar

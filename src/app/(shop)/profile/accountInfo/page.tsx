@@ -9,11 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Image from "next/image";
 
 import { LoadingButton } from "@/components/LoaderButton";
 import { cn, serverUrl } from "@/lib/utils";
 
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import ComponentLoader from "@/components/ComponentLoader";
 import {
   useUpdateProfileMutation,
@@ -87,7 +87,7 @@ const AccountInfo = () => {
       <Card className="max-w-[500px] mx-auto mt-[140px]">
         <CardHeader className="w-full flex justify-center">
           <div className="relative">
-            <Image
+            <MyImage
               className={cn(
                 "rounded-full m-auto w-[110px] h-[110px] object-cover",
                 isLoading ? "blur-md" : ""

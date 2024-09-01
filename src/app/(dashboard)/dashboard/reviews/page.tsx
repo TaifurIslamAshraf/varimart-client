@@ -1,7 +1,7 @@
 import { getAllCustomerReviews } from "@/lib/fetch/customerReview";
 import { serverUrl } from "@/lib/utils";
-import Image from "next/image";
 import CreateReviews from "../../components/CreateReviews";
+import { MyImage } from "../../components/CustomImg";
 import ReviewDeleteBtn from "../../components/ReviewDeleteBtn";
 
 type IReviews = {
@@ -27,7 +27,7 @@ const page = async () => {
               className="group transition-all duration-500 relative"
               key={item?._id}
             >
-              <Image
+              <MyImage
                 src={`${serverUrl}/${item?.image}`}
                 alt="Customer reviews"
                 width={300}

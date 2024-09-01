@@ -1,5 +1,6 @@
 "use client";
 
+import { MyImage } from "@/app/(dashboard)/components/CustomImg";
 import { styles } from "@/app/styles";
 import ComponentLoader from "@/components/ComponentLoader";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,6 @@ import { Separator } from "@/components/ui/separator";
 import { cn, serverUrl } from "@/lib/utils";
 import { useGetOrderQuery } from "@/redux/features/orders/orderApi";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -97,7 +97,7 @@ const OrderHistory = () => {
                       key={order?._id}
                     >
                       <div className="flex items-center gap-4 flex-1 ">
-                        <Image
+                        <MyImage
                           src={`${serverUrl}/${order?.image}`}
                           alt={order?.productName}
                           width={50}

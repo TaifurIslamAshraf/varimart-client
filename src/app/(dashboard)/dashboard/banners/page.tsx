@@ -1,9 +1,9 @@
 import { Separator } from "@/components/ui/separator";
 import { getBanners } from "@/lib/fetch/banner.data";
 import { serverUrl } from "@/lib/utils";
-import Image from "next/image";
 import BannerDeleteBtn from "../../components/BannerDeleteBtn";
 import CreateBanners from "../../components/CreateBanners";
+import { MyImage } from "../../components/CustomImg";
 
 type IBanners = {
   _id: string;
@@ -37,7 +37,7 @@ const page = async () => {
               >
                 {item?.bannerType === "mainBanner" && (
                   <div className="">
-                    <Image
+                    <MyImage
                       src={`${serverUrl}/${item?.image}`}
                       alt="Customer reviews"
                       width={500}
@@ -61,7 +61,7 @@ const page = async () => {
               <div className="" key={item?._id}>
                 {item?.bannerType === "categoryBanner" && (
                   <div className="">
-                    <Image
+                    <MyImage
                       src={`${serverUrl}/${item?.image}`}
                       alt="Customer reviews"
                       width={500}
@@ -89,7 +89,7 @@ const page = async () => {
                 {item?.bannerType === "topBanner" && (
                   <div className="flex items-center gap-4">
                     <div className="w-full">
-                      <Image
+                      <MyImage
                         src={`${serverUrl}/${item?.image}`}
                         alt="Customer reviews"
                         width={1300}
