@@ -8,11 +8,13 @@ const ProtectedDashboard = ({ children }: { children: React.ReactNode }) => {
   const { user } = useSelector((state: any) => state.auth);
   const router = useRouter();
 
-  const isAuthenticated = user?.fullName && user?.role === "admin";
+  // Allow access if the user is either an admin or a visitor
+  const isAuthenticated =
+    user?.fullName && (user?.role === "admin" || user?.role === "visitor");
 
   useEffect(() => {
     if (!isAuthenticated) {
-      router.replace("/");
+      router.replace("/"); // Redirect to homepage if not authenticated
     }
   }, [isAuthenticated, router]);
 

@@ -1,9 +1,13 @@
 "use client";
 import { useSelector } from "react-redux";
 
-function UserAuth() {
+export function userAuth() {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { user } = useSelector((state: any) => state.auth);
-  return !!user?.fullName;
-}
 
-export default UserAuth;
+  if (user?.fullName) {
+    return true;
+  } else {
+    return false;
+  }
+}

@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import UserAuth from "./userAuth";
+import { userAuth } from "./userAuth";
 
 const Protected = ({ children }: { children: React.ReactNode }) => {
-  const isAuthenticated = UserAuth();
+  const isAuthenticated = userAuth();
   const router = useRouter();
 
   useEffect(() => {
