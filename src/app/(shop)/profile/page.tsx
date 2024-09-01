@@ -19,23 +19,32 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 export default function Page() {
   const [isLogout, setIsLogout] = useState(false);
   const router = useRouter();
-
   const { user } = useSelector((state: any) => state.auth);
-  const {} = useLogoutQuery(undefined, {
+
+  // Call the logout query when isLogout is set to true
+  const { data, error, isSuccess } = useLogoutQuery(undefined, {
     skip: !isLogout,
   });
 
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Logout successful");
+      router.replace("/");
+    } else if (error) {
+      toast.error("Failed to logout");
+      setIsLogout(false);
+    }
+  }, [isSuccess, error, router]);
+
   const handleLogout = () => {
-    toast.success("Logout successfull");
     setIsLogout(true);
-    router.replace("/");
   };
 
   return (
@@ -44,7 +53,7 @@ export default function Page() {
         <CardHeader>
           <CardTitle>Manage Your Profile</CardTitle>
           <CardDescription>
-            Update Your profile picture and change your name, phone number and
+            Update Your profile picture and change your name, phone number, and
             address{" "}
           </CardDescription>
         </CardHeader>
