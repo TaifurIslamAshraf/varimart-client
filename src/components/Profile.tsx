@@ -34,7 +34,7 @@ const Profile = () => {
               src={
                 user.avatar
                   ? `${serverUrl}/${user.avatar}`
-                  : "../../public/default-avater.jpg"
+                  : "/default-avater.jpg"
               }
               alt="default avater"
               height={40}
