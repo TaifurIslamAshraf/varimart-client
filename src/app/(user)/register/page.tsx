@@ -179,6 +179,8 @@ const Register = () => {
                     <Label className="text-primary">Password</Label>
                     <FormControl>
                       <Input
+                        autoComplete="off"
+                        type="password"
                         disabled={isLoading}
                         placeholder="Enter Your password"
                         {...field}
@@ -196,6 +198,8 @@ const Register = () => {
                     <Label className="text-primary">Confirm Password</Label>
                     <FormControl>
                       <Input
+                        autoComplete="off"
+                        type="password"
                         disabled={isLoading}
                         placeholder="Enter Your confirm password"
                         {...field}

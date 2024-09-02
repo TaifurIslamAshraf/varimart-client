@@ -97,6 +97,7 @@ const Page = () => {
                     <FormLabel className="text-primary">New Password</FormLabel>
                     <FormControl>
                       <Input
+                        autoComplete="off"
                         disabled={isLoading}
                         placeholder="Enter New Password"
                         {...field}
@@ -116,6 +117,7 @@ const Page = () => {
                     </FormLabel>
                     <FormControl>
                       <Input
+                        autoComplete="off"
                         disabled={isLoading}
                         placeholder="Re-enter your password"
                         {...field}

@@ -107,6 +107,8 @@ const Login = () => {
                     <FormLabel className="text-primary">Password</FormLabel>
                     <FormControl>
                       <Input
+                        type="password"
+                        autoComplete="off"
                         placeholder="Enter Your password"
                         {...field}
                         disabled={isLoading}

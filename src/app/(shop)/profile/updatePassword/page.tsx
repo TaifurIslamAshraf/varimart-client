@@ -89,6 +89,8 @@ const ChangePassword = () => {
                       </FormLabel>
                       <FormControl>
                         <Input
+                          autoComplete="off"
+                          type="password"
                           placeholder="Enter your old password"
                           {...field}
                           disabled={isLoading}
@@ -108,6 +110,8 @@ const ChangePassword = () => {
                     <FormLabel className="text-primary">New Password</FormLabel>
                     <FormControl>
                       <Input
+                        autoComplete="off"
+                        type="password"
                         placeholder="Enter New Password"
                         {...field}
                         disabled={isLoading}
