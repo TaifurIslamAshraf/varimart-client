@@ -36,6 +36,7 @@ export default function Page() {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Logout successful");
+      setIsLogout(false);
       router.replace("/");
     } else if (error) {
       toast.error("Failed to logout");
