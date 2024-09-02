@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/card";
 import Protected from "@/lib/Protected";
 import { useLogoutQuery } from "@/redux/features/auth/authApi";
-import { userLogout } from "@/redux/features/auth/authSlice";
 import {
   KeySquare,
   LayoutDashboard,
@@ -22,13 +21,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Page() {
   const [isLogout, setIsLogout] = useState(false);
   const router = useRouter();
   const { user } = useSelector((state: any) => state.auth);
-  const dispatch = useDispatch();
 
   // Call the logout query when isLogout is set to true
   const { data, error, isSuccess } = useLogoutQuery(undefined, {
@@ -39,9 +37,7 @@ export default function Page() {
     if (isSuccess) {
       toast.success("Logout successful");
       setIsLogout(false);
-      userLogout({});
-      router.replace("/");
-      router.refresh();
+      window.location.href = "/";
     } else if (error) {
       toast.error("Failed to logout");
       setIsLogout(false);
