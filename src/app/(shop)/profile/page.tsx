@@ -38,6 +38,7 @@ export default function Page() {
       toast.success("Logout successful");
       setIsLogout(false);
       router.replace("/");
+      router.refresh();
     } else if (error) {
       toast.error("Failed to logout");
       setIsLogout(false);
