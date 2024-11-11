@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Varimart E-commerce Platform
 
-## Getting Started
+[Initial Version](https://varimart.vercel.app/) | [Production Version](https://www.varimartbd.com/)
 
-First, run the development server:
+Varimart is a feature-rich e-commerce platform designed to streamline online shopping with a focus on user experience, security, and flexibility. The platform includes comprehensive user management, product management, and order functionalities, tailored for ease of use. This project was developed and deployed on a VPS to meet client requirements for a robust and scalable e-commerce solution.
+
+Additionally, we developed a customized version for selling clothing items called [Fablura](https://www.fablura.com/), deployed on the same VPS with additional options for product sizes, colors, and other enhancements.
+
+> **Note**: This project is deployed on free hosting tiers, so there may be occasional delays in loading data due to server startup times on the free tier.
+
+## Dashboard Access
+
+Visit the [Varimart Dashboard](https://varimart.vercel.app/dashboard) to view the admin interface.
+
+### Visitor Login Credentials
+
+- **Email**: `taifurislamashraf@gmail.com`
+- **Password**: `123456`
+
+> This visitor account has view-only access to the dashboard and cannot delete or update any data.
+
+## Features
+
+- **Authentication**: Secure login, registration with email verification, logout.
+- **Password Management**: Forgot password and reset password functionalities.
+- **User Profile**: Update profile information.
+- **Role-Based Access Control (RBAC)**: Role-specific access for admins, customers, etc.
+- **Product Management**:
+  - Create, update, delete products.
+  - Product sizes, colors, and additional attributes (for Fablura version).
+- **Banners**:
+  - Main banner, category banner, and top banner for promotions.
+- **Product Reviews**:
+  - Customer reviews and admin review approval.
+- **Customer Engagement**:
+  - Customer review submission for products.
+- **Order Management** (Planned): Functionality for tracking orders and managing transactions.
+
+## Technology Stack
+
+### Frontend
+
+- **Next.js 14**
+- **RTK Query** for optimized data fetching and caching.
+- **Shadcn UI** for a modern, intuitive user interface.
+- **TypeScript** for type safety and better code maintainability.
+- **Tailwind CSS** for responsive and customizable styling.
+
+### Backend
+
+- **Node.js** and **Express.js** as the server framework.
+- **MongoDB** for scalable and flexible database management.
+- **TypeScript** for strong typing.
+- **Multer** for file uploads, supporting images and documents.
+
+<!-- ## Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+.
+├── public/                   # Static assets
+├── src/
+│   ├── components/           # Reusable components
+│   ├── features/             # Specific feature modules
+│   ├── pages/                # Next.js pages
+│   ├── services/             # API and RTK Query configuration
+│   ├── utils/                # Utility functions
+│   └── models/               # Database models (Mongoose schemas)
+└── README.md                 # Project documentation -->
