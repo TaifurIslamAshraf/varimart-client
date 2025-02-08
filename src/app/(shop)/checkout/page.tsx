@@ -29,7 +29,7 @@ import {
 } from "@/redux/features/orders/orderApi";
 import { ListOrdered, Receipt } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -47,11 +47,13 @@ const orderSchema = z.object({
 const Checkout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [calculatedShipping, setCalculatedShipping] = useState<any>(0);
+  const [calculatedAmount, setCalculatedAmount] = useState<any>(0);
 
   const { refetch } = useGetCartItemQuery({});
   const { refetch: orderStatusRefetch } = useGetOrderStatusQuery({});
-
   const {} = useTotalPriceQuery({});
+
   const [createOrder, { isLoading, error, isError, isSuccess }] =
     useCreateOrderMutation();
   const { user } = useSelector((state: any) => state.auth);
@@ -62,14 +64,6 @@ const Checkout = () => {
   const selectItem = allCartProducts?.cartItem?.filter(
     (item: any) => item?.selected === true
   );
-
-  //find lowest shipping charge
-  const minShippingPrice = selectItem?.reduce((min: any, item: any) => {
-    const shipping = parseInt(item?.product?.shipping);
-    return shipping < min ? shipping : min;
-  }, Infinity);
-
-  const totalAmount = totalPrice?.totalDiscountPrice + minShippingPrice;
 
   const form = useForm<z.infer<typeof orderSchema>>({
     resolver: zodResolver(orderSchema),
@@ -90,10 +84,9 @@ const Checkout = () => {
       paymentType: "Cash on delivery",
       orderItems,
       itemsPrice: totalPrice?.totalDiscountPrice,
-      shippingPrice: minShippingPrice,
-      totalAmount: totalAmount,
+      shippingPrice: calculatedShipping,
+      totalAmount: calculatedAmount,
     };
-    console.log(orderItems);
 
     await createOrder(data);
     await orderStatusRefetch();
@@ -101,15 +94,46 @@ const Checkout = () => {
   };
 
   useEffect(() => {
+    if (!selectItem?.length) return;
+
+    const calculatedShipping = selectItem.reduce((min: number, item: any) => {
+      const shipping = parseInt(item?.product?.shipping) || 0;
+      return shipping < min && shipping !== 0 ? shipping : min;
+    }, parseInt(selectItem[0]?.product?.shipping) || 0);
+
+    setCalculatedShipping(calculatedShipping);
+  }, [selectItem]);
+
+  useEffect(() => {
+    const subtotal = Number(totalPrice?.totalDiscountPrice) || 0;
+    const shipping = Number(calculatedShipping) || 0;
+    const total = subtotal + shipping;
+
+    setCalculatedAmount(total);
+  }, [calculatedShipping, totalPrice?.totalDiscountPrice]);
+
+  useEffect(() => {
     if (isSuccess) {
-      toast.success("Order successfully plased");
-      router.replace("/orderSuccess");
+      const searchParams = new URLSearchParams();
+
+      searchParams.set("amount", calculatedAmount?.toString());
+      router.replace(`/orderSuccess?${searchParams.toString()}`);
       dispatch(clearCart({}));
+      toast.success("Order successfully placed");
     } else if (isError) {
-      const errroData = error as any;
-      toast.error(errroData?.data?.message);
+      const errorData = error as any;
+      toast.error(errorData?.data?.message);
     }
-  }, [dispatch, error, isError, isSuccess, refetch, router]);
+  }, [
+    dispatch,
+    error,
+    isError,
+    isSuccess,
+    refetch,
+    router,
+    totalPrice.totalDiscountPrice,
+    calculatedAmount,
+  ]);
 
   useEffect(() => {
     form.setValue("fullName", user?.fullName || "");
@@ -231,10 +255,10 @@ const Checkout = () => {
             </h2>
             <Suspense fallback={<ComponentLoader />}>
               <Orders
-                minShippingPrice={minShippingPrice}
+                minShippingPrice={calculatedShipping}
                 selectItem={selectItem}
                 totalPrice={totalPrice}
-                totalAmount={totalAmount}
+                totalAmount={calculatedAmount}
                 isLoading={isLoading}
               />
             </Suspense>

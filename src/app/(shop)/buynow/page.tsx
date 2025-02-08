@@ -25,7 +25,7 @@ import {
 } from "@/redux/features/orders/orderApi";
 import { ListOrdered, Receipt } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -43,6 +43,7 @@ const orderSchema = z.object({
 const ByNowCheckout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [calculatedAmount, setCalculatedAmount] = useState(0);
 
   const [createOrder, { isLoading, error, isError, isSuccess }] =
     useCreateOrderMutation();
@@ -50,8 +51,8 @@ const ByNowCheckout = () => {
   const { user } = useSelector((state: any) => state.auth);
   const { buyNowItem } = useSelector((state: any) => state.cart);
 
-  const totalAmount =
-    parseInt(buyNowItem?.price) + parseInt(buyNowItem?.shippingPrice);
+  // const totalAmount =
+  //   parseInt(buyNowItem?.price) + parseInt(buyNowItem?.shippingPrice);
   const orderItems = [
     {
       productName: buyNowItem?.productName,
@@ -75,7 +76,7 @@ const ByNowCheckout = () => {
         orderItems,
         itemsPrice: parseInt(buyNowItem?.price),
         shippingPrice: parseInt(buyNowItem?.shippingPrice),
-        totalAmount: totalAmount,
+        totalAmount: calculatedAmount,
       };
 
       await createOrder(data);
@@ -86,15 +87,27 @@ const ByNowCheckout = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      toast.success("Order Placed successfully");
-      router.replace("/orderSuccess");
-      dispatch(clearBuyNow({}));
-    } else if (isError) {
-      const errroData = error as any;
-      toast.error(errroData?.data?.message);
+    if (buyNowItem?.price && buyNowItem?.shippingPrice) {
+      const amount =
+        parseInt(buyNowItem.price) + parseInt(buyNowItem.shippingPrice);
+      setCalculatedAmount(amount);
     }
-  }, [dispatch, error, isError, isSuccess, router]);
+  }, [buyNowItem]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      const amount = calculatedAmount;
+      toast.success("Order Placed successfully");
+      router.replace(`/orderSuccess?amount=${amount}`);
+
+      setTimeout(() => {
+        dispatch(clearBuyNow({}));
+      }, 100);
+    } else if (isError) {
+      const errorData = error as any;
+      toast.error(errorData?.data?.message);
+    }
+  }, [dispatch, error, isError, isSuccess, router, calculatedAmount]);
 
   useEffect(() => {
     form.setValue("fullName", user?.fullName || "");
@@ -219,7 +232,7 @@ const ByNowCheckout = () => {
                 minShippingPrice={buyNowItem?.shippingPrice}
                 selectItem={orderItems}
                 totalPrice={buyNowItem?.price}
-                totalAmount={totalAmount}
+                totalAmount={calculatedAmount}
                 isLoading={isLoading}
               />
             </Suspense>

@@ -9,16 +9,17 @@ interface CartType {
   };
   totalPrice: {};
   buyNowItem: {};
+  totalAmount: string;
 }
 
 const initialState: CartType = {
-  allCartProducts:
-    {
-      success: "",
-      message: "",
-      cartItem: [],
-      selectAll: true,
-    } || "",
+  allCartProducts: {
+    success: "",
+    message: "",
+    cartItem: [],
+    selectAll: true,
+  },
+  totalAmount: "",
   totalPrice: {},
   buyNowItem: {},
 };
@@ -54,6 +55,9 @@ const cartSlice = createSlice({
     clearBuyNow: (state, action) => {
       state.buyNowItem = {};
     },
+    cartTotalAmount: (state, action) => {
+      state.totalAmount = "";
+    },
   },
 });
 
@@ -64,5 +68,6 @@ export const {
   totalPrice,
   clearCart,
   clearBuyNow,
+  cartTotalAmount,
 } = cartSlice.actions;
 export default cartSlice.reducer;
