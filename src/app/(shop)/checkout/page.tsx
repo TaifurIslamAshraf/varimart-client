@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { useDataLayer } from "@/hooks/useDataLayer";
+import { useGTM } from "@/hooks/useGTM";
 import { cn } from "@/lib/utils";
 import {
   useGetCartItemQuery,
@@ -34,7 +34,6 @@ import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
-
 const orderSchema = z.object({
   fullName: z.string().min(1, "Enter Your Full Name"),
   email: z.string().optional(),
@@ -49,7 +48,7 @@ const orderSchema = z.object({
 const Checkout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { pushEvent } = useDataLayer();
+  const { pushEvent } = useGTM();
   const [calculatedShipping, setCalculatedShipping] = useState<any>(0);
   const [calculatedAmount, setCalculatedAmount] = useState<any>(0);
 
@@ -98,7 +97,11 @@ const Checkout = () => {
       ecommerce: {
         currencyCode: "BDT",
         value: calculatedAmount,
-        orderItems,
+        items: orderItems.map((item: any) => ({
+          item_name: item.productName,
+          price: item.price,
+          quantity: item.quantity,
+        })),
       },
     });
 
@@ -159,127 +162,127 @@ const Checkout = () => {
   // lg:mt-[140px] mt-[80px]
   return (
     <Suspense fallback={<div>Loading...</div>}>
-    <div
-      className={cn(
-        styles.paddingX,
-        styles.paddingY,
-        " max-w-[1200px] w-full mx-auto"
-      )}
-    >
-      <div className="">
-        <h1 className={cn("text-3xl font-semibold")}>Checkout</h1>
-        <Separator />
-      </div>
+      <div
+        className={cn(
+          styles.paddingX,
+          styles.paddingY,
+          " max-w-[1200px] w-full mx-auto"
+        )}
+      >
+        <div className="">
+          <h1 className={cn("text-3xl font-semibold")}>Checkout</h1>
+          <Separator />
+        </div>
 
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleSubmit)}
-          className="flex flex-col lg:flex-row gap-10 mt-10"
-        >
-          <div className="flex-1 bg-primary-foreground p-4">
-            <h2 className="mb-6 text-lg font-[500] text-secondary-foreground flex items-center gap-2">
-              <Receipt size={20} /> Billing Details{" "}
-            </h2>
-            <div className="space-y-4">
-              <FormField
-                name="fullName"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <Label className="text-primary">Full Name</Label>
-                    <FormControl>
-                      <Input
-                        // disabled={isLoading}
-                        placeholder="Enter Your Name"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="email"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <Label className="text-primary">Email (Optional)</Label>
-                    <FormControl>
-                      <Input
-                        // disabled={isLoading}
-                        placeholder="Enter Your Email"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="phone"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <Label className="text-primary">Phone Number</Label>
-                    <FormControl>
-                      <Input
-                        // disabled={isLoading}
-                        placeholder="Enter Your Phone Number"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="address"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <Label className="text-primary">Address</Label>
-                    <FormControl>
-                      <Input
-                        // disabled={isLoading}
-                        placeholder="Enter Your Full Address"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="flex flex-col lg:flex-row gap-10 mt-10"
+          >
+            <div className="flex-1 bg-primary-foreground p-4">
+              <h2 className="mb-6 text-lg font-[500] text-secondary-foreground flex items-center gap-2">
+                <Receipt size={20} /> Billing Details{" "}
+              </h2>
+              <div className="space-y-4">
+                <FormField
+                  name="fullName"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <Label className="text-primary">Full Name</Label>
+                      <FormControl>
+                        <Input
+                          // disabled={isLoading}
+                          placeholder="Enter Your Name"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="email"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <Label className="text-primary">Email (Optional)</Label>
+                      <FormControl>
+                        <Input
+                          // disabled={isLoading}
+                          placeholder="Enter Your Email"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="phone"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <Label className="text-primary">Phone Number</Label>
+                      <FormControl>
+                        <Input
+                          // disabled={isLoading}
+                          placeholder="Enter Your Phone Number"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="address"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <Label className="text-primary">Address</Label>
+                      <FormControl>
+                        <Input
+                          // disabled={isLoading}
+                          placeholder="Enter Your Full Address"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                name="orderNots"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <Label>Order Nots (Optional)</Label>
-                    <Input placeholder="Enter Your Order Nots" {...field} />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  name="orderNots"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <Label>Order Nots (Optional)</Label>
+                      <Input placeholder="Enter Your Order Nots" {...field} />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="flex-1 bg-primary-foreground p-4">
-            <h2 className="mb-6 text-lg font-[500] text-secondary-foreground flex items-center gap-2">
-              <ListOrdered size={20} /> Your Order{" "}
-            </h2>
-            <Suspense fallback={<ComponentLoader />}>
-              <Orders
-                minShippingPrice={calculatedShipping}
-                selectItem={selectItem}
-                totalPrice={totalPrice}
-                totalAmount={calculatedAmount}
-                isLoading={isLoading}
-              />
-            </Suspense>
-          </div>
-        </form>
-      </Form>
-    </div>
+            <div className="flex-1 bg-primary-foreground p-4">
+              <h2 className="mb-6 text-lg font-[500] text-secondary-foreground flex items-center gap-2">
+                <ListOrdered size={20} /> Your Order{" "}
+              </h2>
+              <Suspense fallback={<ComponentLoader />}>
+                <Orders
+                  minShippingPrice={calculatedShipping}
+                  selectItem={selectItem}
+                  totalPrice={totalPrice}
+                  totalAmount={calculatedAmount}
+                  isLoading={isLoading}
+                />
+              </Suspense>
+            </div>
+          </form>
+        </Form>
+      </div>
     </Suspense>
   );
 };

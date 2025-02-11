@@ -1,18 +1,10 @@
-"use client";
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-M7RXHBCL'
 
-import { GoogleTagManager } from "@next/third-parties/google";
-
-export const GTM = () => {
-  return (
-    <>
-      <GoogleTagManager gtmId="GTM-M7RXHBCL" />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-          `,
-        }}
-      />
-    </>
-  );
-};
+export const pageview = (url: string) => {
+  if (typeof window.dataLayer !== 'undefined') {
+    window.dataLayer.push({
+      event: 'pageview',
+      page: url,
+    })
+  }
+}
