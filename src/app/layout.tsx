@@ -1,3 +1,5 @@
+import GoogleTagManager from "@/components/GoogleTagManager";
+import GoogleTagManagerNoScript from "@/components/GoogleTagManagerNoScript";
 import ReduxProvider from "@/lib/ReduxProvider";
 import { allkeywords, descriptionShop } from "@/lib/contstens";
 import { cn } from "@/lib/utils";
@@ -24,11 +26,11 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* <head>
+      <head>
         <GoogleTagManager />
-      </head> */}
+      </head>
       <body className={cn(poppins.className, "w-full")}>
-        {/* <GoogleTagManagerNoScript /> */}
+        <GoogleTagManagerNoScript />
         <ReduxProvider>
           <div className="max-w-[1400px] mx-auto">
             {children}

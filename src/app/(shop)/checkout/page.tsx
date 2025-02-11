@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { useGTM } from "@/hooks/useGTM";
 import { cn } from "@/lib/utils";
 import {
   useGetCartItemQuery,
@@ -47,7 +48,7 @@ const orderSchema = z.object({
 const Checkout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  // const { pushEvent } = useGTM();
+  const { pushEvent } = useGTM();
   const [calculatedShipping, setCalculatedShipping] = useState<any>(0);
   const [calculatedAmount, setCalculatedAmount] = useState<any>(0);
 
@@ -91,18 +92,18 @@ const Checkout = () => {
 
     await createOrder(data);
 
-    // pushEvent({
-    //   event: "purchase",
-    //   ecommerce: {
-    //     currencyCode: "BDT",
-    //     value: calculatedAmount,
-    //     items: orderItems.map((item: any) => ({
-    //       item_name: item.productName,
-    //       price: item.price,
-    //       quantity: item.quantity,
-    //     })),
-    //   },
-    // });
+    pushEvent({
+      event: "purchase",
+      ecommerce: {
+        currencyCode: "BDT",
+        value: calculatedAmount,
+        items: orderItems.map((item: any) => ({
+          item_name: item.productName,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+      },
+    });
 
     await orderStatusRefetch();
     await refetch();

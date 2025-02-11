@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { useGTM } from "@/hooks/useGTM";
 import { cn } from "@/lib/utils";
 import { clearBuyNow } from "@/redux/features/cart/cartSlice";
 import {
@@ -50,7 +51,7 @@ const ByNowCheckout = () => {
   const { refetch } = useGetOrderStatusQuery({});
   const { user } = useSelector((state: any) => state.auth);
   const { buyNowItem } = useSelector((state: any) => state.cart);
-  // const { pushEvent } = useGTM();
+  const { pushEvent } = useGTM();
 
   // const totalAmount =
   //   parseInt(buyNowItem?.price) + parseInt(buyNowItem?.shippingPrice);
@@ -82,18 +83,18 @@ const ByNowCheckout = () => {
 
       await createOrder(data);
 
-      // pushEvent({
-      //   event: "purchase",
-      //   ecommerce: {
-      //     currencyCode: "BDT",
-      //     value: calculatedAmount,
-      //     items: orderItems.map((item: any) => ({
-      //       item_name: item.productName,
-      //       price: item.price,
-      //       quantity: item.quantity,
-      //     })),
-      //   },
-      // });
+      pushEvent({
+        event: "purchase",
+        ecommerce: {
+          currencyCode: "BDT",
+          value: calculatedAmount,
+          items: orderItems.map((item: any) => ({
+            item_name: item.productName,
+            price: item.price,
+            quantity: item.quantity,
+          })),
+        },
+      });
 
       await refetch();
     } else {
