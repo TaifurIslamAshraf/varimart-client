@@ -1,7 +1,8 @@
+import { GTM } from "@/components/Gmt";
+import { TrackPageView } from "@/components/TrackPageView";
 import ReduxProvider from "@/lib/ReduxProvider";
 import { allkeywords, descriptionShop } from "@/lib/contstens";
 import { cn } from "@/lib/utils";
-import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -25,7 +26,6 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="GTM-M7RXHBCL" />
       <body className={cn(poppins.className, "w-full")}>
         <ReduxProvider>
           <div className="max-w-[1400px] mx-auto">
@@ -33,6 +33,8 @@ export default async function RootLayout({
             <Toaster position="top-center" reverseOrder={false} />
           </div>
         </ReduxProvider>
+        <TrackPageView />
+        <GTM />
       </body>
     </html>
   );
