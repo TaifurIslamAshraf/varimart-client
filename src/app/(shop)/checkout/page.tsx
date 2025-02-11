@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { useDataLayer } from "@/hooks/useDataLayer";
 import { cn } from "@/lib/utils";
 import {
   useGetCartItemQuery,
@@ -47,6 +48,7 @@ const orderSchema = z.object({
 const Checkout = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { pushEvent } = useDataLayer();
   const [calculatedShipping, setCalculatedShipping] = useState<any>(0);
   const [calculatedAmount, setCalculatedAmount] = useState<any>(0);
 
@@ -89,6 +91,16 @@ const Checkout = () => {
     };
 
     await createOrder(data);
+
+    pushEvent({
+      event: "confirm_order",
+      ecommerce: {
+        currencyCode: "BDT",
+        value: calculatedAmount,
+        orderItems,
+      },
+    });
+
     await orderStatusRefetch();
     await refetch();
   };

@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { useDataLayer } from "@/hooks/useDataLayer";
 import { cn } from "@/lib/utils";
 import { clearBuyNow } from "@/redux/features/cart/cartSlice";
 import {
@@ -50,6 +51,7 @@ const ByNowCheckout = () => {
   const { refetch } = useGetOrderStatusQuery({});
   const { user } = useSelector((state: any) => state.auth);
   const { buyNowItem } = useSelector((state: any) => state.cart);
+  const { pushEvent } = useDataLayer();
 
   // const totalAmount =
   //   parseInt(buyNowItem?.price) + parseInt(buyNowItem?.shippingPrice);
@@ -80,6 +82,16 @@ const ByNowCheckout = () => {
       };
 
       await createOrder(data);
+
+      pushEvent({
+        event: "confirm_order",
+        ecommerce: {
+          currencyCode: "BDT",
+          value: calculatedAmount,
+          orderItems,
+        },
+      });
+
       await refetch();
     } else {
       toast.error("Product select again");
