@@ -34,6 +34,7 @@ import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
+
 const orderSchema = z.object({
   fullName: z.string().min(1, "Enter Your Full Name"),
   email: z.string().optional(),
@@ -93,7 +94,7 @@ const Checkout = () => {
     await createOrder(data);
 
     pushEvent({
-      event: "confirm_order",
+      event: "purchase",
       ecommerce: {
         currencyCode: "BDT",
         value: calculatedAmount,
@@ -157,6 +158,7 @@ const Checkout = () => {
 
   // lg:mt-[140px] mt-[80px]
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div
       className={cn(
         styles.paddingX,
@@ -278,6 +280,7 @@ const Checkout = () => {
         </form>
       </Form>
     </div>
+    </Suspense>
   );
 };
 

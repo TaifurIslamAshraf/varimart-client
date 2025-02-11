@@ -3,9 +3,10 @@
 import { cn } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { FC, useState } from "react";
+import { FC, useState, Suspense } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import {  } from "react";
 
 type Props = {
   searchRoute: string;
@@ -24,7 +25,8 @@ const Search: FC<Props> = ({ searchRoute, className }) => {
   };
 
   return (
-    <div className={cn(className, "flex items-center justify-center w-full")}>
+   <Suspense fallback={<div>Loading...</div>}>
+     <div className={cn(className, "flex items-center justify-center w-full")}>
       <Input
         className="max-w-[500px]"
         name="search"
@@ -37,6 +39,7 @@ const Search: FC<Props> = ({ searchRoute, className }) => {
         <SearchIcon />
       </Button>
     </div>
+   </Suspense>
   );
 };
 

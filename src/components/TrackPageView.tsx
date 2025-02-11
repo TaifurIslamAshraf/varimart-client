@@ -1,10 +1,11 @@
 "use client";
 
+import { Suspense } from "react";
 import { useDataLayer } from "@/hooks/useDataLayer";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-export const TrackPageView = () => {
+const PageViewTracker = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { pushEvent } = useDataLayer();
@@ -22,4 +23,12 @@ export const TrackPageView = () => {
   }, [pathname, searchParams, pushEvent]);
 
   return null;
+};
+
+export const TrackPageView = () => {
+  return (
+    <Suspense fallback={null}>
+      <PageViewTracker />
+    </Suspense>
+  );
 };

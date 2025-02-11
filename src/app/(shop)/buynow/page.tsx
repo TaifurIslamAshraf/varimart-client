@@ -84,7 +84,7 @@ const ByNowCheckout = () => {
       await createOrder(data);
 
       pushEvent({
-        event: "confirm_order",
+        event: "purchase",
         ecommerce: {
           currencyCode: "BDT",
           value: calculatedAmount,
@@ -131,6 +131,7 @@ const ByNowCheckout = () => {
 
   // lg:mt-[140px] mt-[80px]
   return (
+    <Suspense fallback={<ComponentLoader />}>
     <div
       className={cn(
         styles.paddingX,
@@ -252,6 +253,7 @@ const ByNowCheckout = () => {
         </form>
       </Form>
     </div>
+    </Suspense>
   );
 };
 

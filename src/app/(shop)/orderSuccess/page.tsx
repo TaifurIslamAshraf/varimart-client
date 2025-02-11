@@ -33,9 +33,9 @@ const SuccessOrder = () => {
           খুব শীঘ্রই আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে।
         </p>
 
-        <p className="text-gray-600">
+        {/* <p className="text-gray-600">
           ক্যাশ অর্ডার রিফান্ড করতে আপনার আইডি এক্সপ্রেস সংগ্রহ করা হবে।
-        </p>
+        </p> */}
       </div>
 
       <div className="flex items-center justify-center gap-3 font-medium mt-4">

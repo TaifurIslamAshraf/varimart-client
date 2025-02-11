@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useState, Suspense } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
@@ -36,6 +36,7 @@ const PriceFilters = () => {
   };
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="space-y-1">
       <h1 className="font-[400] text-lg">Price</h1>
       <Separator />
@@ -62,6 +63,7 @@ const PriceFilters = () => {
         </Button>
       </div>
     </div>
+    </Suspense>
   );
 };
 
