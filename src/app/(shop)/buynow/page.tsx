@@ -23,7 +23,6 @@ import {
   useCreateOrderMutation,
   useGetOrderStatusQuery,
 } from "@/redux/features/orders/orderApi";
-import { sendGTMEvent } from "@next/third-parties/google";
 import { ListOrdered, Receipt } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -82,7 +81,7 @@ const ByNowCheckout = () => {
 
       await createOrder(data);
 
-      sendGTMEvent({
+      window.dataLayer.push({
         event: "purchase",
         ecommerce: {
           currencyCode: "BDT",
@@ -94,6 +93,8 @@ const ByNowCheckout = () => {
           })),
         },
       });
+
+      console.log("DataLayer:", window.dataLayer);
 
       await refetch();
     } else {

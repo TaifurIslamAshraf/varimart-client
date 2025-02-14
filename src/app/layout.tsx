@@ -1,8 +1,8 @@
-import { DataLayerProvider } from "@/lib/DatalayerProvider";
+import GoogleTagManager from "@/components/GoogleTagManager";
+import GoogleTagManagerNoScript from "@/components/GoogleTagManagerNoScript";
 import ReduxProvider from "@/lib/ReduxProvider";
 import { allkeywords, descriptionShop } from "@/lib/contstens";
 import { cn } from "@/lib/utils";
-import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -26,16 +26,17 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <GoogleTagManager gtmId="GTM-M7RXHBCL" />
+      <head>
+        <GoogleTagManager />
+      </head>
       <body className={cn(poppins.className, "w-full")}>
-        <DataLayerProvider>
-          <ReduxProvider>
-            <div className="max-w-[1400px] mx-auto">
-              {children}
-              <Toaster position="top-center" reverseOrder={false} />
-            </div>
-          </ReduxProvider>
-        </DataLayerProvider>
+        <GoogleTagManagerNoScript />
+        <ReduxProvider>
+          <div className="max-w-[1400px] mx-auto">
+            {children}
+            <Toaster position="top-center" reverseOrder={false} />
+          </div>
+        </ReduxProvider>
       </body>
     </html>
   );
