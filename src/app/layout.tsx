@@ -26,9 +26,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <GoogleTagManager />
-      </head>
+      <GoogleTagManager />
       <body className={cn(poppins.className, "w-full")}>
         <GoogleTagManagerNoScript />
         <ReduxProvider>
