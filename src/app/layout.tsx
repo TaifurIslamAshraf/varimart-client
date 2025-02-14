@@ -24,15 +24,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const initialDataLayer = {
-    page: "home",
-    platform: "web",
-    userType: "visitor",
-  };
-
   return (
     <html lang="en">
-      <GoogleTagManager dataLayer={initialDataLayer} gtmId="GTM-M7RXHBCL" />
+      <GoogleTagManager gtmId="GTM-M7RXHBCL" />
       <body className={cn(poppins.className, "w-full")}>
         <GoogleTagManagerNoScript />
         <ReduxProvider>
