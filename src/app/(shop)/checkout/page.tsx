@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { sendGTMEvent } from "@next/third-parties/google";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -92,7 +91,7 @@ const Checkout = () => {
 
     await createOrder(data);
 
-    sendGTMEvent({
+    window.dataLayer.push({
       event: "purchase",
       ecommerce: {
         currencyCode: "BDT",
