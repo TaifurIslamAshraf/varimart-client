@@ -17,13 +17,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { useGTM } from "@/hooks/useGTM";
 import { cn } from "@/lib/utils";
 import { clearBuyNow } from "@/redux/features/cart/cartSlice";
 import {
   useCreateOrderMutation,
   useGetOrderStatusQuery,
 } from "@/redux/features/orders/orderApi";
+import { sendGTMEvent } from "@next/third-parties/google";
 import { ListOrdered, Receipt } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -51,7 +51,6 @@ const ByNowCheckout = () => {
   const { refetch } = useGetOrderStatusQuery({});
   const { user } = useSelector((state: any) => state.auth);
   const { buyNowItem } = useSelector((state: any) => state.cart);
-  const { pushEvent } = useGTM();
 
   // const totalAmount =
   //   parseInt(buyNowItem?.price) + parseInt(buyNowItem?.shippingPrice);
@@ -83,7 +82,7 @@ const ByNowCheckout = () => {
 
       await createOrder(data);
 
-      pushEvent({
+      sendGTMEvent({
         event: "purchase",
         ecommerce: {
           currencyCode: "BDT",

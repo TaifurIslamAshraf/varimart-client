@@ -1,4 +1,4 @@
-import GoogleTagManagerNoScript from "@/components/GoogleTagManagerNoScript";
+import { DataLayerProvider } from "@/lib/DatalayerProvider";
 import ReduxProvider from "@/lib/ReduxProvider";
 import { allkeywords, descriptionShop } from "@/lib/contstens";
 import { cn } from "@/lib/utils";
@@ -28,13 +28,14 @@ export default async function RootLayout({
     <html lang="en">
       <GoogleTagManager gtmId="GTM-M7RXHBCL" />
       <body className={cn(poppins.className, "w-full")}>
-        <GoogleTagManagerNoScript />
-        <ReduxProvider>
-          <div className="max-w-[1400px] mx-auto">
-            {children}
-            <Toaster position="top-center" reverseOrder={false} />
-          </div>
-        </ReduxProvider>
+        <DataLayerProvider>
+          <ReduxProvider>
+            <div className="max-w-[1400px] mx-auto">
+              {children}
+              <Toaster position="top-center" reverseOrder={false} />
+            </div>
+          </ReduxProvider>
+        </DataLayerProvider>
       </body>
     </html>
   );
