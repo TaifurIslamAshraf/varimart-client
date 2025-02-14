@@ -92,19 +92,6 @@ const Checkout = () => {
 
     await createOrder(data);
 
-    pushEvent({
-      event: "purchase",
-      ecommerce: {
-        currencyCode: "BDT",
-        value: calculatedAmount,
-        items: orderItems.map((item: any) => ({
-          item_name: item.productName,
-          price: item.price,
-          quantity: item.quantity,
-        })),
-      },
-    });
-
     await orderStatusRefetch();
     await refetch();
   };

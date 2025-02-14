@@ -1,8 +1,8 @@
-import GoogleTagManager from "@/components/GoogleTagManager";
 import GoogleTagManagerNoScript from "@/components/GoogleTagManagerNoScript";
 import ReduxProvider from "@/lib/ReduxProvider";
 import { allkeywords, descriptionShop } from "@/lib/contstens";
 import { cn } from "@/lib/utils";
+import { GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
@@ -24,9 +24,15 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const initialDataLayer = {
+    page: "home",
+    platform: "web",
+    userType: "visitor",
+  };
+
   return (
     <html lang="en">
-      <GoogleTagManager />
+      <GoogleTagManager dataLayer={initialDataLayer} gtmId="GTM-M7RXHBCL" />
       <body className={cn(poppins.className, "w-full")}>
         <GoogleTagManagerNoScript />
         <ReduxProvider>
