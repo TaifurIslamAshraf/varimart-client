@@ -4,6 +4,7 @@ import BuyNow from "@/components/BuyNow";
 import Cart from "@/components/Cart";
 import ElectronicDesc from "@/components/ElectronicDesc";
 import FoodDesc from "@/components/FoodDesc";
+import PageViewTracker from "@/components/PageViewTracker";
 import ProductCarousel from "@/components/ProductSlider";
 import Ratings from "@/components/Ratings";
 import RelatedProduct from "@/components/RelatedProduct";
@@ -28,6 +29,21 @@ const page: FC<Props> = async ({ params }) => {
   // lg:mt-[140px] mt-[70px]
   return (
     <div className={cn(styles.paddingX, "")}>
+      <PageViewTracker
+        pageData={{
+          title: productInfo?.name,
+          path: `/products/${slug}`,
+          type: "product",
+        }}
+        productData={{
+          name: productInfo?.name,
+          id: productInfo?._id,
+          price: productInfo?.discountPrice,
+          brand: productInfo?.description?.brand,
+          category: productInfo?.subcategory?.name,
+          variant: productInfo?.description?.colors,
+        }}
+      />
       <div className="fixed top-[90%] z-40 right-5 lg:hidden">
         <Cart />
       </div>

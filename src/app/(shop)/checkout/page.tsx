@@ -7,6 +7,7 @@ import { z } from "zod";
 import { styles } from "@/app/styles";
 import ComponentLoader from "@/components/ComponentLoader";
 import Orders from "@/components/Orders";
+import PageViewTracker from "@/components/PageViewTracker";
 import {
   Form,
   FormControl,
@@ -70,15 +71,15 @@ const Checkout = () => {
     resolver: zodResolver(orderSchema),
   });
 
-  const handleSubmit = async (value: z.infer<typeof orderSchema>) => {
-    const orderItems = selectItem?.map((item: any) => ({
-      productName: item?.product?.name,
-      price: item?.discountPrice,
-      quantity: item?.quantity,
-      image: item?.product?.image,
-      product: item?.productId,
-    }));
+  const orderItems = selectItem?.map((item: any) => ({
+    productName: item?.product?.name,
+    price: item?.discountPrice,
+    quantity: item?.quantity,
+    image: item?.product?.image,
+    product: item?.productId,
+  }));
 
+  const handleSubmit = async (value: z.infer<typeof orderSchema>) => {
     const data = {
       ...value,
       user: user?._id ? user?._id : "",
@@ -161,6 +162,14 @@ const Checkout = () => {
   // lg:mt-[140px] mt-[80px]
   return (
     <Suspense fallback={<div>Loading...</div>}>
+      <PageViewTracker
+        pageData={{
+          title: "initiate_checkout",
+          path: `/checkout`,
+          type: "checkout",
+        }}
+        productData={orderItems}
+      />
       <div
         className={cn(
           styles.paddingX,

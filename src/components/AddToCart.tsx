@@ -29,6 +29,16 @@ const AddToCart = ({ product, btnFull }: { product: any; btnFull: string }) => {
   const handleClick = async () => {
     if (product?.stock > 0) {
       await addToCart({ productId: product._id });
+
+      window.dataLayer.push({
+        event: "add_to_cart",
+        ecommerce: {
+          currencyCode: "BDT",
+          value: product?.discountPrice,
+          product: product,
+        },
+      });
+
       await refetch();
       await totalPriceRefetch();
     } else {

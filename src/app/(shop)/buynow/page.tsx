@@ -7,6 +7,7 @@ import { z } from "zod";
 import { styles } from "@/app/styles";
 import BuyNowOrder from "@/components/BuyNowOrder";
 import ComponentLoader from "@/components/ComponentLoader";
+import PageViewTracker from "@/components/PageViewTracker";
 import {
   Form,
   FormControl,
@@ -94,8 +95,6 @@ const ByNowCheckout = () => {
         },
       });
 
-      console.log("DataLayer:", window.dataLayer);
-
       await refetch();
     } else {
       toast.error("Product select again");
@@ -136,6 +135,14 @@ const ByNowCheckout = () => {
   // lg:mt-[140px] mt-[80px]
   return (
     <Suspense fallback={<ComponentLoader />}>
+      <PageViewTracker
+        pageData={{
+          title: "initiate_checkout",
+          path: `/buynow`,
+          type: "buynow",
+        }}
+        productData={orderItems}
+      />
       <div
         className={cn(
           styles.paddingX,
