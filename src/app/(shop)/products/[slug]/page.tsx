@@ -30,9 +30,9 @@ const page: FC<Props> = async ({ params }) => {
   return (
     <div className={cn(styles.paddingX, "")}>
       <PageViewTracker
+        event="product_view"
         pageData={{
           title: productInfo?.name,
-          path: `/products/${slug}`,
           type: "product",
         }}
         productData={{
