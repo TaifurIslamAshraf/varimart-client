@@ -163,9 +163,9 @@ const Checkout = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <PageViewTracker
+        event="initiate_checkout"
         pageData={{
-          title: "initiate_checkout",
-          path: `/checkout`,
+          title: "Checkout",
           type: "checkout",
         }}
         productData={orderItems}

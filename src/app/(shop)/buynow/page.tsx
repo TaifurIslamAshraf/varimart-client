@@ -136,10 +136,10 @@ const ByNowCheckout = () => {
   return (
     <Suspense fallback={<ComponentLoader />}>
       <PageViewTracker
+        event="initiate_checkout"
         pageData={{
-          title: "initiate_checkout",
-          path: `/buynow`,
-          type: "buynow",
+          title: "Buy Now Checkout",
+          type: "checkout",
         }}
         productData={orderItems}
       />

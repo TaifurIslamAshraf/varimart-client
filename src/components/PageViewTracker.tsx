@@ -1,26 +1,35 @@
 "use client";
 
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 interface PageViewTrackerProps {
+  event: string;
   pageData: {
     title: string;
-    path: string;
     type: string;
   };
   productData?: any;
 }
 
 const PageViewTracker: React.FC<PageViewTrackerProps> = ({
+  event,
   pageData,
   productData,
 }) => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const url = `${pathname}${
+    searchParams.toString() ? `?${searchParams.toString()}` : ""
+  }`;
+
   useEffect(() => {
     const trackingData: any = {
-      event: "page_view",
+      event: event,
       page: {
         title: pageData.title,
-        path: pageData.path,
+        path: url,
         type: pageData.type,
       },
     };
@@ -36,7 +45,7 @@ const PageViewTracker: React.FC<PageViewTrackerProps> = ({
     }
 
     window.dataLayer.push(trackingData);
-  }, [pageData, productData]);
+  }, [event, pageData.title, pageData.type, productData, url]);
 
   return null;
 };
