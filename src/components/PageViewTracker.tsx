@@ -45,7 +45,8 @@ const PageViewTracker: React.FC<PageViewTrackerProps> = ({
     }
 
     window.dataLayer.push(trackingData);
-  }, [event, pageData.title, pageData.type, productData, url]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return null;
 };
