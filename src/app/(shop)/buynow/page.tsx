@@ -102,11 +102,11 @@ const ByNowCheckout = () => {
   };
 
   useEffect(() => {
-    if (buyNowItem?.price && buyNowItem?.shippingPrice) {
-      const amount =
-        parseInt(buyNowItem.price) + parseInt(buyNowItem.shippingPrice);
-      setCalculatedAmount(amount);
-    }
+    const subtotal = Number(buyNowItem?.price) || 0;
+    const shipping = Number(buyNowItem?.shippingPrice) || 0;
+    const amount = subtotal + shipping;
+
+    setCalculatedAmount(amount);
   }, [buyNowItem]);
 
   useEffect(() => {
