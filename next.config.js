@@ -15,7 +15,7 @@ const nextConfig = {
       },
     images:{
         remotePatterns:[{
-            hostname: "server.varimartbd.com"
+            hostname: "server.prakrito.com"
         }, {hostname: "localhost"}]
     },
    
